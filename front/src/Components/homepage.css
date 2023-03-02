@@ -1,0 +1,53 @@
+.container {
+    position: absolute;
+    /* width: 20%;
+    height: 20%; */
+    /* max-width: 1000px; */
+    top:25px;
+    left: -10px;
+    border-color: black;
+
+  }
+  
+  /* Make the image responsive */
+  .container img {
+    width: 210%;
+    height: 30%;
+    
+  }
+  .btn1{
+    position: absolute;
+    top: 30%;
+    left: 88%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #555;
+    color: white;
+    font-size: 16px;
+    padding: 7px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  .btn1:hover {
+    background-color: black;
+  }
+  /* Style the button and place it in the middle of the container/image */
+  .container .btn {
+    position: absolute;
+    top: 20%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #555;
+    color: white;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .container .btn:hover {
+    background-color: black;
+  }
