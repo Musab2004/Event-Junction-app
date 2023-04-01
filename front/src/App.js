@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import ReactDOM from "react-dom/client";
+import {useEffect,useState} from "react";
 import './App.css';
 import Navbar from './Components/Navbar';
 import SignupForm from './Components/Signup';
@@ -15,15 +16,22 @@ import Dashboard from './Dashboard/DashBoard';
 import Marketing from './Dashboard/Marketing';
 import Events from './Dashboard/Events';
 import EventReports from './Dashboard/EventReports';
-import CreateEvent from './Events/create_event';
+import CreateEvent from './Dashboard/create_event';
 import Shop from './Events/Shop';
 import Eventdeatils from './Events/eventdetails';
+import multiselect from './Events/multiselect'
+import PaymentForm from './Events/PaymentForm';
+import Maps from './Dashboard/Maps';
+import Profile from './Components/Profile';
 // import Marketing from './Components/Dashboard/Marketing';
 
 function App() {
+  const [selectPosition, setSelectPosition] = useState(null);
   return (
    <>
-  
+     <div style={{ width: "50vw", height: "100%" }}>
+        <Maps selectPosition={selectPosition} />
+      </div>
    <Router>
      <Routes>
 
@@ -33,12 +41,16 @@ function App() {
                  <Route exact path='/Login' element={< Login />}></Route>
                  <Route exact path='/comment' element={< Comments />}></Route>
                  <Route exact path='/dashboard' element={< Dashboard />}></Route>
-                 <Route exact path='/market' element={< Marketing />}></Route>
+              
                  <Route exact path='/events' element={< Events />}></Route>
                  <Route exact path='/eventreports' element={< EventReports/>}></Route>
-                 <Route exact path='/createevent' element={< CreateEvent/>}></Route>
+                 <Route  path='/createevent' element={< CreateEvent/>}></Route>
                  <Route exact path='/showevents' element={< Shop/>}></Route>
                  <Route exact path='/eventdetails' element={< Eventdeatils/>}></Route>
+                 <Route exact path='/' element={< multiselect/>}></Route>
+                 <Route exact path='/tickets' element={< PaymentForm/>}></Route>
+                 <Route exact path='/map' element={< Maps/>}></Route>
+                 <Route exact path='/profile' element={< Profile/>}></Route>
           </Routes>
           </Router>
   

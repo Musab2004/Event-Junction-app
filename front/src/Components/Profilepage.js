@@ -82,8 +82,8 @@ const Profilepage =()=> {
     
       
   <>
-       <h1 style={{margin:"20px"}}>Complete your Profile</h1>
-    <div className="App" style={{marginRight:"1200px"}}>
+       <b style={{margin:"20px",fontSize:"30px"}}>Complete your Profile</b>
+    <div className="App" style={{marginLeft:"30px"}}>
         {image1!=null && <div className="card-image waves-effect waves-block waves-light">
         <img className="activator" style={{ width: '300px', height: 300 }} src={image1}></img>
        </div> }
@@ -103,7 +103,7 @@ const Profilepage =()=> {
          />
 
           <h3>Add an image</h3>
-         <span>Designer</span>
+    
 
          {/* <button type='submit'>Submit</button>  */}
       </form>

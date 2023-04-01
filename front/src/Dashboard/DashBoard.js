@@ -4,9 +4,20 @@ import {Link,useNavigate,useLocation} from "react-router-dom"
 
 import './dashboard.css'
 import Marketing from './Marketing'
-export default function Dashboard(){
- 
-
+export default function Dashboard(props){
+   
+    
+    const {state} = useLocation();
+    let email;
+    if(state==null){
+     email=props.email
+    }
+    else{
+     email=state.userdetails.email
+    }
+    console.log(email)
+    console.log("props : ",props)
+    const navigate = useNavigate();
   const showNavbar = (toggleId, navId, bodyId, headerId) =>{
     const toggle = document.getElementById(toggleId),
     nav = document.getElementById(navId),
@@ -42,7 +53,9 @@ export default function Dashboard(){
     linkColor.forEach(l=> l.addEventListener('click', colorLink))
     
      // Your code to run since DOM is loaded and ready
-   
+    //  const tocreateevent= async (e)=>{
+    //     (navigate("/createevent",{state:{ userdetails:state.userdetails }}))
+    //   }
 return(
 
 
@@ -61,21 +74,27 @@ return(
         <nav class="nav">
             <div> <a onClick={showNavbar} class="nav_logo"> <i onClick={showNavbar} class='fa fa-bars'></i> <span class="nav_logo-name">BBBootstrap</span> </a>
                 <div class="nav_list"> 
-                <Link to='/createevent' class="nav_link active123">
+                <Link to={{pathname: "/createevent", search:email}} class="nav_link active123">
                    <i class='fas fa-money-bill fa-fw me-3'></i> 
-                   <span class="nav_name">Create event</span> </Link> 
-                   <Link to='/events' class="nav_link"> 
+                   <span  class="nav_name">Create event</span></Link> 
+                   {/* <Link to={{pathname: "/events", search:email}} class="nav_link"> 
                    <i class='fas fa-money-bill fa-fw me-3'></i> 
                    <span class="nav_name">Users</span> 
-                   </Link> 
-                   <Link to="/eventreports" class="nav_link"> 
+                   </Link>  */}
+                   <Link to={{pathname: "/eventreports", search:email}} class="nav_link"> 
                    <i class='fas fa-building fa-fw me-3'></i> 
                    <span class="nav_name">Event Reports</span> </Link> 
-                   <a href="#" class="nav_link"> 
+                   <Link to={{pathname: "/events", search:email}} class="nav_link"> 
                    <i class='fas fa-users fa-fw me-3'></i>
                     <span class="nav_name">Manage Events</span> 
-                    </a> </div>
-            </div> 
+                    </Link>
+                    <Link to="/market" class="nav_link"> 
+                   <i class='fas fa-users fa-fw me-3'></i>
+                    <span class="nav_name">Marketing</span> 
+                    </Link>
+                     </div>
+                     </div>
+          
             <a href="#" class="nav_link"> 
             <i class='fas fa-money-bill fa-fw me-3'></i>
              <span class="nav_name">SignOut</span> </a>

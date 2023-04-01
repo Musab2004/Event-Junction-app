@@ -6,27 +6,77 @@ import Navbar from '../Components/Navbar'
 import avatar from '../download.png'
 export default function Eventdetails(){
     const {state} = useLocation();
+    console.log(state)
+    let username=state.userdetails.name
+    let eventid=state.eventdetails.id
+    const date = new Date();
+
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+
+// This arrangement can be altered based on how we want the date's format to appear.
+    let currentDate = `${day}-${month}-${year}`;
+    console.log(currentDate)
+    let time=currentDate
+
+    const PostData= async (e)=>{
+      e.preventDefault();
+      const res = await fetch("/addticket",{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+          username,eventid,time
+        })
+        
+     
+        });
+        const data= await res.json();
+        console.log(data)
+  
     
+    }
+    const Saveevent= async (e)=>{
+      e.preventDefault();
+      const res = await fetch("/saveevent",{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+          username,eventid
+        })
+        
+     
+        });
+        const data= await res.json();
+        console.log(data)
+  
+    
+    }
     
     return (
         <>
         <div>
-        <Navbar/>
+        <Navbar userdetails={ state.userdetails }/>
         </div>
         <div>
-        <img src={img4} style={{marginLeft:"500px", width:"700px",height:"300px"}} class="img-fluid" alt="Responsive image"/>
+        <img src={state.eventdetails.myFile} style={{marginLeft:"500px", width:"700px",height:"300px"}} class="img-fluid" alt="Responsive image"/>
 
         </div>
           <div class="container1 h-100"style={{marginTop:"-200px",width:"1000px",marginLeft:"320px"}}>
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-lg-15 col-xl-15">
-      <button style={{marginLeft:"1100px",marginTop:"100px",width:"200px",height:"50px"}} class="btn btn-primary" to='/dashboard'>Buy ticket</button> 
-        <p style={{marginLeft:"1100px",marginTop:"10px",width:"200px",height:"50px"}}>tickete remaining 5</p>
+      <button style={{marginLeft:"1100px",marginTop:"100px",width:"200px",height:"50px"}} class="btn btn-primary" to='/dashboard'onClick={PostData}>Buy ticket</button>
+      <button style={{marginLeft:"1100px",marginTop:"10px",width:"200px",height:"50px"}} class="btn btn-primary" to='/dashboard'onClick={Saveevent}>Save Event</button>  
+       
         {/* <div class="card text-black" >
           <div class="card-body p-md-9"> */}
             <div class="row justify-content-center">
               <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1"></div>
-        <b style={{margin:"30px",fontSize:"40px"}}>{state.name}:</b>
+        <b style={{margin:"30px",fontSize:"40px"}}>{state.eventdetails.name}:</b>
         
         
         <p>Binance Workshop Pakistan is part of a larger series of workshops taking place in the MENA region. Each interactive and bespoke session will offer you an intimate learning experience, where you get to learn more about blockchain’s decentralization implementation development, blockchain apps, and more in this 3-hour intimate workshop.
@@ -87,9 +137,10 @@ Disclaimer: Only registered attendees will be allow to enter the venue. We regre
 
         
 
-        {/* <b style={{margin:"30px",fontSize:"40px"}}>{state.name}</b>
-        <b style={{margin:"30px",fontSize:"40px"}}>{state.description}</b> */}
-
+        <b style={{marginTop:"30px",fontSize:"40px"}}>{state.eventdetailsname}</b>
+        <b style={{marginTop:"30px",fontSize:"40px"}}>{state.eventdetails.description}</b>
+    <p style={{marginTop:"30px",width:"200px",height:"50px"}}>tickete remaining 5</p>
+        <p style={{marginTop:"30px",width:"200px",height:"50px"}}>Ticket price 100rs</p>
        
  </div>
  </div>
@@ -99,7 +150,7 @@ Disclaimer: Only registered attendees will be allow to enter the venue. We regre
  </div> */}
  
  <div >
- <Comments eventid={state.id}/>
+ <Comments eventdetails={state.eventdetails} userdetails={state.userdetails} />
  </div>
  <div>
  

@@ -9,6 +9,8 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Carousel from 'react-bootstrap/Carousel';
 import { Navigate } from "react-router-dom";
+
+import Select from 'react-select';
 import {
   MDBBtn,
   MDBContainer,
@@ -17,12 +19,16 @@ import {
   MDBCardImage,
   MDBRow,
   MDBCol,
-  MDBInput
+  MDBInput,
+  multiple,
+  
 }
 from 'mdb-react-ui-kit';
 // import '../App.css';
-
+import "./Signup.css"
 const Signup =()=> {
+
+
   const navigate = useNavigate();
   //  let navigate = useNavigate()
   // const history=useNavigate();
@@ -142,13 +148,19 @@ setcheck({error:"fill it properly"});
 }
    } 
    let { data, error } = Signupcheck;
+
+  // this.state = { selectedOption: "" };
+  // handleChange = selectedOption => {
+  //   this.setState({ selectedOption });
+  // };
+
     return (
       <>
 
   {data && (navigate("/Signupstep2",{state: {name:data.name, email:data.email , password: data.password }}))}
 <section class="vh-100" >
 
-  <div class="container1 h-100" style={{width:"2000px",marginLeft:"100px",marginTop:"-100px"}}>
+  <div class="container1 h-100" style={{width:"1500px",marginLeft:"200px",marginTop:"-100px"}}>
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-lg-15 col-xl-15">
    
@@ -201,7 +213,7 @@ setcheck({error:"fill it properly"});
                   </div>
 
                   <div class="form-check d-flex justify-content-center mb-5">
-                    <input class="form-check-input me-1" type="checkbox" value="" id="form2Example3c" style={{float : 'right', right : '510px'}} />
+                    <input class="form-check-input me-1" type="checkbox" value="" id="form2Example3c" style={{float : 'right', right : '410px'}} />
                     <label class="form-check-label" for="form2Example3">
                       I agree all statements in <a href="#!">Terms of service</a>
                     </label>
@@ -214,6 +226,8 @@ setcheck({error:"fill it properly"});
                 </form>
 
               </div>
+          
+     
               <div class="col-md-14 col-lg-14 col-xl-7 d-flex align-items-center order-1 order-lg-2">
 
                 <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp" style={{width:"900px",height:"600px"}}

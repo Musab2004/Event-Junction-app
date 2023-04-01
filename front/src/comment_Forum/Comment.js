@@ -1,5 +1,5 @@
 import CommentForm from "./CommentForm";
-
+import avatar from '../download.png'
 const Comment = ({
   comment,
   replies,
@@ -9,6 +9,7 @@ const Comment = ({
   deleteComment,
   addComment,
   parentId = null,
+  img,
   currentUserId,
 }) => {
   const isEditing =
@@ -30,7 +31,7 @@ const Comment = ({
   return (
     <div key={comment.id} className="comment">
       <div className="comment-image-container">
-        <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" 
+        <img src={comment.myFile||avatar} 
          class="rounded-circle"
          height="40"
          alt="Black and White Portrait of a Man"
@@ -41,12 +42,12 @@ const Comment = ({
           <div className="comment-author">{comment.username}</div>
           <div>{createdAt}</div>
         </div>
-        {!isEditing && <div className="comment-text">{comment.body}</div>}
+        {!isEditing && <div className="comment-text">{comment.text}</div>}
         {isEditing && (
           <CommentForm
             submitLabel="Update"
             hasCancelButton
-            initialText={comment.body}
+            initialText={comment.text}
             handleSubmit={(text) => updateComment(text, comment.id)}
             handleCancel={() => {
               setActiveComment(null);

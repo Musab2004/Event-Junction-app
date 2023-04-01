@@ -2,14 +2,25 @@
 import React from 'react'
 import img3 from'./index9.webp'
 import img4 from'./d6.jpg'
-import {Navlink,useNavigate,useLocation} from "react-router-dom"
-import './homepage.css'
-export default function Navbar(){
-  const {state} = useLocation();
-  // const { email, password } = state;
-   console.log(state)
-  // console.log(password)
+import {Link,Navlink,useNavigate,useLocation} from "react-router-dom"
 
+import avatar from '../download.png'
+import './homepage.css'
+export default function Navbar(props){
+  const navigate = useNavigate();
+
+  console.log(props)
+  // const { email, password } = state;
+  //  console.log(props.data)
+  //  console.log(props.email)
+  //  console.log(props.name)
+  // console.log(password)
+  const f1= async (e)=>{
+    (navigate("/profile",{state:{ userdetails:props.userdetails }}))
+  }
+  const todashboard= async (e)=>{
+    (navigate("/dashboard",{state:{ userdetails:props.userdetails }}))
+  }
     return(
   
         <div>
@@ -52,7 +63,7 @@ export default function Navbar(){
           <a class="nav-link" href="#">Projects</a>
         </li>
         <li>
-        <button class="btn1" >Create Event +</button> 
+        <button class="btn1" onClick={todashboard} >Create Event +</button> 
         </li>
       </ul>
       
@@ -110,7 +121,7 @@ export default function Navbar(){
           aria-expanded="false"
         >
           <img
-            src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+            src={props.userdetails.myFile|| avatar}
             class="rounded-circle"
             height="40"
             alt="Black and White Portrait of a Man"
@@ -124,7 +135,7 @@ export default function Navbar(){
           aria-labelledby="navbarDropdownMenuAvatar"
         >
           <li>
-            <a class="dropdown-item" href="#">My profile</a>
+            <a onClick={f1} class="dropdown-item" >My profile</a>
           </li>
           <li>
             <a class="dropdown-item" href="#">Settings</a>

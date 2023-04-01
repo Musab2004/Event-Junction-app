@@ -1,14 +1,21 @@
 import { useState,Component } from "react";
 import Dashboard from "./DashBoard";
+import {Navlink,useNavigate,useParams,useLocation} from "react-router-dom"
 import { BarChart, LineChart,Bar, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
 const data = [{month: 'January', tickets: 400},{month: 'Febuary', tickets: 200},{month: 'March', tickets: 100}];
 export default function EventReports(){
-
+  let { search } = useLocation();
+  console.log(search)
+  let email=""
+  for(let i=1;i<search.length;i++){
+     email=email+search[i]
+  }
+  console.log(email)
     
     return (
     
      <>
-      <Dashboard/>
+      <Dashboard email={email}/>
    
      <h4>Event reports are here</h4>
      <h4>Event reports are here</h4>

@@ -27,34 +27,13 @@ let  data1 = [
   ]
   
 
-const Shop = () => {
-  const[data,setdata]=useState({
-    data:null
-  });
+const Shop = (props) => {
 
-   useEffect(() => {
-  
-    const getdata= async (e)=>{
-    const res =  await fetch("/getevents",{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify({
-        
-      })
-      
-   
-      });
+  let email=props.userdetails.email
 
-     const data1=  await res.json();
-     setdata({data:data1})
-    
-      
-   }
+  let data=props.eventdata
 
-     getdata()
-   });
+
 
   return (
       <>
@@ -63,8 +42,8 @@ const Shop = () => {
       
         <Row>
             {/* {getdata()} */}
-           {data.data!=null&& data.data.map(product => (
-            <Product key={product.id} product={product} />
+           {data!=null&& data.map(product => (
+            <Product key={product.id} product={product} userdetails={ props.userdetails }  />
           ))}
             
         </Row>

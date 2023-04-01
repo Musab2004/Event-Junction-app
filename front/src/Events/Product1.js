@@ -5,19 +5,19 @@ import Col from 'react-bootstrap/Col';
 import img4 from'../Components/pic1.jpg'
 import {useNavigate} from "react-router-dom"
 
-const Product = (props) => {
+const Product1 = (props) => {
   let product=props.product
   
   // console.log(data)
   let navigate = useNavigate();
   // console.log(email) 
-  const routeChange = () =>{ 
-    let path = '/eventdetails'; 
+//   const routeChange = () =>{ 
+//     let path = '/eventdetails'; 
    
-    // console.log(product.id)
-    // navigate(path,{state:{id:product.id, name:product.name , description:product.description,image:product.myFile,username:props.data}});
-      navigate(path,{state:{eventdetails:product,userdetails:props.userdetails}});
-  }
+//     // console.log(product.id)
+//     // navigate(path,{state:{id:product.id, name:product.name , description:product.description,image:product.myFile,username:props.data}});
+//       navigate(path,{state:{eventdetails:product,userdetails:props.userdetails}});
+//   }
 
 return(
 <>
@@ -30,7 +30,7 @@ return(
         <Card.Text>
           {product.description}
         </Card.Text>
-        <Button variant="primary" onClick={routeChange}>view event</Button>
+        <Button variant="primary" >Refund ticket</Button>
      
       </Card.Body>
     </Card>
@@ -39,4 +39,4 @@ return(
 )
 }
 
-export default Product;
+export default Product1;
