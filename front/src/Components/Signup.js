@@ -160,7 +160,7 @@ setcheck({error:"fill it properly"});
   {data && (navigate("/Signupstep2",{state: {name:data.name, email:data.email , password: data.password }}))}
 <section class="vh-100" >
 
-  <div class="container1 h-100" style={{width:"1500px",marginLeft:"200px",marginTop:"-100px"}}>
+  <div class="container1 h-100" style={{width:"60%",marginLeft:"20%",marginTop:'-10%'}}>
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-lg-15 col-xl-15">
    
@@ -186,7 +186,7 @@ setcheck({error:"fill it properly"});
                   </div>
 
                   <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-envelope fa-lg me-3 fa-fw"style={{marginTop:"0px"}}></i>
+                    <i class="fas fa-envelope fa-lg me-3 fa-fw"style={{marginTop:"0%"}}></i>
                     <div class="form-outline flex-fill mb-0">
                       {/* <input type="email" value={user.email} name="email" id="form3Example3c" class="form-control" onChange={handleinputs} />  */}
                       <MDBInput wrapperClass='mb-4'value={user.email} name="email" label='Email' id='form4' type='email' onChange={handleinputs} />
@@ -213,7 +213,7 @@ setcheck({error:"fill it properly"});
                   </div>
 
                   <div class="form-check d-flex justify-content-center mb-5">
-                    <input class="form-check-input me-1" type="checkbox" value="" id="form2Example3c" style={{float : 'right', right : '410px'}} />
+                    <input class="form-check-input me-1" type="checkbox" value="" id="form2Example3c" style={{float : 'right', right : '85%'}} />
                     <label class="form-check-label" for="form2Example3">
                       I agree all statements in <a href="#!">Terms of service</a>
                     </label>
@@ -230,7 +230,7 @@ setcheck({error:"fill it properly"});
      
               <div class="col-md-14 col-lg-14 col-xl-7 d-flex align-items-center order-1 order-lg-2">
 
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp" style={{width:"900px",height:"600px"}}
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp" style={{width:"80%",height:"80%"}}
                   class="img-fluid" alt="Sample image"></img>
 
               </div>
