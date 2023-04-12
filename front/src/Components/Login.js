@@ -93,7 +93,7 @@ let { data, error } = logincheck;
     return (
         <>
             
-  <div class="container2 h-100" style={{width:"1000px",marginLeft:"500px",marginTop:"200px"}}>
+  <div class="container2 h-100" style={{width:"50%",marginLeft:"20%",marginTop:"6%"}}>
     <div class="row d-flex justify-content-center align-items-center h-200">
       <div class="col-lg-20 col-xl-20">
       {error!="" && <p  style={{color:'red'}}>{error}</p>}
@@ -103,15 +103,15 @@ let { data, error } = logincheck;
             <div class="row justify-content-center">
               <div class="col-md-12 col-lg-10 col-xl-10 order-2 order-lg-2"></div>
 <form>
-<b style={{fontSize:"40px", margin:"10px"}}>Login</b>
-  <div class="form-outline mb-4"style={{width:"400px"}}>
+<b style={{fontSize:"40px", margin:"2%"}}>Login</b>
+  <div class="form-outline mb-4"style={{marginLeft:"20%",width:"50%"}}>
     
   <MDBInput wrapperClass='mb-4'value={user.email} name="email" label='Email' id='form4' type='email' onChange={handleinputs} />
   
   </div>
 
 
-  <div class="form-outline mb-4" style={{width:"400px"}}>
+  <div class="form-outline mb-4" style={{marginLeft:"20%",width:"50%"}}>
   <MDBInput wrapperClass='mb-4'value={user.password} name="password" label='Password' id='form4' type='password' onChange={handleinputs} />
   </div>
 
@@ -127,16 +127,16 @@ let { data, error } = logincheck;
 
     <div class="col">
     
-      <a href="#!">Forgot password?</a>
+      <a href="#!"style={{marginTop:"10%"}}>Forgot password?</a>
     </div>
   </div>
 
 
-  <button type="button" class="btn btn-primary" onClick={PostData} >Log in</button>
+  <button type="button" class="btn btn-primary" onClick={PostData} style={{marginLeft:"20%",width:"50%"}} >Log in</button>
 
 
   <div class="text-center" >
-    <p>Not a member? <a href="#!">Register</a></p>
+    <p style={{marginTop:"10%"}}>Not a member?  <a href="#!">Register</a></p>
     <p>or sign up with:</p>
     <button type="button"class="btn btn-link btn-floating mx-1">
       <i class="fa fa-facebook-f"></i>

@@ -24,7 +24,7 @@ export default function Navbar(props){
     return(
   
         <div>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light" style={{right:"220px",top:"-54px",width:"2500px"}}>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light" style={{right:"10%",top:'-54px',width:"110%"}}>
   
   <div class="container-fluid">
     

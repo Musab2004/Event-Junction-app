@@ -101,14 +101,12 @@ useEffect(() => {
 <>
 
 <Navbar userdetails={ userdetails }/>
-<div class="container" style={{width:"2000px",height:"2000px"}} >
+<div class="container" style={{width:"70%",height:"20%"}} >
 <img
             src={img4}
             // class="rounded-circle"
-            style={{right:"-1000px"}}
-            marginRight="-1000px"
-            height="500"
-            width="3000"
+            
+
             alt="Black and White Portrait of a Man"
             loading="lazy"
             
