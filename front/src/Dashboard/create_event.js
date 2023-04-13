@@ -1,4 +1,5 @@
 import React,{useState} from 'react'; 
+import Form from "react-bootstrap/Form";
 import {Navlink,useNavigate,useParams,useLocation} from "react-router-dom"
 import {
   MDBBtn,
@@ -42,6 +43,12 @@ function App() {
   const[Field,setfield]=useState({
     
   });
+  const[ticket,setticket]=useState({
+    
+  });
+  const[date,setdate]=useState({
+    
+  });
   const {field}=Field
   const {location}=locations
   // const{query} = useParams();
@@ -57,7 +64,7 @@ function App() {
   const [postImage, setPostImage] = useState( { myFile : ""})
   const [getImage, setgetImage] = useState( { myFile : ""})
     const[event,setevent]=useState({
-        id:0,name:"",description:"",
+        id:0,name:"",description:"",ticket:0,date:"",time:""
       });
 
     let name,value;
@@ -77,7 +84,7 @@ function App() {
 
         // createPost(postImage)
         let myFile=postImage.myFile
-        const{id,name,description}=event;
+        const{id,name,description,ticket,date,price}=event;
        const res = await fetch("/postevent",{
        method:"POST",
        headers:{
@@ -106,43 +113,14 @@ function App() {
     
     }
 }
-// const createPost = async (newImage) => {
-//   // console.log(newImage)
-//   let a="1"
-//   // let myFile=newImage.myFile
-//   try{
-//     const res = await fetch("/uploads",{
-//       method:"POST",
-//       headers:{
-//         "Content-Type":"application/json"
-//       },
-//       body:JSON.stringify({
-//         myFile,
-//         a
-//       })
-      
-   
-//       });
-//        const data= await res.json();
-//       //  const buffer = Buffer.from(base64, "base64");
-//       //  fs.writeFileSync("new-path.jpg", buffer);
-     
-//       setgetImage({myFile:data.myFile})
-//        image1=data.myFile
-//       console.log(getImage.myFile)
-//       // console.log(postImage.myFile)
-//     // await axios.post(url, newImage)
-//   }catch(error){
-//     console.log(error)
-//   }
 
-// }
 const handleChange  = async(e) => {
   //name=e.value
  let string2=""
  
 
  setlocation(e.value)
+ 
  // interest.push("") 
   //  console.log(interest1)
  
@@ -207,12 +185,19 @@ const handleFileUpload = async (e) => {
               <b className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2" style={{fontSize:"16px",marginTop:"80px"}}>Name</b>
               </div>
               <MDBInput wrapperClass='mb-4' name="name" label='Name' id='form1' style={{margin:"5px"}} type='text' value= {event.name}  onChange={handleinputs}/>
-              <b className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2" style={{fontSize:"16px"}}>Location</b>
+              <b className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2" style={{fontSize:"16px"}}>Description</b>
               <MDBInput wrapperClass='mb-4' name="description" label='Description' style={{margin:"5px"}} id='form1' type='text' value= {event.description}  onChange={handleinputs}/>
-              {/* <b className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2"style={{fontSize:"16px"}}>Duration</b>
-              <MDBInput wrapperClass='mb-4' name="description" style={{margin:"5px"}} label='Description' id='form1' type='text' value= {event.description}  onChange={handleinputs}/>
-              <b className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2" style={{fontSize:"16px"}}>Organization name</b>
-              <MDBInput wrapperClass='mb-4' name="description" label='Description' id='form1' style={{margin:"5px"}} type='text' value= {event.description}  onChange={handleinputs}/> */}
+              <b className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2" style={{fontSize:"16px"}}>Ticket Price</b>
+              <MDBInput wrapperClass='mb-4' name="ticket" label='Ticket Price' value= {event.ticket}  style={{margin:"5px"}} id='form1' type='number'min="0" oninput="validity.valid||(value='');"   onChange={handleinputs}/>
+              <b className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2" style={{fontSize:"16px"}}>Date</b>
+              <div className="App">
+      <Form.Control type="date" name="date" value= {event.date} style={{margin:"5px"}} onChange={handleinputs}></Form.Control>
+    </div>
+    <b className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2" style={{fontSize:"16px"}}>Time</b>
+    <div className="App">
+      <Form.Control type="time" name="time" value= {event.time} style={{margin:"5px"}}onChange={handleinputs} ></Form.Control>
+    </div>
+
               <b className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2" style={{fontSize:"20px"}}>Upload Logo or image</b>
               <div>
               <label htmlFor="file-upload" className='custom-file-upload1'>
@@ -228,23 +213,7 @@ const handleFileUpload = async (e) => {
           onChange={(e) => handleFileUpload(e)}
          />
          </div>
-              <MDBRow>
-
-                <MDBCol md='6'>
-                  <MDBInput wrapperClass='datepicker mb-4' label='Select a date' id='form2' type='text'/>
-                </MDBCol>
-
-                <MDBCol md='6' className='mb-4'>
-                  {/* <MDBSelect
-                    data={[
-                      { text: 'Gender', value: 1, disabled: true },
-                      { text: 'Female', value: 2 },
-                      { text: 'Male', value: 3 }
-                    ]}
-                    /> */}
-                </MDBCol>
-
-              </MDBRow>
+           
 
               {/* <MDBSelect
                 className='mb-4'
@@ -257,11 +226,24 @@ const handleFileUpload = async (e) => {
                 /> */}
 
             
-                 <MDBCol md='6'>
-                  <MDBInput wrapperClass='mb-4'  name="id" label='Registration code' id='form3' type='text'value= {event.id}  onChange={handleinputs}/>
-                </MDBCol>
-              
-              
+               
+                <b style={{marginTop:"30px",fontSize:"20px"}}>Select your Location</b>
+      <Select
+       
+        // value={state1.selectedOptions}
+        onChange={handleChange}
+        options={options}
+      />
+       <b style={{margin:"10px",fontSize:"20px"}}>Select your Category</b>
+      <Select
+       
+        // value={state1.selectedOptions}
+        onChange={handleChange1}
+        options={options1}
+      />
+       
+
+                   
               {/* <MDBBtn  className='mb-1' size='lg' onClick={PostData}>Submit</MDBBtn> */}
               <button className='btn btn-primary' size='lg' onClick={PostData}>Submit</button>
 
@@ -270,20 +252,7 @@ const handleFileUpload = async (e) => {
 
         </MDBCol>
       </MDBRow>
-      <b style={{margin:"10px",fontSize:"20px"}}>Select your interests</b>
-      <Select
-       
-        // value={state1.selectedOptions}
-        onChange={handleChange}
-        options={options}
-      />
-       <b style={{margin:"10px",fontSize:"20px"}}>Select your interests</b>
-      <Select
-       
-        // value={state1.selectedOptions}
-        onChange={handleChange1}
-        options={options1}
-      />
+  
     </MDBContainer>
     <MDBFooter className='text-center text-white' style={{ width:"2300px",height:"100px", backgroundColor: '#808080' }}>
       <MDBContainer className='pt-4'>

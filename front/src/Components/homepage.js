@@ -10,6 +10,7 @@ import Shop from '../Events/Shop'
 
 export default function Homepage(){
   const {state} = useLocation();
+  const navigate = useNavigate();
  let userdetails=state.userdetails
  let interest=userdetails.interest
  const[data,setdata]=useState({
@@ -47,7 +48,7 @@ let a="he"
 useEffect(() => {
   
   const getinterestdata= async (e)=>{
-  const res =  await fetch("/geteventsinterestuser",{
+  const res =  await fetch("/getevents",{
     method:"POST",
     headers:{
       "Content-Type":"application/json"
@@ -96,6 +97,9 @@ useEffect(() => {
 
  console.log("events :",data)
  console.log("saved events :",saveddata)
+ const tofindevent= async (e)=>{
+  (navigate("/FindEvent",{state:{ userdetails:userdetails }}))
+}
     return(
 
 <>
@@ -112,7 +116,7 @@ useEffect(() => {
             
           >  
           </img>
-          <button class="btn" to='/dashboard'>Browse Event</button> 
+          <button class="btn" onClick={tofindevent}>Browse Event</button> 
           
      
 </div>

@@ -240,11 +240,7 @@ res.send(events);
 
   });
   router.post("/getevents", async (req, res) => {
-    //    results='hey here i am'
-    //     res.send(JSON.stringify(results));
-    // reslt=JSON.stringify(req.params.product)
-    const{name2}=req.body
-    // console.log(req.body)
+ 
     const events = await Event.find({})
     res.send(events);
     

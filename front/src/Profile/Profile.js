@@ -52,7 +52,7 @@ export default function Profile(){
             <div class="ms-4 mt-5 d-flex flex-column"style={{width: '300px',height:'600px'}}>
               <img src={state.userdetails.myFile}
                 alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
-                style={{width: '500px',hieght:'300px',marginTop:'500px'}}/>
+              style={{width:'200px',height:'200px'}}/>
               <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark"
                 style={{marginLeft:"-500px"}}>
                 Edit profile
