@@ -18,17 +18,20 @@ const Product = (props) => {
     // navigate(path,{state:{id:product.id, name:product.name , description:product.description,image:product.myFile,username:props.data}});
       navigate(path,{state:{eventdetails:product,userdetails:props.userdetails}});
   }
-
+// let date=product.date.toDateString()
 return(
 <>
   <Col xs={5} md={1} lg={3} key={product.id}>
-    <Card style={{ width: '15rem',marginTop:'50px' }}>
-      <Card.Header></Card.Header>
-      <Card.Img variant="top" src={product.myFile} style={{width:"200px",height:"150px"}}/>
+    <Card style={{ width: '17rem',marginTop:'50px' }}>
+ 
+      <Card.Img variant="top" src={product.myFile} style={{width:"17rem",height:"150px"}}/>
       <Card.Body>
-        <Card.Title>{product.name}</Card.Title>
-        <Card.Text>
-          {product.description}
+        <b style={{fontSize:'16px'}}>{product.name}</b>
+        <Card.Text style={{color:'blue'}}>
+          {product.Orgname}
+        </Card.Text>
+        <Card.Text style={{color:'red'}}>
+          {product.time}
         </Card.Text>
         <Button variant="primary" onClick={routeChange}>view event</Button>
      

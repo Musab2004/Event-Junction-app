@@ -11,6 +11,9 @@ import Carousel from 'react-bootstrap/Carousel';
 import Navbar from './Navbar';
 import { BrowserRouter as Router, Routes, Route,Link,Switch } from "react-router-dom"
 import Signup from "./Signup";
+import img4 from'./new3.jpeg'
+import img6 from'./new1.jpeg'
+import img5 from'./google.png'
 import { Navigate } from "react-router-dom";
 import {
   MDBBtn,
@@ -27,9 +30,42 @@ import '../App.css'
 
 
 
+const Container = ({ children }) => {
+  return (
+    <div style={{ display: 'flex' }}>
+       {children}
+    </div>
+  );
+};
 
+const LeftContainer = ({ children }) => {
+  return (
+    <div style={{ flex: 1 ,marginLeft:'-200px'}}>
+    {children}
+      
+    </div>
+  );
+};
+
+const RightContainer = ({ children }) => {
+  return (
+    <div style={{ flex: 1,marginLeft:'-1300px' }}>
+      {children}
+    </div>
+  );
+};
 const Login =()=> {
+  window.history.pushState(null, document.title, window.location.href);
+
+  window.addEventListener('popstate', function (event)
+  
+  {
+  
+    window.history.replaceState(null, null, '/Login');
+  
+  });
   const navigate = useNavigate();
+  // this.props.navigation.popToTop();
   const[logincheck,setcheck]=useState({
     data:null,error:""
   });
@@ -90,31 +126,42 @@ console.log(message.message)
 
 
 let { data, error } = logincheck;
+const f3= async (e)=>{
+  // setcheck({error:"incorrect credentials"});
+  (navigate("/",{state: {userdetails:null}}))
+}
     return (
         <>
-            
-  <div class="container2 h-100" style={{width:"50%",marginLeft:"20%",marginTop:"6%"}}>
+        <Container>
+      <LeftContainer >      
+  <div class="container2 h-100" style={{width:"50%",marginLeft:"5%",marginTop:"15%"}}>
     <div class="row d-flex justify-content-center align-items-center h-200">
       <div class="col-lg-20 col-xl-20">
       {error!="" && <p  style={{color:'red'}}>{error}</p>}
       {data && (navigate("/Home",{state: {userdetails:data}}))}
-        <div class="card text-black" >
-          <div class="card-body p-md-10" >
+       
             <div class="row justify-content-center">
               <div class="col-md-12 col-lg-10 col-xl-10 order-2 order-lg-2"></div>
-<form>
-<b style={{fontSize:"40px", margin:"2%"}}>Login</b>
-  <div class="form-outline mb-4"style={{marginLeft:"20%",width:"50%"}}>
+              <img
+          src={img5}
+          height="50"
+          alt="MDB Logo"
+          loading="lazy"
+          style={{width:'14%',marginRight:'86%'}}
+        />
+<b style={{fontSize:"40px",fontFamily:'bolder', margin:"2%"}}>Login</b>
+<div style={{width:'40%',marginRight:'60%'}}>
+  <div class="form-outline mb-4">
     
   <MDBInput wrapperClass='mb-4'value={user.email} name="email" label='Email' id='form4' type='email' onChange={handleinputs} />
   
   </div>
 
 
-  <div class="form-outline mb-4" style={{marginLeft:"20%",width:"50%"}}>
+  <div class="form-outline mb-4" >
   <MDBInput wrapperClass='mb-4'value={user.password} name="password" label='Password' id='form4' type='password' onChange={handleinputs} />
   </div>
-
+  </div>
  
   <div class="row mb-4">
     {/* <div class="col d-flex justify-content-center"> */}
@@ -131,37 +178,62 @@ let { data, error } = logincheck;
     </div>
   </div>
 
-
-  <button type="button" class="btn btn-primary" onClick={PostData} style={{marginLeft:"20%",width:"50%"}} >Log in</button>
-
+<div >
+  <button type="button" class="btn btn-dark" onClick={PostData} style={{width:'30%'}} >Log in</button>
+  </div>
 
   <div class="text-center" >
-    <p style={{marginTop:"10%"}}>Not a member?  <a href="#!">Register</a></p>
-    <p>or sign up with:</p>
-    <button type="button"class="btn btn-link btn-floating mx-1">
-      <i class="fa fa-facebook-f"></i>
+    <p style={{marginTop:"10%",marginRight:'69%'}}>Not a member?  <Link to="/Signup">Register</Link></p>
+    <p style={{marginRight:'69%'}}>or sign up with:</p>
+    <div style={{marginRight:'69%'}}>
+    <button type="button" class="btn btn-link btn-floating mx-1">
+      <i style={{marginRight:'69%'}} class="fa fa-facebook-f"></i>
     </button>
    
     <button type="button"  class="btn btn-link btn-floating mx-1">
       <i class="zmdi zmdi-google"></i>
     </button>
 
-    <button type="button"  class="btn btn-link btn-floating mx-1">
+    <button type="button"   class="btn btn-link btn-floating mx-1">
       <i class="fa fa-twitter"></i>
     </button>
 
     <button type="button"   class="btn btn-link btn-floating mx-1">
       <i class="fa fa-github " ></i>
     </button>
-    
+    </div>
   </div>
-</form>
+
 </div>
 </div>
 </div>
+
 </div>
+</LeftContainer>
+<RightContainer>
+<div class="row d-flex justify-content-center align-items-center h-100">
+      {/* <div class="col-lg-15 col-xl-15"> */}
+   
+        
+ <div class="row justify-content-center">
+             
+          
+     
+   <div class="col-md-14 col-lg-14 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+   {/* src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp" */}
+   {/* <img src={img6} style={{width:"152%",marginLeft:'38.5%',marginTop:'15%',height:"150%"}}
+                  class="img-fluid" alt="Sample image"></img> */}
+  <img src={img4} style={{width:"165%",marginLeft:'38.7%',marginTop:'-10%',marginBottom:'-45%',height:"181.5%"}}
+                  class="img-fluid" alt="Sample image"></img>
+
+              </div>
+        </div>
+         {/* </div> */}
+       
 </div>
-</div>
+   </RightContainer>
+    </Container>
+  
 </> 
 
 )

@@ -4,6 +4,7 @@ import img4 from'./pic1.jpg'
 import Col from 'react-bootstrap/Col';
 import Navbar from './Navbar'
 import {useEffect,useState} from "react";
+import './FindEvent.css'
 import {Link,useNavigate,useLocation} from "react-router-dom"
 const products = [
   { id: 1, name: 'Product 1', location: 'USA', language: 'English' },
@@ -25,7 +26,7 @@ const Container = ({ children }) => {
 
 const LeftContainer = ({ children }) => {
   return (
-    <div style={{ flex: 1 ,marginLeft:'-200px'}}>
+    <div style={{ flex: 1 ,marginLeft:'-5%'}}>
     {children}
       
     </div>
@@ -34,7 +35,7 @@ const LeftContainer = ({ children }) => {
 
 const RightContainer = ({ children }) => {
   return (
-    <div style={{ flex: 1,marginLeft:'-1300px' }}>
+    <div style={{ flex: 1,marginLeft:'-60%' }}>
       {children}
     </div>
   );
@@ -42,21 +43,53 @@ const RightContainer = ({ children }) => {
 
 
    
-
-
-const ProductCard = ({ product }) => {
+const Container1 = ({ children }) => {
   return (
-    // <div className="card" style={{marginTop:'3%'}}>
-    //   <h2>{product.name}</h2>
-    //   <p>Location: {product.location}</p>
-    //   <p>Language: {product.language}</p>
-    // </div>
+    <div style={{ display: 'flex' }}>
+       {children}
+    </div>
+  );
+};
+
+const LeftContainer1 = ({ children }) => {
+  return (
+    <div style={{ flex: 1 ,marginLeft:'0%'}}>
+    {children}
+      
+    </div>
+  );
+};
+
+const RightContainer1 = ({ children }) => {
+  return (
+    <div style={{ flex: 1,marginLeft:'0px' }}>
+      {children}
+    </div>
+  );
+};
+
+
+const ProductCard = (props) => {
+  let navigate = useNavigate();
+  const routeChange = () =>{ 
+    let path = '/eventdetails'; 
+   
+    // console.log(product.id)
+    // navigate(path,{state:{id:product.id, name:product.name , description:product.description,image:product.myFile,username:props.data}});
+      navigate(path,{state:{eventdetails:product,userdetails:props.userdetails}});
+  }
+  let product=props.product
+  return (
+  
     <Col xs={5} md={1} lg={3} key={product.id}>
-    <Card style={{ width: '60rem',marginTop:'50px',height:'15rem' }}   data-mdb-ripple-color="light">
-      {/* <Card.Header></Card.Header> */}
-      {/* <Card.Img variant="top" src={img4} style={{width:"200px",marginLeft:"70%",height:"150px"}}/> */}
+    <Card style={{ width: '60rem',marginTop:'50px',height:'15rem',marginTop:'50px' }}   data-mdb-ripple-color="light">
+      <Container1>
+      <LeftContainer1 >
+     
       <Card.Body>
-        <Card.Title>{product.name}</Card.Title>
+      
+      
+        <Card.Title onClick={routeChange}>{product.name}</Card.Title>
         <Card.Text>
         {product.location}
         </Card.Text>
@@ -64,17 +97,38 @@ const ProductCard = ({ product }) => {
         {product.field}
         </Card.Text>
         <Card.Text>
+        {product.date}
+        </Card.Text>
+        <Card.Text>
+        {product.time}
+        </Card.Text>
+        <Card.Text>
         {product.name}
         </Card.Text>
-        
      
-      </Card.Body>
+    
+ </Card.Body>
+      </LeftContainer1>
+      <RightContainer1>
+        <div style={{marginLeft:'25%',marginTop:'6%'}}>
+        <Card.Img variant="top" src={product.myFile} style={{width:"200px",height:"150px"}}/>
+  </div>
+      </RightContainer1>
+    </Container1>
+     
     </Card>
   </Col>
   );
 };
 
 const SearchPage = () => {
+  window.addEventListener('popstate', function (event)
+
+{
+
+  window.history.replaceState(null, null, '/Login');
+
+});
     const {state} = useLocation();
     const[eventdata,seteventdata]=useState({
         data:null
@@ -82,7 +136,8 @@ const SearchPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [locationFilter, setLocationFilter] = useState('');
   const [languageFilter, setLanguageFilter] = useState('');
-
+  const [priceFilter, setpriceFilter] = useState();
+  const [expiryFilter, setExpiryFilter] = useState('');
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
@@ -94,13 +149,40 @@ const SearchPage = () => {
   const handleLanguageFilterChange = (event) => {
     setLanguageFilter(event.target.value);
   };
+  const handleExpiryFilter = (event) => {
+    setExpiryFilter(event.target.value);
+  };
+  const handlepriceFilterChange = (event) => {
+   
+      console.log(event.target.value)
+      setpriceFilter(event.target.value);
+   
+    
+  };
   let filteredProducts =null
 if(eventdata.data!=null){
    filteredProducts = eventdata.data.filter((product) => {
     const nameMatches = product.name.toLowerCase().includes(searchQuery.toLowerCase());
     const locationMatches = locationFilter ? product.location === locationFilter : true;
     const languageMatches = languageFilter ? product.field === languageFilter : true;
-    return nameMatches && locationMatches && languageMatches;
+    const priceMatches = priceFilter=='Free' ? product.ticket === 0: expiryFilter === 'Not Free'
+    ? product.ticket>0:true;
+    const today = new Date();
+    const thisWeek = new Date();
+    thisWeek.setDate(thisWeek.getDate() + 7);
+    const thisMonth = new Date();
+    thisMonth.setMonth(thisMonth.getMonth() + 1);
+    const expiryDate = new Date(product.date);
+    
+    const matchesExpiryFilter =
+      expiryFilter === 'today'
+        ? expiryDate .toDateString() === today.toDateString()
+        : expiryFilter === 'this-week'
+        ? expiryDate >= today && expiryDate <= thisWeek
+        : expiryFilter === 'this-month'
+        ? expiryDate  >= today && expiryDate <= thisMonth
+        : true;
+    return nameMatches && locationMatches && languageMatches && matchesExpiryFilter && priceMatches;
   });
 }
 else{
@@ -163,19 +245,20 @@ else{
 <div style={{marginTop:'3%'}}>
             <b style={{fontSize:'20px'}}>Date</b>
         </div>
-<select class="form-select" style={{width:'20%',marginTop:'1%'}} aria-label="Default select example">
-  <option selected>Date</option>
-  <option value="1">Today</option>
-  <option value="2">this week</option>
-  <option value="3">this month</option>
+<select class="form-select" style={{width:'20%',marginTop:'1%'}} aria-label="Default select example"
+value={expiryFilter} onChange={handleExpiryFilter}>
+            <option value="">All</option>
+            <option value="today">Today</option>
+            <option value="this-week">This week</option>
+            <option value="this-month">This month</option>
 </select>
 <div style={{marginTop:'3%'}} >
             <b style={{fontSize:'20px'}}>Price</b>
         </div>
-<select class="form-select" style={{width:'20%',marginTop:'1%'}}aria-label="Default select example">
+<select class="form-select" value={priceFilter} onChange={handlepriceFilterChange} style={{width:'20%',marginTop:'1%'}}aria-label="Default select example">
   <option selected>Price</option>
-  <option value="1">Free</option>
-  <option value="2">Not Free</option>
+  <option value="Free">Free</option>
+  <option value="Not Free">Not Free</option>
   
 </select>
        
@@ -192,34 +275,17 @@ else{
     <div className="search-page">
       <div className="filters">
  
-        {/* <input
-          type="text"
-          value={searchQuery}
-          onChange={handleSearchChange}
-          placeholder="Search products..."
-        />
-        <select value={locationFilter} onChange={handleLocationFilterChange}>
-          <option value="">All Locations</option>
-          <option value="Multan">Multan</option>
-          <option value="Lahore">Lahore</option>
-          <option value="Karachi">Karachi</option>
-        </select>
-        <select value={languageFilter} onChange={handleLanguageFilterChange}>
-          <option value="">All Languages</option>
-          <option value="Finanace">Finance</option>
-          <option value="Lahore">Lahore</option>
-          <option value="Karachi">Karachi</option>
-        </select> */}
+     
       </div>
-      {eventdata.data &&<div className="product-list">
+      {eventdata.data &&<div className="product-list" >
         {filteredProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard key={product.id} product={product} userdetails={ state.userdetails } />
         ))}
       </div>
    
     }
      </div>
-        {/* Content for right container */}
+
       </RightContainer>
     </Container>
 

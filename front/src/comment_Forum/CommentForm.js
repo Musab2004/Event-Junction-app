@@ -15,13 +15,14 @@ const CommentForm = ({
     setText("");
   };
   return (
-    <form style={{width:'1000px',marginLeft:'50px'}} onSubmit={onSubmit}>
-      <textarea  
+    <form onSubmit={onSubmit}      style={{marginLeft:'5%'}}>
+      <textarea
+      style={{width:'350px'}}
         className="comment-form-textarea"
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
-      <button className="btn btn-primary" style={{width:'200px',marginLeft:'300px'}} >
+      <button className="comment-form-button" disabled={isTextareaDisabled}>
         {submitLabel}
       </button>
       {hasCancelButton && (

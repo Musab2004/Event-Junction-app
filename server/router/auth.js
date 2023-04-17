@@ -6,6 +6,7 @@ const Event=require('../model/EventSchema')
 const Comment=require('../model/CommentSchema')
 const Ticket=require('../model/TicketSchema')
 const Saved=require('../model/SavedSchema')
+const Refund=require('../model/Refundticket')
 const router=express.Router();
 
 
@@ -45,22 +46,33 @@ catch(err){
 
     });
 
+    router.post('/getuser', async (req,res)=>{
+ 
+        const{email}=req.body;
+
+    try{
+     const userExists = await User.findOne({email:email})
+   
+        res.send(userExists);
+ 
+        
+    }
+    catch(err){
+        console.log(err);
+    }
+    
+    
+    
+    
+        });
+
+
+
     router.post('/postevent', async (req,res)=>{
  
-        const{id,name,description,locations,Field,myFile,username}=req.body;
+        const{id,name,description,locations,Field,myFile,username,ticket,date,time,Orgname}=req.body;
         console.log(req.body)
-        // if(!id|| !name|| !description){
-        //     return res.status(421).json({error:"Plz filled the field properly"});
-        // }
-        // res.json({message:req.body})
-        // Event.remove({}, function(err) {
-        //     if (err) {
-        //         console.log(err)
-        //     } else {
-        //         res.end('success');
-        //     }
-        // }
-        //  );
+     
     try{
         let a=1
         let id=0
@@ -72,20 +84,12 @@ catch(err){
             id++;
         }
      
-  
-    // const user =new User({name,email,password}) 
-    // const UserRegister=await user.save();
-    // if(UserRegister){
-        const event =new Event({id,name,description,location:locations,field:Field,myFile,username}) 
+        var date3 = new Date(date)
+        // var d2 = new Date.now();
+        // var sub = date3.getTime()-d2.getTime();
+        const event =new Event({id,name,description,location:locations,field:Field,myFile,username,ticket,date,time,ticketbought:0,expiresAt:date3,Orgname}) 
         const eventRegister=await event.save();
-        //    Comment.remove({}, function(err) {
-        //     if (err) {
-        //         console.log(err)
-        //     } else {
-        //         res.end('success');
-        //     }
-        // }
-        //  );
+    
         if(eventRegister){
             res.send(req.body);
             res.status(201).json({message:"user registration successfull"});
@@ -93,7 +97,7 @@ catch(err){
         else{
             res.status(500).json({error:"FAiled to registered"})
         }
-        res.send(req.body);
+        // res.send(req.body);
   
         
     }
@@ -110,11 +114,55 @@ catch(err){
 
 
 
+        router.post('/updateevent', async (req,res)=>{
+ 
+          const{id,name,description,locations,Field,myFile,username,ticket,date,time}=req.body;
+          console.log(req.body)
+       
+      
+          Event.findOneAndUpdate(
+            { id: id }, // search for the user by their email
+            { id,name,description,locations,Field,myFile,username,ticket,date,time,Orgname }, // update the user's name, password, and email
+            { new: true } // return the updated user object
+          )
+          .then(updatedUser => {
+            console.log('Updated user:', updatedUser);
+          })
+          .catch(error => {
+            console.error(error);
+          });
+          // const event =new Event({id,name,description,location:locations,field:Field,myFile,username,ticket,date,time,ticketbought:0,expiresAt:date3}) 
+          // const eventRegister=await event.save();
+      
+          // if(eventRegister){
+          //     res.send(req.body);
+          //     res.status(201).json({message:"user registration successfull"});
+          // }
+          // else{
+          //     res.status(500).json({error:"FAiled to registered"})
+          // }
+        
+    
+          
+     
+ 
+      
+      
+      
+      
+          });
+  
+
+
+
+
+
+
 
 
     router.post('/register', async (req,res)=>{
  
-        const{name,email,password,interest,myFile}=req.body;
+        const{name,email,password,locations,interest,myFile}=req.body;
         console.log(req.body);
         if(!name|| !email|| !password){
          
@@ -127,7 +175,7 @@ catch(err){
     if(userExists){
         return res.status(422).json({error:"email already exists"})
     }
-    const user =new User({name,email,password,interest,myFile}) 
+    const user =new User({name,email,password,locations,interest,myFile}) 
     const UserRegister=await user.save();
     if(UserRegister){
         res.send(req.body);
@@ -147,7 +195,43 @@ catch(err){
     
         });
 
-
+        router.post('/update', async (req,res)=>{
+ 
+          const{name,email,password,interest,myFile}=req.body;
+          console.log(req.body);
+          if(!name|| !email|| !password){
+           
+              return res.status(421).json({error:"Plz filled the field properly"});
+  
+          }
+          // res.json({message:req.body})
+      try{
+       const userExists = await User.findOne({email:email})
+      if(userExists){
+          return res.status(422).json({error:"email already exists"})
+      }
+      User.findOneAndUpdate(
+        { email: email }, // search for the user by their email
+        { name: name, password: password, email:email,myFile:myFile }, // update the user's name, password, and email
+        { new: true } // return the updated user object
+      )
+      .then(updatedUser => {
+        console.log('Updated user:', updatedUser);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+      
+  
+      }
+      catch(err){
+          console.log(err);
+      }
+      
+      
+      
+      
+          });
 
 
 
@@ -182,15 +266,33 @@ catch(err){
     router.post('/addticket',async (req,res)=>{
         // console.log(req.body);
          // res.send("mera register page");
-         const{username,eventid,time}=req.body;
-         const tic =new Ticket({username,eventid,time}) 
+         const{username,eventid,date,time}=req.body;
+         const tic =new Ticket({username,eventid,date,time}) 
          const UserRegister=await tic.save();
+         Event.findOneAndUpdate(
+            { id: eventid },
+            { $inc: { ticketbought: 1 } },
+            { new: true },
+            (err, updatedDocument) => {
+              if (err) {
+                console.log(err);
+              } else {
+                console.log(updatedDocument);
+              }
+            });
          res.status(200).json({error:"Ticket bought sucessful"});
 
 
      
 
     });
+    router.post("/gettickets", async (req, res) => {
+        const{id}=req.body;
+        const events = await Ticket.find({eventid:id})
+        res.send(events);
+        
+        
+          });
     router.post('/saveevent',async (req,res)=>{
         // console.log(req.body);
          // res.send("mera register page");
@@ -207,6 +309,102 @@ catch(err){
      
 
     });
+    router.post('/refundevent',async (req,res)=>{
+        // console.log(req.body);
+         // res.send("mera register page");
+         const{username,email,eventid,eventcreator,eventname}=req.body;
+         const alreadysaved = await Refund.findOne({eventid:eventid})
+         if(alreadysaved){
+             return res.status(422).json({Message:"Refund ticket request  already added"})
+         }
+         const sv =new Refund({username,email,eventid,eventcreator,eventname}) 
+         const UserRegister=await sv.save();
+         res.status(200).json({Message:"Refund ticket request added  sucessfully"});
+
+
+     
+
+    });
+
+
+
+    router.post("/getrefund", async (req, res) => {
+        //    results='hey here i am'
+        //     res.send(JSON.stringify(results));
+        // reslt=JSON.stringify(req.params.product)
+        const{email}=req.body
+            
+        const refunds = await Refund.find({email:email})
+       
+        // console.log(events)
+        res.send(refunds);
+       
+        
+        
+          });  
+
+   router.post("/acceptrefund", async (req, res) => {
+        //    results='hey here i am'
+        //     res.send(JSON.stringify(results));
+        // reslt=JSON.stringify(req.params.product)
+        const query=req.body
+        const{eventid,username}=req.body
+        console.log(query)
+        // const query = { name: 'John', age: 25 };
+
+// Use the findOneAndDelete method to find and delete a document with the given query
+Refund.findOneAndDelete(query, (err, result) => {
+  if (err) {
+    console.log("error :",err);
+  } else {
+    console.log("result : ",result); // The deleted document
+  }
+});
+Ticket.deleteMany({ username: username, eventid: eventid })
+  .exec((err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(result); // The number of deleted documents
+    }
+  });
+        // const refunds = await Refund.find({email:email})
+        Event.findOneAndUpdate(
+            { id: query.eventid },
+            { $inc: { ticketbought: -1 } },
+            { new: true },
+            (err, updatedDocument) => {
+              if (err) {
+                console.log(err);
+              } else {
+                console.log(updatedDocument);
+              }
+            });
+        // console.log(events)
+        
+        
+        
+          }); 
+          router.post("/rejectrefund", async (req, res) => {
+            //    results='hey here i am'
+            //     res.send(JSON.stringify(results));
+            // reslt=JSON.stringify(req.params.product)
+            const query=req.body
+            // const query = { name: 'John', age: 25 };
+    
+    // Use the findOneAndDelete method to find and delete a document with the given query
+    Refund.findOneAndDelete(query, (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(result); // The deleted document
+      }
+    });
+            
+            
+              }); 
+
+
 
     router.post("/uploads", async (req, res) => {
         const {myFile} = req.body;
@@ -329,45 +527,18 @@ res.send(events);
             text,
             username,
             parentId,
-            date,myFile}=req.body;
-     
-        // if(!text){
-         
-        //     return res.status(421).json({error:"Plz filled the field properly"});
-
-        // }
-        // res.json({message:req.body})
+            date,myFile,expirydate}=req.body;
+            var date3 = new Date(expirydate)
+      console.log(req.body)
     try{
-        let a=1
-        let id=0
+        // let a=1
+        // let id=1
      
-        while(a){
-            const commentExists = await Comment.findOne({id:id}) 
-            if(!commentExists){
-               break
-            } 
-            id++;
-        }
-    const comment =new Comment({eventid, id,text,username,parentId,date,myFile}) 
+   
+    const comment =new Comment({eventid,text,username,parentId,date,myFile,expiresAt:date3}) 
     const CommentPost=await comment.save();
-    const comments = await Comment.find({})
-    console.log(comments);
-        //  Comment.remove({}, function(err) {
-        //     if (err) {
-        //         console.log(err)
-        //     } else {
-        //         res.end('success');
-        //     }
-        // }
-        //  );
-    if(UserRegister){
-        res.send(comments);
-        res.status(201).json({message:"user registration successfull"});
-    }
-    else{
-        res.status(500).json({error:"FAiled to registered"})
-    }
-        
+
+
     }
     catch(err){
         console.log(err);

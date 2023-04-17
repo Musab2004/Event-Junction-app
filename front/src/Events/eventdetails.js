@@ -10,13 +10,13 @@ export default function Eventdetails(){
     let username=state.userdetails.name
     let eventid=state.eventdetails.id
     const date = new Date();
-
+    
     let day = date.getDate();
     let month = date.getMonth() + 1;
     let year = date.getFullYear();
 
 // This arrangement can be altered based on how we want the date's format to appear.
-    let currentDate = `${day}-${month}-${year}`;
+    let currentDate = `${day+1}-${month}-${year}`;
     console.log(currentDate)
     let time=currentDate
 
@@ -69,6 +69,14 @@ export default function Eventdetails(){
           <div class="container1 h-100"style={{marginTop:"-200px",width:"1000px",marginLeft:"320px"}}>
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-lg-15 col-xl-15">
+      <form   class="fixed-top" style={{marginLeft:"70%",marginTop:'20%'}}  
+  >
+      <p>Ticket price : {state.eventdetails.ticket}</p>
+      <button className="comment-form-button" >
+        Buy Ticket
+      </button>
+     
+    </form>
       <button style={{marginLeft:"1100px",marginTop:"100px",width:"200px",height:"50px"}} class="btn btn-primary" to='/dashboard'onClick={PostData}>Buy ticket</button>
       <button style={{marginLeft:"1100px",marginTop:"10px",width:"200px",height:"50px"}} class="btn btn-primary" to='/dashboard'onClick={Saveevent}>Save Event</button>  
        
@@ -146,10 +154,11 @@ Disclaimer: Only registered attendees will be allow to enter the venue. We regre
  </div>
  </div>
  </div>
+
  {/* </div>
  </div> */}
  
- <div >
+ <div style={{marginBottom:'500px'}} >
  <Comments eventdetails={state.eventdetails} userdetails={state.userdetails} />
  </div>
  <div>

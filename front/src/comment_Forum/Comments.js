@@ -7,20 +7,21 @@ import {
   updateComment as updateCommentApi,
   deleteComment as deleteCommentApi,
 } from "../api";
-var comment=[{
-  eventid:"2",
-  id: "2",
-  body: "Second comment Event 2",
-  username: "John",
-  userId: "2",
-  parentId: null,
-  createdAt: "2021-08-16T23:00:33.010+02:00",
-}]
+// var comment=[{
+//   eventid:"2",
+//   id: "2",
+//   body: "Second comment Event 2",
+//   username: "John",
+//   userId: "2",
+//   parentId: null,
+//   createdAt: "2021-08-16T23:00:33.010+02:00",
+// }]
 const Comments = (props) => {
   console.log(props)
   let eventid=props.eventdetails.id
   let myFile=props.userdetails.myFile
   let currentUserId=props.userdetails.name
+  let expirydate=props.eventdetails.expiresAt.toString()
   console.log(eventid)
   console.log(currentUserId)
   const getallcomments = async () => {
@@ -66,17 +67,17 @@ const Comments = (props) => {
     // const{name,email,password}=user;
     const username=currentUserId
     let id="1"
-    for (let i=0;i<backendComments.length;i++){
-    console.log(backendComments.length)
-    if(backendComments[i].id==id){
-      console.log("found")
-      id=id+1
-    }
-    else{
-      console.log("not found")
-      break;
-    }
-  }
+  //   for (let i=0;i<backendComments.length;i++){
+  //   console.log(backendComments.length)
+  //   if(backendComments[i].id==id){
+  //     console.log("found")
+  //     id=id+1
+  //   }
+  //   else{
+  //     console.log("not found")
+  //     break;
+  //   }
+  // }
     // let id=Math.max(...backendComments)
     
     const res = await fetch("/Postcomment",{
@@ -91,7 +92,8 @@ const Comments = (props) => {
       username,
       parentId,
       date,
-      myFile
+      myFile,
+      expirydate
     })
     
     
@@ -104,16 +106,9 @@ const Comments = (props) => {
 
 
 
-    // setBackendComments(data)
-    
-    // console.log(backendComments)
-//  }
+
     } 
-    // console.log(text,parentId,date,"Tom",)
-    // createCommentApi(text, parentId,date).then((comment) => {
-    //   setBackendComments([comment, ...backendComments]);
-    
-    // });
+  
 
 
   const updateComment = (text, commentId) => {
@@ -132,7 +127,7 @@ const Comments = (props) => {
     if (window.confirm("Are you sure you want to remove comment?")) {
       deleteCommentApi().then(() => {
         const updatedBackendComments = backendComments.filter(
-          (backendComment) => backendComment.id !== commentId
+          (backendComment) => backendComment._id !== commentId
         );
         setBackendComments(updatedBackendComments);
       });
@@ -158,9 +153,9 @@ const Comments = (props) => {
       <div className="comments-container">
         {rootComments && rootComments.map((rootComment) => (
           <Comment
-            key={rootComment.id}
+            key={rootComment._id}
             comment={rootComment}
-            replies={getReplies(rootComment.id)}
+            replies={getReplies(rootComment._id)}
             activeComment={activeComment}
             setActiveComment={setActiveComment}
             addComment={addComment}

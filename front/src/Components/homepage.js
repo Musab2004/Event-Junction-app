@@ -9,6 +9,8 @@ import Dashboard from '../Dashboard/DashBoard'
 import Shop from '../Events/Shop'
 
 export default function Homepage(){
+  // this.props.navigation.popToTop();
+
   const {state} = useLocation();
   const navigate = useNavigate();
  let userdetails=state.userdetails
@@ -47,14 +49,14 @@ useEffect(() => {
 let a="he"
 useEffect(() => {
   
-  const getinterestdata= async (e)=>{
+  const geteventdata= async (e)=>{
   const res =  await fetch("/getevents",{
     method:"POST",
     headers:{
       "Content-Type":"application/json"
     },
     body:JSON.stringify({
-      interest
+      
     })
     
  
@@ -67,7 +69,7 @@ useEffect(() => {
   
     
  }
- getinterestdata()
+ geteventdata()
  
  });
  useEffect(() => {
@@ -100,12 +102,21 @@ useEffect(() => {
  const tofindevent= async (e)=>{
   (navigate("/FindEvent",{state:{ userdetails:userdetails }}))
 }
+// window.history.pushState(null, document.title, window.location.href);
+
+window.addEventListener('popstate', function (event)
+
+{
+
+  window.history.replaceState(null, null, '/Login');
+
+});
     return(
 
 <>
 
 <Navbar userdetails={ userdetails }/>
-<div class="container" style={{width:"70%",height:"20%"}} >
+<div class="container" style={{marginLeft:'-10%',marginTop:'-20%',width:"150%",height:"18%"}} >
 <img
             src={img4}
             // class="rounded-circle"

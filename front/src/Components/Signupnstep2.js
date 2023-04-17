@@ -8,14 +8,15 @@ import { redirect } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Carousel from 'react-bootstrap/Carousel';
+import img5 from'./google.png'
+// import img4 from'./new2.jpeg'
 
-import img4 from '../index.jpeg'
-import img5 from '../index1.jpeg'
 import ImagePicker from 'react-image-picker';
 import 'react-image-picker/dist/index.css'
 import Select from 'react-select';
 import Profilepage from "./Profilepage";
 import Navbar from"./Navbar" 
+import img4 from'./new3.jpeg'
 import {
   MDBBtn,
   MDBContainer,
@@ -29,7 +30,7 @@ import {
 from 'mdb-react-ui-kit';
 import avatar from '../download.png'
 import './profilepage.css';
-
+import img6 from'./new1.jpeg'
 
 let image1=null
 const imageList = [logo, img5, img5, img4, img5,img5 ,logo ,logo,logo,logo,logo,logo,logo,logo]
@@ -39,9 +40,41 @@ const options = [
   { value: "Entertainment", label: "Entertainment" },
   { value: "Finanace", label: "Finanace" }
 ];
+const options1 = [
+  { value: "Lahore", label: "Lahore" },
+  { value: "Multan", label: "Multan" },
+  { value: "Karachi", label: "Karachi" },
+  { value: "Islamabad", label: "Islamabad" }
+];
 const src='https://images.unsplash.com/photo-1444065381814-865dc9da92c0'
+const Container = ({ children }) => {
+  return (
+    <div style={{ display: 'flex' }}>
+       {children}
+    </div>
+  );
+};
 
+const LeftContainer = ({ children }) => {
+  return (
+    <div style={{ flex: 1 ,marginLeft:'-200px'}}>
+    {children}
+      
+    </div>
+  );
+};
+
+const RightContainer = ({ children }) => {
+  return (
+    <div style={{ flex: 1,marginLeft:'-1300px' }}>
+      {children}
+    </div>
+  );
+};
 function Signupstep2(){
+  const[locations,setlocation]=useState({
+    
+  });
   const navigate = useNavigate();
   const [postImage, setPostImage] = useState( { myFile : ""})
   const [getImage, setgetImage] = useState( { myFile : ""})
@@ -88,14 +121,14 @@ function Signupstep2(){
       // console.log(interest)
       const{name,email,password}=state;
       const interest=Interest
-     
+    
      const res = await fetch("/register",{
      method:"POST",
      headers:{
        "Content-Type":"application/json"
      },
      body:JSON.stringify({
-       name,email,password,interest,myFile
+       name,email,password,locations,interest,myFile
      })
      
   
@@ -155,17 +188,30 @@ function Signupstep2(){
     
      
     };
+    const handleChange1  = async(e) => {
+
+ 
+
+      setlocation(e.value)
+      // interest.push("") 
+       //  console.log(interest1)
+      
+        console.log(e)
+        
+      
+       
+      };
     return (
     
         <> 
 {/* <Navbar/> */}
-   <div class="container1 h-100" style={{width:"1100px",height:"100px",marginLeft:"300px",marginTop:"200px"}}>
-    <div class="row d-flex justify-content-center align-items-center h-100">
+<Container>
+      <LeftContainer >
+   <div class="container1 h-100" style={{width:"1100px",height:"100px",marginLeft:"-10%",marginTop:"200px"}}>
+    <div class="row d-flex  h-100">
       <div class="col-lg-15 col-xl-15">
    
-      <div class="card text-black" >
-           
-           <div class="card-body p-md-9">
+
             <div class="row justify-content-center">
             
      
@@ -178,7 +224,13 @@ function Signupstep2(){
         
    
         </div>
-       
+        <img
+          src={img5}
+          height="50"
+          alt="MDB Logo"
+          loading="lazy"
+          style={{width:'20%',marginRight:'93%'}}
+        /> 
         {/* <Profilepage/> */}
         <b style={{margin:"20px",fontSize:"30px"}}>Complete your Profile</b>
     <div className="App" style={{marginLeft:"30px"}}>
@@ -237,9 +289,14 @@ function Signupstep2(){
   
        
    
-      <b style={{margin:"15px",fontSize:"20px"}}>Select your Organization</b>
+      <b style={{margin:"15px",fontSize:"20px"}}>Select your Location</b>
       
-      <MDBInput wrapperClass='mb-4' name="name" label='Organization Affiliation' id='form4' type='text' />
+      <Select
+       
+        // value={state1.selectedOptions}
+        onChange={handleChange1}
+        options={options1}
+      />
       
       
       <b style={{margin:"10px",fontSize:"20px"}}>Select your interests</b>
@@ -251,35 +308,40 @@ function Signupstep2(){
       />
     
          <div>
-      <Button type="button" style={{marginLeft:"540px",marginTop:"100px",width:"200px"}} onClick={PostData}>OK</Button>
+      <button class="btn btn-dark"type="button" style={{marginLeft:"540px",marginTop:"100px",width:"200px"}} onClick={PostData}>OK</button>
       </div>
        </div>
     
       </div>
       </div>
       </div>
+  
       </div>
-      </div>
-      </div>
-      
-      {/* <div class="container1 h-100" style={{width:"5000px",hieght:"500px",marginLeft:"-300px",marginTop:"0px",color:"black"}}>
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-lg-15 col-xl-15">
+    
+      </LeftContainer>
+<RightContainer>
+<div class="row d-flex justify-content-center align-items-center h-100">
+      {/* <div class="col-lg-15 col-xl-15"> */}
    
-      <div class="card text-black" >
-           
-           <div class="card-body p-md-9">
-            <div class="row justify-content-center">
-            
+        
+ <div class="row justify-content-center">
+             
+          
      
-              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+   <div class="col-md-14 col-lg-14 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+   {/* src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp" */}
+  {/* <img src={img6} style={{width:"150%",marginLeft:'38.7%',marginTop:'15.3%',height:"148%"}}
+                  class="img-fluid" alt="Sample image"></img> */}
+  <img src={img4} style={{width:"165%",marginLeft:'38.7%',marginTop:'-11%',marginBottom:'-33.6%',height:"157.9%"}}
+                  class="img-fluid" alt="Sample image"></img>
               </div>
-      </div>
-      </div>
-      </div>
-      </div>
-      </div>
-      </div> */}
+        </div>
+         {/* </div> */}
+       
+</div>
+   </RightContainer>
+    </Container>  
+  
 </>
     );
 }

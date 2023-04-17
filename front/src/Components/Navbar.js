@@ -1,6 +1,7 @@
 
 import React from 'react'
 import img3 from'./index9.webp'
+import img5 from'./google.png'
 import img4 from'./d6.jpg'
 import {Link,Navlink,useNavigate,useLocation} from "react-router-dom"
 
@@ -9,7 +10,7 @@ import './homepage.css'
 export default function Navbar(props){
   const navigate = useNavigate();
 
-  console.log(props)
+  // console.log(props)
   // const { email, password } = state;
   //  console.log(props.data)
   //  console.log(props.email)
@@ -21,10 +22,16 @@ export default function Navbar(props){
   const todashboard= async (e)=>{
     (navigate("/dashboard",{state:{ userdetails:props.userdetails }}))
   }
+  const tofindevent= async (e)=>{
+    (navigate("/FindEvent",{state:{  userdetails:props.userdetails }}))
+  }
+  const logout= async (e)=>{
+    (navigate("/Login"))
+  }
     return(
   
         <div>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light" style={{right:"10%",top:'-54px',width:"110%"}}>
+      <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light" style={{right:"20%",top:'0px',width:"100%"}}>
   
   <div class="container-fluid">
     
@@ -45,7 +52,7 @@ export default function Navbar(props){
       
       <a class="navbar-brand mt-2 mt-lg-0" href="#">
         <img
-          src={img3}
+          src={img5}
           height="50"
           alt="MDB Logo"
           loading="lazy"
@@ -53,7 +60,7 @@ export default function Navbar(props){
       </a>
       
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
+        {/* <li class="nav-item">
           <a class="nav-link" href="#">Dashboard</a>
         </li>
         <li class="nav-item">
@@ -63,6 +70,14 @@ export default function Navbar(props){
           <a class="nav-link" href="#">Projects</a>
         </li>
         <li>
+        <button class="btn1" onClick={todashboard} >Create Event +</button> 
+        </li> */}
+        <div class="input-group"style={{width:'90%'}}>
+  <input type="search"  
+          onClick={tofindevent}class="form-control rounded" placeholder="Search Anything" aria-label="Search" aria-describedby="search-addon" />
+  <button type="button"style={{marginTop:'-0.1%',width:'30%'}} onClick={tofindevent} class="btn btn-outline-primary">search</button>
+</div>
+<li>
         <button class="btn1" onClick={todashboard} >Create Event +</button> 
         </li>
       </ul>
@@ -88,9 +103,9 @@ export default function Navbar(props){
           data-mdb-toggle="dropdown"
           aria-expanded="false"
         >
-          
+       
           <i1 className="zmdi zmdi-notifications zmdi-hc-2x" >
-          {/* <span className="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle"/> */}
+        
           </i1>
       
           {/* <span class="badge rounded-pill badge-notification bg-danger">1</span> */}
@@ -99,28 +114,28 @@ export default function Navbar(props){
           class="dropdown-menu dropdown-menu-end"
           aria-labelledby="navbarDropdownMenuLink"
         >
-          <li>
-            <a class="dropdown-item"  href="#">Some news</a>
+           <li>
+            <a onClick={f1} class="dropdown-item" >My profile My profile My profile My profile My profile My profile</a>
           </li>
           <li>
-            <a class="dropdown-item"  href="#">Another news</a>
+            <a class="dropdown-item" href="#">Settings</a>
           </li>
           <li>
-            <a class="dropdown-item" href="#">Something else here</a>
+            <a class="dropdown-item" onClick={logout}>Logout</a>
           </li>
         </ul>
       </div>
   
       <div class="dropdown">
         <a
-          class="dropdown-toggle d-flex align-items-center hidden-arrow"
+          class="text-reset me-3 dropdown-toggle hidden-arrow"
           href="#"
-          id="navbarDropdownMenuAvatar"
+          id="navbarDropdownMenuLink"
           role="button"
           data-mdb-toggle="dropdown"
           aria-expanded="false"
         >
-          <img
+            <img
             src={props.userdetails.myFile|| avatar}
             class="rounded-circle"
             height="40"
@@ -129,19 +144,24 @@ export default function Navbar(props){
             
           
           />
+          {/* <i1 className="zmdi zmdi-notifications zmdi-hc-2x" >
+        
+          </i1> */}
+      
+          {/* <span class="badge rounded-pill badge-notification bg-danger">1</span> */}
         </a>
         <ul
-          className="dropdown-menu dropdown-menu-end"
-          aria-labelledby="navbarDropdownMenuAvatar"
+          class="dropdown-menu dropdown-menu-end"
+          aria-labelledby="navbarDropdownMenuLink"
         >
-          <li>
+           <li>
             <a onClick={f1} class="dropdown-item" >My profile</a>
           </li>
           <li>
             <a class="dropdown-item" href="#">Settings</a>
           </li>
           <li>
-            <a class="dropdown-item" href="#">Logout</a>
+          <a class="dropdown-item" onClick={logout}>Logout</a>
           </li>
         </ul>
       </div>
