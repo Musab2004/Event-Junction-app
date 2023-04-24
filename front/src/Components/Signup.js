@@ -13,6 +13,7 @@ import { Navigate } from "react-router-dom";
 import Select from 'react-select';
 import img5 from'./google.png'
 import img4 from'./new3.jpeg'
+import img6 from'./loginimage.jpg'
 import {
   MDBBtn,
   MDBContainer,
@@ -270,7 +271,7 @@ setcheck({error:"fill it properly"});
                   class="img-fluid" alt="Sample image"></img> */}
   {/* <img src={img4} style={{width:"165%",marginLeft:'38.7%',marginTop:'-10%',marginBottom:'-30%',height:"158.5%"}}
                   class="img-fluid" alt="Sample image"></img> */}
-                   <img src={img4} style={{width:"165%",marginLeft:'38.7%',marginTop:'-10%',marginBottom:'-41.1%',height:"172%"}}
+                   <img src={img6} style={{width:"165%",marginLeft:'38.7%',marginTop:'-10%',marginBottom:'-41.1%',height:"172%"}}
                   class="img-fluid" alt="Sample image"></img>
                      {/* <img src={img4} style={{width:"170%",marginLeft:'38.7%',marginTop:'-7%',marginBottom:'-40%',height:"159.5%"}}
                   class="img-fluid" alt="Sample image"></img> */}

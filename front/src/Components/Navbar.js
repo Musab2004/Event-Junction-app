@@ -16,6 +16,7 @@ export default function Navbar(props){
   //  console.log(props.email)
   //  console.log(props.name)
   // console.log(password)
+  console.log(props)
   const f1= async (e)=>{
     (navigate("/profile",{state:{ userdetails:props.userdetails }}))
   }
@@ -28,10 +29,14 @@ export default function Navbar(props){
   const logout= async (e)=>{
     (navigate("/Login"))
   }
+  const toHome= async (e)=>{
+    (navigate("/Home",{state:{  userdetails:props.userdetails }}))
+  }
+ 
     return(
   
         <div>
-      <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light" style={{right:"20%",top:'0px',width:"100%"}}>
+      <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light" style={{right:"20%",top:'0px',width:"100%",height:'70px'}}>
   
   <div class="container-fluid">
     
@@ -59,26 +64,26 @@ export default function Navbar(props){
         />
       </a>
       
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        {/* <li class="nav-item">
-          <a class="nav-link" href="#">Dashboard</a>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" style={{width:'60%'}}>
+        <li class="nav-item" style={{width:'14%'}}>
+          <a class="nav-link" style={{fontSize:'15px'}}  onClick={toHome} >Homepage</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Team</a>
+        <li class="nav-item" style={{width:'14%'}}>
+          <a class="nav-link" style={{fontSize:'15px'}} onClick={tofindevent}  >Browse Event</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Projects</a>
+        <li class="nav-item" style={{width:'14%'}}>
+          <a class="nav-link" style={{fontSize:'15px'}} onClick={todashboard} >Create Event</a>
         </li>
-        <li>
+        {/* <li style={{width:'20%'}}>
         <button class="btn1" onClick={todashboard} >Create Event +</button> 
         </li> */}
-        <div class="input-group"style={{width:'90%'}}>
+        <div class="input-group"style={{width:'90%',marginLeft:'10%'}}>
   <input type="search"  
           onClick={tofindevent}class="form-control rounded" placeholder="Search Anything" aria-label="Search" aria-describedby="search-addon" />
-  <button type="button"style={{marginTop:'-0.1%',width:'30%'}} onClick={tofindevent} class="btn btn-outline-primary">search</button>
+  <button type="button" style={{marginTop:'-0.1%',width:'30%'}} onClick={tofindevent} class="btn btn-outline-primary">search</button>
 </div>
 <li>
-        <button class="btn1" onClick={todashboard} >Create Event +</button> 
+        {/* <button class="btn1" style={{marginTop:'100px'}}onClick={todashboard} >Create Event +</button>  */}
         </li>
       </ul>
       
@@ -86,15 +91,15 @@ export default function Navbar(props){
 
 
     
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center" style={{marginTop:'25px'}}>
     
-      <a class="text-reset me-3" href="#">
+      {/* <a class="text-reset me-3" href="#">
      
         <i class="zmdi zmdi-shopping-cart zmdi-hc-2x" ></i>
-      </a>
+      </a> */}
 
      
-      <div class="dropdown">
+      {/* <div class="dropdown">
         <a
           class="text-reset me-3 dropdown-toggle hidden-arrow"
           href="#"
@@ -108,7 +113,7 @@ export default function Navbar(props){
         
           </i1>
       
-          {/* <span class="badge rounded-pill badge-notification bg-danger">1</span> */}
+          
         </a>
         <ul
           class="dropdown-menu dropdown-menu-end"
@@ -124,9 +129,9 @@ export default function Navbar(props){
             <a class="dropdown-item" onClick={logout}>Logout</a>
           </li>
         </ul>
-      </div>
+      </div> */}
   
-      <div class="dropdown">
+  <div class="dropdown" >
         <a
           class="text-reset me-3 dropdown-toggle hidden-arrow"
           href="#"
@@ -135,20 +140,30 @@ export default function Navbar(props){
           data-mdb-toggle="dropdown"
           aria-expanded="false"
         >
-            <img
+         <div class="dropdown">
+         
+  <button class="btn btn-light dropdown-toggle rounded-pill border-success" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  {/* <i class="fas fa-user fa-lg me-3 fa-fw"></i> */}
+  
+  <img
             src={props.userdetails.myFile|| avatar}
             class="rounded-circle"
-            height="40"
+            height="30"
             alt="Black and White Portrait of a Man"
             loading="lazy"
-            
+            style={{marginRight:'20px'}}
           
           />
-          {/* <i1 className="zmdi zmdi-notifications zmdi-hc-2x" >
-        
-          </i1> */}
+             
+    {props.userdetails.name}
+  
+  </button>
+
+</div>
+
+
       
-          {/* <span class="badge rounded-pill badge-notification bg-danger">1</span> */}
+ 
         </a>
         <ul
           class="dropdown-menu dropdown-menu-end"
@@ -158,23 +173,20 @@ export default function Navbar(props){
             <a onClick={f1} class="dropdown-item" >My profile</a>
           </li>
           <li>
+            <a  onClick={todashboard}class="dropdown-item" >Switch to Manage events</a>
+          </li>
+          <li>
             <a class="dropdown-item" href="#">Settings</a>
           </li>
           <li>
-          <a class="dropdown-item" onClick={logout}>Logout</a>
+            <a class="dropdown-item" onClick={logout} href="#">Logout</a>
           </li>
         </ul>
       </div>
-    </div>
-    
-  </div>
- 
-</nav>
-</div>
-
-
-        
-
+      </div>
+      </div>
+      </nav>
+      </div>
 
 
 

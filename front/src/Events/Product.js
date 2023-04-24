@@ -4,7 +4,7 @@ import { Button,Card } from 'react-bootstrap'
 import Col from 'react-bootstrap/Col';
 import img4 from'../Components/pic1.jpg'
 import {useNavigate} from "react-router-dom"
-
+import LikeButton from './LikeButton';
 const Product = (props) => {
   let product=props.product
   
@@ -18,11 +18,15 @@ const Product = (props) => {
     // navigate(path,{state:{id:product.id, name:product.name , description:product.description,image:product.myFile,username:props.data}});
       navigate(path,{state:{eventdetails:product,userdetails:props.userdetails}});
   }
+  let date1=props.product.date
+  const dater = new Date(date1);
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const formattedDate = `${dater.getDate()} ${months[dater.getMonth()]}, ${dater.getFullYear()}`
 // let date=product.date.toDateString()
 return(
 <>
   <Col xs={5} md={1} lg={3} key={product.id}>
-    <Card style={{ width: '17rem',marginTop:'50px' }}>
+    <Card style={{ width: '17rem',marginTop:'50px' ,marginLeft:'1rem' }}>
  
       <Card.Img variant="top" src={product.myFile} style={{width:"17rem",height:"150px"}}/>
       <Card.Body>
@@ -31,10 +35,13 @@ return(
           {product.Orgname}
         </Card.Text>
         <Card.Text style={{color:'red'}}>
-          {product.time}
+          {formattedDate}
         </Card.Text>
         <Button variant="primary" onClick={routeChange}>view event</Button>
-     
+        <div>
+      {/* <LikeButton /> */}
+      {/* <i class="fa fa-heart" style="font-size:24px"></i> */}
+    </div>
       </Card.Body>
     </Card>
   </Col>

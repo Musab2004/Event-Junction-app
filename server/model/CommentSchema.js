@@ -1,9 +1,10 @@
 var mongoose = require('mongoose');
 
 var CommentSchema= new mongoose.Schema({
-    eventid:Number,
+    eventid:Object,
     text:String,
     username:String,
+    name:String,
     parentId:Object,
     date:Date,
     myFile:String,

@@ -57,7 +57,7 @@ const EditProfile =()=> {
     data:null,error:""
   });
   const[user,setuser]=useState({
-    name:"",email:"",password:"",Location:"",myFile:""
+    name:state.userdetails.name,email:state.userdetails.email,password:state.userdetails.password,Location:"",myFile:state.userdetails.myFile
   });
 //   user.name=state.userdetails.name
 //   user.email=state.userdetails.email
@@ -86,7 +86,7 @@ const EditProfile =()=> {
     console.log(myFile)
     const{name,email,password}=user;
     let interest=state.userdetails.interest
-    const res = await fetch("/updatedata",{
+    const res = await fetch("/update",{
         method:"POST",
         headers:{
           "Content-Type":"application/json"
@@ -140,7 +140,10 @@ setcheck({error:"fill it properly"});
    
    (navigate("/profile",{state:{userdetails:user }}))
  }
- 
+ const GoBack= async (e)=>{
+   
+  (navigate("/profile",{state:{userdetails:user }}))
+}
 
     return (
       <>
@@ -151,7 +154,7 @@ setcheck({error:"fill it properly"});
  
 
    
- <p class="h1 fw-bold mb-5 mx-1 mx-md-4 mt-4" style={{fontSize:'40px',fontStyle:'italic',marginLeft:'0%'}} >Create an Account</p>
+ <p class="h1 fw-bold mb-5 mx-1 mx-md-4 mt-4" style={{fontSize:'40px',fontStyle:'italic',marginLeft:'0%'}} >Update Profile</p>
 
  <label htmlFor="file-upload" className='custom-file-upload'>
           <img src={postImage.myFile|| state.userdetails.myFile} alt="" />
@@ -224,7 +227,7 @@ setcheck({error:"fill it properly"});
                     <button type="button"  class="btn btn-primary btn-lg" onClick={PostData}>Save data</button>
                   </div>
                   <div class="d-flex  mx-4 mb-3 mb-lg-4">
-                    <button type="button"  class="btn btn-primary btn-lg" onClick={f2}>Update data</button>
+                    <button type="button"  class="btn btn-primary btn-lg" onClick={GoBack}>Go back</button>
                   </div>
                   
            

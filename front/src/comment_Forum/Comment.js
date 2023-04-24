@@ -130,7 +130,9 @@ const Comment = ({
   addComment,
   parentId = null,
   currentUserId,
+  name,
 }) => {
+  console.log(currentUserId,comment.username)
   const isEditing =
     activeComment &&
     activeComment._id === comment._id &&
@@ -142,7 +144,7 @@ const Comment = ({
   const fiveMinutes = 300000;
   const timePassed = new Date() - new Date(comment.createdAt) > fiveMinutes;
   const canDelete =
-    currentUserId === comment.userId && replies.length === 0 && !timePassed;
+    currentUserId === comment.username;
   const canReply = Boolean(currentUserId);
   const canEdit = currentUserId === comment.userId && !timePassed;
   const replyId = parentId ? parentId : comment._id;
@@ -158,7 +160,7 @@ const Comment = ({
       </div>
       <div className="comment-right-part">
         <div className="comment-content">
-          <div className="comment-author">{comment.username}</div>
+          <div className="comment-author">{comment.name}</div>
           <div>{createdAt}</div>
         </div>
         {!isEditing && <div className="comment-text">{comment.text}</div>}

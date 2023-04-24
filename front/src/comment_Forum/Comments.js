@@ -18,9 +18,10 @@ import {
 // }]
 const Comments = (props) => {
   console.log(props)
-  let eventid=props.eventdetails.id
+  let eventid=props.eventdetails._id
   let myFile=props.userdetails.myFile
-  let currentUserId=props.userdetails.name
+  let currentUserId=props.userdetails.email
+  let name=props.userdetails.name
   let expirydate=props.eventdetails.expiresAt.toString()
   console.log(eventid)
   console.log(currentUserId)
@@ -90,6 +91,7 @@ const Comments = (props) => {
       id,
       text,
       username,
+      name,
       parentId,
       date,
       myFile,
@@ -111,7 +113,7 @@ const Comments = (props) => {
   
 
 
-  const updateComment = (text, commentId) => {
+  const updateComment = async (text, commentId) => {
     updateCommentApi(text).then(() => {
       const updatedBackendComments = backendComments.map((backendComment) => {
         if (backendComment.id === commentId) {
@@ -123,15 +125,22 @@ const Comments = (props) => {
       setActiveComment(null);
     });
   };
-  const deleteComment = (commentId) => {
+  const deleteComment = async (commentId) => {
     if (window.confirm("Are you sure you want to remove comment?")) {
-      deleteCommentApi().then(() => {
-        const updatedBackendComments = backendComments.filter(
-          (backendComment) => backendComment._id !== commentId
-        );
-        setBackendComments(updatedBackendComments);
-      });
-    }
+      const res = await fetch("/deletecomment",{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+         
+          commentId
+       
+        })
+        
+        
+        });
+      }
   };
 
  
@@ -163,6 +172,7 @@ const Comments = (props) => {
             updateComment={updateComment}
             img={myFile}
             currentUserId={currentUserId}
+            name={name}
           />
         ))}
       </div>

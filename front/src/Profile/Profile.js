@@ -11,11 +11,12 @@ import { Button,Card,col } from 'react-bootstrap'
 import {  Modal, Form } from 'react-bootstrap';
 const ProductCard = (props) => {
     let username=props.userdetails.name
-    let eventid=props.product.id
+    let eventid=props.product._id
     let product=props.product
     let eventcreator=props.product.username
     let email=props.userdetails.email
     let eventname=props.product.name
+    let expirydate=props.product.expiresAt
   const postrefund= async (e)=>{
     e.preventDefault();
     const res = await fetch("/refundevent",{
@@ -24,7 +25,7 @@ const ProductCard = (props) => {
         "Content-Type":"application/json"
       },
       body:JSON.stringify({
-        username,email,eventid,eventcreator,eventname
+        username,email,eventid,eventcreator,eventname,expirydate
       })
       
    
@@ -66,12 +67,12 @@ const ProductCard = (props) => {
 };
 export default function Profile(){
     const {state} = useLocation();
-    
+    console.log(state)
      const[data,setdata]=useState({
         data:null
       });
      let email=state.userdetails.email
-     console.log(state.userdetails.myFile)
+     
      useEffect(() => {
   
         const getdata= async (e)=>{
@@ -98,7 +99,7 @@ export default function Profile(){
        });
        const navigate = useNavigate();
        const f1= async (e)=>{
-         console.log(state.userdetails)
+         console.log("hey here :",state.userdetails)
         (navigate("/Editprofile",{state:{userdetails:state.userdetails }}))
       }
     return(
@@ -107,7 +108,7 @@ export default function Profile(){
 
 <Navbar userdetails={ state.userdetails }/>
 
-<section class="h-100 gradient-custom-2" style={{height:"100px",width:"2000px"}}>
+<section class="h-100 gradient-custom-2" style={{height:"100px",marginLeft:'-10%',marginTop:'5%',width:"2000px"}}>
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col col-lg-9 col-xl-7">
@@ -147,12 +148,12 @@ export default function Profile(){
               <div class="p-4" style={{background: "#f8f9fa"}}>
                 <p class="font-italic mb-1">{state.userdetails.name}</p>
                 <p class="font-italic mb-1">Lives in {state.userdetails.locations}</p>
-                <Row>
+                {/* <Row>
          {true && state.userdetails.interest.map(product => (
           <p class="font-italic mb-0">{product}</p>
         ))}
           
-      </Row>
+      </Row> */}
                 
               </div>
             </div>

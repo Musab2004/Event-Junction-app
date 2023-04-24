@@ -1,5 +1,5 @@
-import React from 'react'
-import img3 from'./index9.webp'
+import React,{useRef} from 'react'
+import img3 from'./event.jpg'
 import img4 from'./pic1.jpg'
 import {Navlink,useNavigate,useLocation} from "react-router-dom"
 import {useEffect,useState} from "react";
@@ -7,6 +7,7 @@ import Navbar from './Navbar'
 import './homepage.css'
 import Dashboard from '../Dashboard/DashBoard'
 import Shop from '../Events/Shop'
+import Loader from './Loader';
 
 export default function Homepage(){
   // this.props.navigation.popToTop();
@@ -111,45 +112,73 @@ window.addEventListener('popstate', function (event)
   window.history.replaceState(null, null, '/Login');
 
 });
+const sectionRef = useRef(null);
+const handleScroll = (scrollOffset) => {
+  window.scrollTo({
+    top: scrollOffset,
+    behavior: 'smooth' // smooth scrolling animation
+  });
+};
+ 
     return(
 
 <>
 
 <Navbar userdetails={ userdetails }/>
-<div class="container" style={{marginLeft:'-10%',marginTop:'-20%',width:"150%",height:"18%"}} >
+{data.data!=null &&<div>
+{/* <div class="container" style={{marginLeft:'-10%',marginTop:'0%',width:"150%",height:"18%"}} >
+<img */}
 <img
-            src={img4}
+            src={img3}
             // class="rounded-circle"
             
-
+            style={{width:"110.5%",marginLeft:'-225px',height:"700px"}}
             alt="Black and White Portrait of a Man"
-            loading="lazy"
-            
+            // loading="lazy"
+    
           >  
           </img>
-          <button class="btn" onClick={tofindevent}>Browse Event</button> 
+          {/* <button class="btn" onClick={tofindevent}>Browse Event</button>  */}
           
      
-</div>
-<div class="container1 h-100"style={{marginTop:"600px",marginLeft:"500px",width:"1100px"}}>
+{/* </div> */}
+
+
+
+
+<div class="container1 h-100"style={{marginTop:"300px",marginLeft:"500px",width:"1100px",marginBottom:'400px'}}>
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-lg-15 col-xl-15">
    
         {/* <div class="card text-black" >
           <div class="card-body p-md-15"> */}
             
-        
- <div style={{marginRight:"10px",marginTop:"10px"}}>
- <b style={{fontSize:"40px"}}>Events going on:</b>    
- <Shop userdetails={ state.userdetails } eventdata={ data.data }/>
- <b style={{fontSize:"40px"}}>Saved Events :</b> 
- <Shop userdetails={ state.userdetails } eventdata={ saveddata.data }/>
- <b style={{fontSize:"40px"}}>Events Matches your interest :</b> 
- <Shop userdetails={ state.userdetails } eventdata={ interestdata.data }/>
-     </div>       
+            <nav style={{marginLeft:'0%',marginTop:'-10%'}}>
+  <div class="nav nav-tabs flex flex-row" id="nav-tab" role="tablist" style={{width:'70%'}}>
+    <button class="nav-link active" id="nav-home-tab"   data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Events Going On</button>
+    <button class="nav-link" id="nav-profile-tab"  data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Saved Events</button>
+    <button class="nav-link" id="nav-contact-tab"  data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Events Matching your Interest</button>
+    
+  </div>
+  <div class="tab-content" id="nav-tabContent" >
+  <div class="tab-pane dark show active" id="nav-home" role="tabpanel"style={{width:'1100px',marginLeft:'-20%',color: 'black'}}   aria-labelledby="nav-home-tab" tabindex="0" > <Shop userdetails={ state.userdetails } eventdata={ data.data }/></div>
+  <div class="tab-pane dark"  id="nav-profile" role="tabpanel" style={{width:'1100px',marginLeft:'-20%',color: 'black'}}   aria-labelledby="nav-profile-tab" tabindex="0"> <Shop userdetails={ state.userdetails } eventdata={ saveddata.data }/></div>
+  <div class="tab-pane dark" id="nav-contact" role="tabpanel" style={{width:'1100px',marginLeft:'-20%',color: 'black'}}   aria-labelledby="nav-contact-tab" tabindex="0"><Shop userdetails={ state.userdetails } eventdata={ interestdata.data }/></div>
+  {/* <div class="tab-pane dark" id="nav-disabled" role="tabpanel"style={{width:'1100px',marginLeft:'-20%',color: 'black'}}   aria-labelledby="nav-disabled-tab" tabindex="0"><b style={{color:'black'}}>hheheh</b></div> */}
+</div>
+</nav>
+{/* <div>
+<button class="btn btn-primary" onClick={() => handleScroll(0)}>Scroll to Top</button>
+<button class="btn btn-primary"  onClick={() => handleScroll(100)}>Scroll to Section</button>
+      <button class="btn btn-primary" onClick={() => handleScroll(window.innerHeight)}>Scroll to Bottom</button>
+      </div> */}
+      
      </div>   
      </div>   
      </div>   
+     </div>}
+     {/* {data.data==null && <div style={{marginTop:'600px',marginLeft:'600px'}}><h style={{fontSize:'40px',marginTop:'1000px',marginLeft:'250px'}}>Loading....</h></div>} */}
+     {data.data==null &&<div style={{marginTop:'600px',marginLeft:'600px'}}> <Loader/> </div>}
      {/* </div>   
      </div>    */}
   

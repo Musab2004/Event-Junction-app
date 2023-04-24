@@ -18,7 +18,7 @@ const products = [
 
 const Container = ({ children }) => {
   return (
-    <div style={{ display: 'flex' }}>
+    <div style={{ display: 'flex' ,marginTop:'6%'}}>
        {children}
     </div>
   );
@@ -79,6 +79,12 @@ const ProductCard = (props) => {
       navigate(path,{state:{eventdetails:product,userdetails:props.userdetails}});
   }
   let product=props.product
+  let date1=props.product.date
+  const dater = new Date(date1);
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const formattedDate = `${dater.getDate()} ${months[dater.getMonth()]}, ${dater.getFullYear()}`;
+
+console.log(formattedDate);
   return (
   
     <Col xs={5} md={1} lg={3} key={product.id}>
@@ -89,22 +95,27 @@ const ProductCard = (props) => {
       <Card.Body>
       
       
-        <Card.Title onClick={routeChange}>{product.name}</Card.Title>
-        <Card.Text>
-        {product.location}
-        </Card.Text>
-        <Card.Text>
+        <Card.Title onClick={routeChange}><b style={{fontSize:'20px',fontFamily:'bolder'}}>{product.name}</b></Card.Title>
+        <div>
+        <h>
+        {product.Orgname}
+        </h>
+        </div>
+        
+        <div style={{color:'red'}}>
+        <h>
+        {formattedDate}
+        </h>
+        </div>
+        <div>
+        <h>
         {product.field}
-        </Card.Text>
-        <Card.Text>
-        {product.date}
-        </Card.Text>
-        <Card.Text>
+        </h>
+        </div>
+        {/* <Card.Text>
         {product.time}
-        </Card.Text>
-        <Card.Text>
-        {product.name}
-        </Card.Text>
+        </Card.Text> */}
+
      
     
  </Card.Body>
@@ -213,6 +224,7 @@ else{
    geteventdata()
    
    });
+  //  let { data, error } = logincheck;
   return (
       <>
 
@@ -220,7 +232,7 @@ else{
 <Container>
       <LeftContainer >
        
-        <div>
+       <div>  <div>
             <b style={{fontSize:'30px'}}>Filters</b>
         </div>
         <div>
@@ -260,13 +272,14 @@ value={expiryFilter} onChange={handleExpiryFilter}>
   <option value="Free">Free</option>
   <option value="Not Free">Not Free</option>
   
-</select>
-       
-    
+</select> 
+</div>    
+      
      
      
       </LeftContainer>
       <RightContainer>
+      { eventdata.data!=null && <div>
       <div class="input-group"style={{width:'50%'}}>
   <input type="search"  value={searchQuery}
           onChange={handleSearchChange}  class="form-control rounded" placeholder="Search Anything" aria-label="Search" aria-describedby="search-addon" />
@@ -285,7 +298,9 @@ value={expiryFilter} onChange={handleExpiryFilter}>
    
     }
      </div>
-
+     </div> 
+     }
+     {eventdata.data==null && <h style={{fontSize:'40px',marginLeft:'250px'}}>Loading....</h>}
       </RightContainer>
     </Container>
 

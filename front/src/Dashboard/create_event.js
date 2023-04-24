@@ -37,6 +37,9 @@ const options1 = [
   { value: "Finanace", label: "Finanace" }
 ];
 function App() {
+  const[logincheck,setcheck]=useState({
+    data:null,error:""
+  });
   function getCurrentTime() {
     const now = new Date(); // get the current date and time
     const hours = now.getHours().toString().padStart(2, "0"); // format hours to have 2 digits
@@ -65,23 +68,15 @@ function App() {
   const {field}=Field
   const {location}=locations
   // const{query} = useParams();
-  const location1 = useLocation();
-  const searchParams = new URLSearchParams(location1.search);
-  const email = searchParams.get('email');
-  const name1 = searchParams.get('name');
-  const[user,setuser]=useState({
-   name:"",email:""
-  });
+  let { state} = useLocation();
+  let email=state.userdetails.email
 
-  user.name=name1
-  user.email=email
-console.log("user",user)
   let image1=null
   // const {state} = useLocation();
   const [postImage, setPostImage] = useState( { myFile : ""})
   const [getImage, setgetImage] = useState( { myFile : ""})
     const[event,setevent]=useState({
-        id:0,name:"",description:"",ticket:0,date:"",time:"",ticket:0,date:"",time:"",numtickets:0,Orgname:""
+        name:"",description:"",ticket:0,date:"",time:"",ticket:0,date:"",time:"",numtickets:0,Orgname:"",exactloc:""
       });
 
     let name,value;
@@ -101,19 +96,20 @@ console.log("user",user)
 
         // createPost(postImage)
         let myFile=postImage.myFile
-        const{id,name,description,ticket,date,time,numtickets,Orgname}=event;
+        const{name,description,ticket,date,time,numtickets,Orgname,exactloc}=event;
        const res = await fetch("/postevent",{
        method:"POST",
        headers:{
          "Content-Type":"application/json"
        },
        body:JSON.stringify({
-         id,name,description,locations,Field,myFile,username,ticket,date,time,numtickets,Orgname
+        name,description,locations,Field,myFile,username,ticket,date,time,numtickets,Orgname,exactloc
        })
        
     
        });
        const data= await res.json();
+       setcheck({error:"incorrect credentials"});
        console.log(data.status)
        if(res.status == 421 ){
     console.log("plz fill it properly")
@@ -182,19 +178,24 @@ const handleFileUpload = async (e) => {
  
   setPostImage({ ...postImage, myFile : base64 })
 }
-
+let { data, error } = logincheck;
   return (
       <>
-      <Dashboard data={user}/>
-    <MDBContainer fluid >
+      <Dashboard userdetails={state.userdetails}/>
+    <MDBContainer fluid style={{marginTop:'5%'}} >
 
       <MDBRow className='d-flex justify-content-center align-items-center'>
 
         <MDBCol lg='8'>
-
-          <MDBCard className='my-5 rounded-3' style={{maxWidth: '1500px'}}>
+    
+          <MDBCard className='my-5 rounded-3' style={{maxWidth: '1500px',marginLeft:'-10%',marginTop:'20%'}}>
             {/* <MDBCardImage src='https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp'  style={{height: '300px'}} className='w-100 rounded-top'  alt="Sample photo"/> */}
-
+            {error &&  <div class="container" style={{width:'100%' ,marginTop:'0%',marginLeft:'60%'}}> 
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>Event Created!</strong>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+</div> }
             <MDBCardBody className='px-5'>
 
               <b className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2"style={{fontSize:"22px"}}>Create Event</b>
@@ -223,6 +224,8 @@ const handleFileUpload = async (e) => {
         onChange={handleChange}
         options={options}
       />
+       <b className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2" style={{fontSize:"16px"}}>Exact Location</b>
+              <MDBInput wrapperClass='mb-4' name="exactloc" label='Exact Location' id='form1' style={{margin:"5px"}} type='text' value= {event.exactloc}  onChange={handleinputs}/>
       <div style={{marginTop:'10px'}}>
        <b style={{marginTop:'20px',fontSize:"16px"}}>Select your Category</b>
       <Select
@@ -281,17 +284,7 @@ const handleFileUpload = async (e) => {
   
     </MDBContainer>
 
-{/* <footer class="text-center text-white" style={{backgroundColor: "#000000cb",width:'101%',marginLeft:'-10%',marginTop:'4.2%'}}>
 
-
-
-
-  <div class="text-center text-white p-3" style={{backgroundColor: "#000000cb",marginBottom:'-10%'}}>
-    © 2020 Copyright:
-    <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-  </div>
- 
-</footer> */}
 
     </>
   );

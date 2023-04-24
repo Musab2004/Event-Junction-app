@@ -12,7 +12,7 @@ import Navbar from './Navbar';
 import { BrowserRouter as Router, Routes, Route,Link,Switch } from "react-router-dom"
 import Signup from "./Signup";
 import img4 from'./new3.jpeg'
-import img6 from'./new1.jpeg'
+import img6 from'./loginimage.jpg'
 import img5 from'./google.png'
 import { Navigate } from "react-router-dom";
 import {
@@ -223,7 +223,7 @@ const f3= async (e)=>{
    {/* src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp" */}
    {/* <img src={img6} style={{width:"152%",marginLeft:'38.5%',marginTop:'15%',height:"150%"}}
                   class="img-fluid" alt="Sample image"></img> */}
-  <img src={img4} style={{width:"165%",marginLeft:'38.7%',marginTop:'-10%',marginBottom:'-45%',height:"181.5%"}}
+  <img src={img6} style={{width:"165%",marginLeft:'38.7%',marginTop:'-10%',marginBottom:'-45%',height:"181.5%"}}
                   class="img-fluid" alt="Sample image"></img>
 
               </div>

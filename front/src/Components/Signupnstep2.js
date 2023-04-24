@@ -30,8 +30,8 @@ import {
 from 'mdb-react-ui-kit';
 import avatar from '../download.png'
 import './profilepage.css';
-import img6 from'./new1.jpeg'
-
+// import img6 from'./new1.jpeg'
+import img6 from'./loginimage.jpg'
 let image1=null
 const imageList = [logo, img5, img5, img4, img5,img5 ,logo ,logo,logo,logo,logo,logo,logo,logo]
 const options = [
@@ -332,7 +332,7 @@ function Signupstep2(){
    {/* src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp" */}
   {/* <img src={img6} style={{width:"150%",marginLeft:'38.7%',marginTop:'15.3%',height:"148%"}}
                   class="img-fluid" alt="Sample image"></img> */}
-  <img src={img4} style={{width:"165%",marginLeft:'38.7%',marginTop:'-11%',marginBottom:'-33.6%',height:"157.9%"}}
+  <img src={img6} style={{width:"165%",marginLeft:'38.7%',marginTop:'-11%',marginBottom:'-33.6%',height:"157.9%"}}
                   class="img-fluid" alt="Sample image"></img>
               </div>
         </div>

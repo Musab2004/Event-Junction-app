@@ -8,7 +8,7 @@ import Row from 'react-bootstrap/Row';
 import { Button,Card } from 'react-bootstrap'
 import Product1  from '../Events/Product1';
 import {Link,useNavigate,useLocation} from "react-router-dom"
-
+import Loader from '../Components/Loader';
 const Container = ({ children }) => {
   return (
     <div style={{ display: 'flex' }}>
@@ -19,7 +19,7 @@ const Container = ({ children }) => {
 
 const LeftContainer = ({ children }) => {
   return (
-    <div style={{ flex: 1 ,marginLeft:'-200px'}}>
+    <div style={{ flex: 1 ,marginLeft:'0px'}}>
     {children}
       
     </div>
@@ -28,7 +28,7 @@ const LeftContainer = ({ children }) => {
 
 const RightContainer = ({ children }) => {
   return (
-    <div style={{ flex: 1,marginLeft:'-1300px' }}>
+    <div style={{ flex: 1,marginLeft:'400px' }}>
       {children}
     </div>
   );
@@ -50,68 +50,110 @@ const ProductCard = (props) => {
 
 
    const f2= async (e)=>{
-    (navigate("/editevent",{state:{ eventdetails:product,data:props.data }}))
+    (navigate("/editevent",{state:{ eventdetails:product,userdetails:props.userdetails }}))
   }
+  let id=props.product.id
+  const deleteevent= async (e)=>{
+      const res =  await fetch("/deleteevents",{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+        id
+        })
+        
+     
+        });
+  
+      
+      
+        
+     }
+  
+
+
+  
+  const viewevent= async (e)=>{
+    let path = '/eventdetailsDash'; 
+   
+    // console.log(product.id)
+    // navigate(path,{state:{id:product.id, name:product.name , description:product.description,image:product.myFile,username:props.data}});
+      navigate(path,{state:{eventdetails:product,userdetails:props.userdetails}});
+  }
+  let date1=props.product.date
+  const dater = new Date(date1);
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const formattedDate = `${dater.getDate()} ${months[dater.getMonth()]}, ${dater.getFullYear()}`
   return (
    <div>
    
-    <Container>
-      <LeftContainer >
+   
       <Col xs={5} md={1} lg={3} key={product.id}>
-    <Card style={{ width: '110rem',marginTop:'50px',marginLeft:'30%',height:'20rem' }}   data-mdb-ripple-color="light">
+    <Card style={{ width: '80rem',marginTop:'50px',marginLeft:'30%',height:'20rem' }}   data-mdb-ripple-color="light">
       {/* <Card.Header></Card.Header> */}
       {/* <Card.Img variant="top" src={img4} style={{width:"200px",marginLeft:"70%",height:"150px"}}/> */}
       <Card.Body>
-        <Card.Title>{product.name}</Card.Title>
-      
-      
-        <Card.Text>
-       <b style={{fontSize:"30px"}}> Total Profit Generated: {product.ticketbought*product.ticket}</b>
+      <Container>
+      <LeftContainer >
+      <b style={{fontSize:"30px",fontFamily:'bolder'}} >{product.name}</b>
+      <Card.Text>
+       {product.Orgname}
         </Card.Text>
+       
         <Card.Text>
+        <i class="fas fa-calendar fa-lg me-3 fa-fw" style={{ fontSize: '24px' }}></i>
+       <b style={{fontSize:"20px",fontFamily:'bolder'}}>{formattedDate}</b>
+        </Card.Text>
+        {/* <Card.Text>
         {product.time}
-        </Card.Text>
+        </Card.Text> */}
       
         <Card.Text>
-        <b style={{fontSize:"30px"}}>Tickets Bought:  {product.ticketbought}</b>
+        <i class="fas fa-map-marker-alt" style={{ fontSize:'24px'}}></i>
+
+        <b style={{fontSize:"20px",marginLeft:'15px',fontFamily:'bolder'}}>  {product.location}</b>
         </Card.Text>
-        <Button variant="primary" onClick={f2}>Edit event</Button>
+      
         {/* <BarChart width={400} height={200} data={data}>
     <XAxis dataKey="month"  />
     <YAxis />
     <Bar dataKey="tickets" barSize={30} fill="#8884d8"
       />
   </BarChart> */}
-     
+     </LeftContainer>
+      <RightContainer>
+      <div style={{marginLeft:'20%'}}>
+        <div>
+        <Button variant="success"  style={{width:'60%',marginTop:'10%'}} onClick={f2}>Edit event</Button>
+        </div>
+        <div>
+        <Button variant="danger" style={{width:'60%',marginTop:'10%'}}  onClick={deleteevent}>Delete event</Button>
+        </div>
+        <div>
+        <Button variant="primary" style={{width:'60%',marginTop:'10%'}}  onClick={viewevent}>view event</Button>
+        </div>
+        </div>
+      </RightContainer>
+    </Container>
       </Card.Body>
    
     </Card>
   </Col>
-      </LeftContainer>
-      <RightContainer>
-
-      </RightContainer>
-    </Container>
+      
    
   </div>
   );
 };
 
 export default function Events(){
-
+ 
   const[data,setdata]=useState({
     data:null
   });
-  const location1 = useLocation();
-  const searchParams = new URLSearchParams(location1.search);
-  const email = searchParams.get('email');
-  const name1 = searchParams.get('name');
-  const[user,setuser]=useState({
-   name:"",email:""
-  });
-  console.log(name1,email)
-  user.name=name1
-  user.email=email
+  let { state} = useLocation();
+  let email=state.userdetails.email
+
   // let { search } = useLocation();
   // console.log(search)
   // let email=""
@@ -146,15 +188,18 @@ export default function Events(){
     return (
     
      <>
-       <Dashboard data={user}/>
-     <h4 style={{marginLeft:'100px'}} >Manage events here</h4>
-     <Row style={{marginLeft:'200px'}}>
+       <Dashboard userdetails={state.userdetails}/>
+     <h4 style={{marginLeft:'100px',fontFamily:'bolder',marginTop:'100px'}} >Manage events here</h4>
+  {data.data!=null && <div>   <Row style={{marginLeft:'200px'}}>
           {/* {getdata()} */}
          {data.data!=null&& data.data.map(product => (
-          <ProductCard key={product.id} product={product} data={user}  />
+          <ProductCard key={product.id} product={product} userdetails={state.userdetails}  />
         ))}
           
       </Row>
+      </div>
+}
+      {data.data==null &&<div style={{marginTop:'270px',marginLeft:'600px'}}> <Loader/> </div>}
      </>
 
     )

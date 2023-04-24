@@ -8,18 +8,20 @@ export default function Eventdetails(){
     const {state} = useLocation();
     console.log(state)
     let username=state.userdetails.name
-    let eventid=state.eventdetails.id
+    let eventid=state.eventdetails._id
     const date = new Date();
     
-    let day = date.getDate();
+    let day = date.getDate()+7;
     let month = date.getMonth() + 1;
     let year = date.getFullYear();
 
 // This arrangement can be altered based on how we want the date's format to appear.
-    let currentDate = `${day+1}-${month}-${year}`;
-    console.log(currentDate)
+    let currentDate = `${day}-${month}-${year}`;
+    // console.log(currentDate)
     let time=currentDate
-
+    let date1=state.eventdetails.date
+    let expirydate=state.eventdetails.expiresAt
+    // console.log(state.eventdetails.date)
     const PostData= async (e)=>{
       e.preventDefault();
       const res = await fetch("/addticket",{
@@ -28,7 +30,7 @@ export default function Eventdetails(){
           "Content-Type":"application/json"
         },
         body:JSON.stringify({
-          username,eventid,time
+          username,eventid,time,expirydate
         })
         
      
@@ -46,7 +48,7 @@ export default function Eventdetails(){
           "Content-Type":"application/json"
         },
         body:JSON.stringify({
-          username,eventid
+          username,eventid,expirydate
         })
         
      
@@ -56,14 +58,39 @@ export default function Eventdetails(){
   
     
     }
-    
+    const handleScroll = (scrollOffset) => {
+      window.scrollTo({
+        top: scrollOffset,
+        behavior: 'smooth' // smooth scrolling animation
+      });
+    };
+   
+// console.log(date.getMonth())
+const dater = new Date(date1);
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const formattedDate = `${dater.getDate()} ${months[dater.getMonth()]}, ${dater.getFullYear()}`;
+
+console.log(formattedDate);
+    // const formattedDate = `${date1.getDate()} ${months[date1.getMonth()]}, ${date1.getFullYear()}`;
+
+// console.log(formattedDate); // Output: "16 Jan, 2014"
     return (
         <>
         <div>
         <Navbar userdetails={ state.userdetails }/>
         </div>
+        {/* <form   class="fixed-top"   
+  >
+        <div class="nav nav-tabs flex" id="nav-tab" role="tablist" style={{width:'50%'}}>
+    <button class="nav-link active" id="nav-home-tab" onClick={() => handleScroll(0)}  data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Home</button>
+    <button class="nav-link" id="nav-profile-tab" onClick={() => handleScroll(1000)} data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</button>
+    <button class="nav-link" id="nav-contact-tab" onClick={() => handleScroll(window.innerHeight)} data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button>
+    <button class="nav-link" id="nav-disabled-tab"  data-bs-toggle="tab" data-bs-target="#nav-disabled" type="button" role="tab" aria-controls="nav-disabled" aria-selected="false" disabled>Disabled</button>
+  </div>
+  </form> */}
         <div>
-        <img src={state.eventdetails.myFile} style={{marginLeft:"500px", width:"700px",height:"300px"}} class="img-fluid" alt="Responsive image"/>
+        <img src={state.eventdetails.myFile} style={{marginLeft:"500px",marginTop:'5%', width:"700px",height:"300px", borderRadius:"10px"}} class="img-fluid" alt="Responsive image"/>
+
 
         </div>
           <div class="container1 h-100"style={{marginTop:"-200px",width:"1000px",marginLeft:"320px"}}>
@@ -84,71 +111,55 @@ export default function Eventdetails(){
           <div class="card-body p-md-9"> */}
             <div class="row justify-content-center">
               <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1"></div>
-        <b style={{margin:"30px",fontSize:"40px"}}>{state.eventdetails.name}:</b>
-        
-        
-        <p>Binance Workshop Pakistan is part of a larger series of workshops taking place in the MENA region. Each interactive and bespoke session will offer you an intimate learning experience, where you get to learn more about blockchain’s decentralization implementation development, blockchain apps, and more in this 3-hour intimate workshop.
+        {/* <b style={{margin:"30px",fontSize:"40px"}}>{state.eventdetails.name}:</b> */}
+        <b style={{margin:"30px",fontSize:"40px",fontFamily:'bolder'}}>When and Where : </b>
+        {/* <div>
+        <i class="fas fa-lock fa-lg me-3 fa-fw" style={{marginTop:'-7%', fontSize: '24px'}}></i>
+        <b style={{fontSize:"20px",fontFamily:'bolder'}}>Date and Time</b>
+        <div>
+        <h>{formattedDate}</h>
+        </div>
+        </div> */}
+   
+ 
 
-With Pakistan's third ranking in the crypto global adoption index (as per 2021 data) and status as a high-priority MENAP market, the country makes for a fitting workshop location. Most of the population is under 35, technologically savvy, and ready to grasp the opportunities that crypto and blockchain can bring.
-
-Learn and be rewarded! Come join us in this educational workshop and stand a chance to take home a Binance Swag.
-
-Don’t forget to tag us on social media with the hashtag #BinanceWorkshop!
-
-Networking
-
-Get to meet and mingle up close with industry leaders, like-minded individuals and fellow Binancians at the workshop during the networking session over some light refreshments.
-
-Secure Your Spot!
-
-The workshop is complimentary for all to attend. Only 150 slots available on first-come, first-served basis. Secure your spot today!
-
-Disclaimer: Only registered attendees will be allow to enter the venue. We regret to inform that any unregistered attendees would be rejected at the door. 
-        </p>
-
-        <p>Binance Workshop Pakistan is part of a larger series of workshops taking place in the MENA region. Each interactive and bespoke session will offer you an intimate learning experience, where you get to learn more about blockchain’s decentralization implementation development, blockchain apps, and more in this 3-hour intimate workshop.
-
-With Pakistan's third ranking in the crypto global adoption index (as per 2021 data) and status as a high-priority MENAP market, the country makes for a fitting workshop location. Most of the population is under 35, technologically savvy, and ready to grasp the opportunities that crypto and blockchain can bring.
-
-Learn and be rewarded! Come join us in this educational workshop and stand a chance to take home a Binance Swag.
-
-Don’t forget to tag us on social media with the hashtag #BinanceWorkshop!
-
-Networking
-
-Get to meet and mingle up close with industry leaders, like-minded individuals and fellow Binancians at the workshop during the networking session over some light refreshments.
-
-Secure Your Spot!
-
-The workshop is complimentary for all to attend. Only 150 slots available on first-come, first-served basis. Secure your spot today!
-
-Disclaimer: Only registered attendees will be allow to enter the venue. We regret to inform that any unregistered attendees would be rejected at the door. 
-        </p>
-        <p>Binance Workshop Pakistan is part of a larger series of workshops taking place in the MENA region. Each interactive and bespoke session will offer you an intimate learning experience, where you get to learn more about blockchain’s decentralization implementation development, blockchain apps, and more in this 3-hour intimate workshop.
-
-With Pakistan's third ranking in the crypto global adoption index (as per 2021 data) and status as a high-priority MENAP market, the country makes for a fitting workshop location. Most of the population is under 35, technologically savvy, and ready to grasp the opportunities that crypto and blockchain can bring.
-
-Learn and be rewarded! Come join us in this educational workshop and stand a chance to take home a Binance Swag.
-
-Don’t forget to tag us on social media with the hashtag #BinanceWorkshop!
-
-Networking
-
-Get to meet and mingle up close with industry leaders, like-minded individuals and fellow Binancians at the workshop during the networking session over some light refreshments.
-
-Secure Your Spot!
-
-The workshop is complimentary for all to attend. Only 150 slots available on first-come, first-served basis. Secure your spot today!
-
-Disclaimer: Only registered attendees will be allow to enter the venue. We regret to inform that any unregistered attendees would be rejected at the door. 
-        </p>
-
-        
-
-        <b style={{marginTop:"30px",fontSize:"40px"}}>{state.eventdetailsname}</b>
+ 
+  
+<div style={{ display: 'flex', justifyContent: 'space-between' }}>
+  <section>
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <i class="fas fa-lock fa-lg me-3 fa-fw" style={{ fontSize: '24px' }}></i>
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <b style={{ fontSize: '20px', fontFamily: 'bolder' }}>Date and Time</b>
+        <h>{formattedDate}</h>
+        <h>{state.eventdetails.time}</h>
+      </div>
+    </div>
+  </section>
+  <div style={{ borderLeft: '1px solid black', height: '100px',marginLeft:'-700px' }}></div>
+  <section style={{marginLeft:'-50px'}}>
+    <div style={{ display: 'flex', alignItems: 'center',marginLeft:'-600px' }}>
+      <i class="fas fa-lock fa-lg me-3 fa-fw" style={{ fontSize: '24px' }}></i>
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <b style={{ fontSize: '20px', fontFamily: 'bolder' }}>Loctaion:</b>
+        <h>{state.eventdetails.exactloc}</h>
+        <h>{state.eventdetails.location}</h>
+      </div>
+    </div>
+  </section>
+</div>
+<div style={{marginLeft:'-50px',marginTop:'50px'}}>
+<b style={{margin:"30px",fontSize:"40px",fontFamily:'bolder'}}>About the Event: </b>
+        <p style={{fontSize:"19px",marginLeft:'40px',width:'600px',marginTop:"30px"}}>Hawaii is a state in the Western United States, about 2,000 miles from the U.S. mainland in the Pacific Ocean. It is the only U.S. state outside North America, the only state that is an archipelago, and the only state in the tropics.</p>
+        </div>
+        <div style={{marginLeft:'-50px',marginTop:'50px'}} >
+<b style={{margin:"30px",fontSize:"40px",fontFamily:'bolder'}}>About Event Organizer: </b>
+        <p  style={{fontSize:"19px",marginLeft:'40px',width:'600px',marginTop:"30px"}}>Hawaii is a state in the Western United States, about 2,000 miles from the U.S. mainland in the Pacific Ocean. It is the only U.S. state outside North America, the only state that is an archipelago, and the only state in the tropics.</p>
+        </div>
+        {/* <b style={{marginTop:"30px",fontSize:"40px"}}>{state.eventdetailsname}</b>
         <b style={{marginTop:"30px",fontSize:"40px"}}>{state.eventdetails.description}</b>
     <p style={{marginTop:"30px",width:"200px",height:"50px"}}>tickete remaining 5</p>
-        <p style={{marginTop:"30px",width:"200px",height:"50px"}}>Ticket price 100rs</p>
+        <p style={{marginTop:"30px",width:"200px",height:"50px"}}>Ticket price 100rs</p> */}
        
  </div>
  </div>

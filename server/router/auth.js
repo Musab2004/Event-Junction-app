@@ -26,15 +26,9 @@ try{
 if(userExists){
     return res.status(422).json({error:"email already exists"})
 }
-// const user =new User({name,email,password}) 
-// const UserRegister=await user.save();
-// if(UserRegister){
+
     res.send(req.body);
-//     res.status(201).json({message:"user registration successfull"});
-// }
-// else{
-//     res.status(500).json({error:"FAiled to registered"})
-// }
+
     
 }
 catch(err){
@@ -70,24 +64,24 @@ catch(err){
 
     router.post('/postevent', async (req,res)=>{
  
-        const{id,name,description,locations,Field,myFile,username,ticket,date,time,Orgname}=req.body;
+        const{name,description,locations,Field,myFile,username,ticket,date,time,Orgname,exactloc}=req.body;
         console.log(req.body)
      
     try{
-        let a=1
-        let id=0
-        while(a){
-            const eventExists = await Event.findOne({id:id}) 
-            if(!eventExists){
-               break
-            } 
-            id++;
-        }
+        // let a=1
+        // let id=0
+        // while(a){
+        //     const eventExists = await Event.findOne({id:id}) 
+        //     if(!eventExists){
+        //        break
+        //     } 
+        //     id++;
+        // }
      
         var date3 = new Date(date)
         // var d2 = new Date.now();
         // var sub = date3.getTime()-d2.getTime();
-        const event =new Event({id,name,description,location:locations,field:Field,myFile,username,ticket,date,time,ticketbought:0,expiresAt:date3,Orgname}) 
+        const event =new Event({name,description,location:locations,field:Field,myFile,username,ticket,date,time,ticketbought:0,expiresAt:date3,Orgname,exactloc}) 
         const eventRegister=await event.save();
     
         if(eventRegister){
@@ -116,7 +110,7 @@ catch(err){
 
         router.post('/updateevent', async (req,res)=>{
  
-          const{id,name,description,locations,Field,myFile,username,ticket,date,time}=req.body;
+          const{id,name,description,locations,Field,myFile,username,ticket,date,time,Orgname}=req.body;
           console.log(req.body)
        
       
@@ -126,22 +120,12 @@ catch(err){
             { new: true } // return the updated user object
           )
           .then(updatedUser => {
-            console.log('Updated user:', updatedUser);
+            console.log('Updated event:', updatedUser);
           })
           .catch(error => {
             console.error(error);
           });
-          // const event =new Event({id,name,description,location:locations,field:Field,myFile,username,ticket,date,time,ticketbought:0,expiresAt:date3}) 
-          // const eventRegister=await event.save();
-      
-          // if(eventRegister){
-          //     res.send(req.body);
-          //     res.status(201).json({message:"user registration successfull"});
-          // }
-          // else{
-          //     res.status(500).json({error:"FAiled to registered"})
-          // }
-        
+     
     
           
      
@@ -153,7 +137,27 @@ catch(err){
           });
   
 
-
+          router.post("/deleteevents", async (req, res) => {
+            const{id}=req.body;
+            console.log(id)
+            try {
+              const { id } = req.body;
+              console.log(id);
+          
+              await Event.deleteOne({ _id: id });
+              await Ticket.deleteMany({ eventid: id });
+              await Saved.deleteMany({ eventid: id });
+              await Refund.deleteMany({ eventid: id });
+              await Comment.deleteMany({ eventid: id });
+            
+              res.status(200).json({ message: 'Successfully deleted data' });
+            } catch (err) {
+              console.error(err);
+              res.status(500).json({ message: 'Error deleting data' });
+            }
+            
+            
+              });
 
 
 
@@ -204,30 +208,20 @@ catch(err){
               return res.status(421).json({error:"Plz filled the field properly"});
   
           }
-          // res.json({message:req.body})
-      try{
-       const userExists = await User.findOne({email:email})
-      if(userExists){
-          return res.status(422).json({error:"email already exists"})
-      }
+        
       User.findOneAndUpdate(
         { email: email }, // search for the user by their email
-        { name: name, password: password, email:email,myFile:myFile }, // update the user's name, password, and email
+        { name: name, password: password, email:email,myFile }, // update the user's name, password, and email
         { new: true } // return the updated user object
       )
       .then(updatedUser => {
         console.log('Updated user:', updatedUser);
       })
-      .catch(error => {
-        console.error(error);
-      });
+  
       
   
-      }
-      catch(err){
-          console.log(err);
-      }
       
+
       
       
       
@@ -236,8 +230,7 @@ catch(err){
 
 
     router.post('/Logine',async (req,res)=>{
-        // console.log(req.body);
-         // res.send("mera register page");
+      
          const{email,password}=req.body;
        
         
@@ -266,11 +259,12 @@ catch(err){
     router.post('/addticket',async (req,res)=>{
         // console.log(req.body);
          // res.send("mera register page");
-         const{username,eventid,date,time}=req.body;
-         const tic =new Ticket({username,eventid,date,time}) 
+         const{username,eventid,date,time,expirydate}=req.body;
+         var date3 = new Date(expirydate)
+         const tic =new Ticket({username,eventid,date,time,expiresAt:date3}) 
          const UserRegister=await tic.save();
          Event.findOneAndUpdate(
-            { id: eventid },
+            { _id: eventid },
             { $inc: { ticketbought: 1 } },
             { new: true },
             (err, updatedDocument) => {
@@ -289,6 +283,7 @@ catch(err){
     router.post("/gettickets", async (req, res) => {
         const{id}=req.body;
         const events = await Ticket.find({eventid:id})
+       
         res.send(events);
         
         
@@ -296,12 +291,13 @@ catch(err){
     router.post('/saveevent',async (req,res)=>{
         // console.log(req.body);
          // res.send("mera register page");
-         const{username,eventid}=req.body;
+         const{username,eventid,expirydate}=req.body;
+         var date3 = new Date(expirydate)
          const alreadysaved = await Saved.findOne({eventid:eventid})
          if(alreadysaved){
              return res.status(422).json({error:"Saved already"})
          }
-         const sv =new Saved({username,eventid}) 
+         const sv =new Saved({username,eventid,expiresAt:date3}) 
          const UserRegister=await sv.save();
          res.status(200).json({error:"event Saved sucessful"});
 
@@ -312,12 +308,13 @@ catch(err){
     router.post('/refundevent',async (req,res)=>{
         // console.log(req.body);
          // res.send("mera register page");
-         const{username,email,eventid,eventcreator,eventname}=req.body;
+         const{username,email,eventid,eventcreator,eventname,expirydate}=req.body;
          const alreadysaved = await Refund.findOne({eventid:eventid})
+         var date3 = new Date(expirydate)
          if(alreadysaved){
              return res.status(422).json({Message:"Refund ticket request  already added"})
          }
-         const sv =new Refund({username,email,eventid,eventcreator,eventname}) 
+         const sv =new Refund({username,email,eventid,eventcreator,eventname,expiresAt:date3}) 
          const UserRegister=await sv.save();
          res.status(200).json({Message:"Refund ticket request added  sucessfully"});
 
@@ -329,13 +326,11 @@ catch(err){
 
 
     router.post("/getrefund", async (req, res) => {
-        //    results='hey here i am'
-        //     res.send(JSON.stringify(results));
-        // reslt=JSON.stringify(req.params.product)
+  
         const{email}=req.body
             
         const refunds = await Refund.find({email:email})
-       
+    
         // console.log(events)
         res.send(refunds);
        
@@ -370,7 +365,7 @@ Ticket.deleteMany({ username: username, eventid: eventid })
   });
         // const refunds = await Refund.find({email:email})
         Event.findOneAndUpdate(
-            { id: query.eventid },
+            { _id: query.eventid },
             { $inc: { ticketbought: -1 } },
             { new: true },
             (err, updatedDocument) => {
@@ -464,10 +459,14 @@ res.send(events);
         const tikcs = await Ticket.find({email:email}).select('eventid')
        
         let tickids=[]
+        console.log(tikcs.length)
         for(let i=0;i<tikcs.length;i++){
             tickids.push(tikcs[i].eventid)
         }
-        // console.log(tickids)
+        console.log(tikcs.length)
+        if(tikcs.length==0){
+          return res.send(null);
+        }
         const events = await Event.find({'id': {$in:tickids}})
         // console.log(events)
         res.send(events);
@@ -488,17 +487,19 @@ res.send(events);
             
               }); 
           router.post("/geteventsusersaved", async (req, res) => {
-            //    results='hey here i am'
-            //     res.send(JSON.stringify(results));
-            // reslt=JSON.stringify(req.params.product)
+    
             const{email}=req.body
             
             const tikcs = await Saved.find({email:email}).select('eventid')
-           
+          
             let tickids=[]
+            if(tikcs.length==0){
+              return res.send(null);
+            }
             for(let i=0;i<tikcs.length;i++){
                 tickids.push(tikcs[i].eventid)
             }
+            console.log("events ids : ",tikcs[0].eventid)
             // console.log(tickids)
             const events = await Event.find({'id': {$in:tickids}})
             // console.log(events)
@@ -508,11 +509,7 @@ res.send(events);
               });     
 
   router.post("/allcomment", async (req, res) => {
-    //    results='hey here i am'
-    //     res.send(JSON.stringify(results));
-    // reslt=JSON.stringify(req.params.product)
-    // const{name2}=req.body
-    // console.log(req.body)
+  
     const comments = await Comment.find({})
     res.send(comments);
 
@@ -525,7 +522,7 @@ res.send(events);
         const{ eventid,
             id,
             text,
-            username,
+            username,name,
             parentId,
             date,myFile,expirydate}=req.body;
             var date3 = new Date(expirydate)
@@ -535,9 +532,46 @@ res.send(events);
         // let id=1
      
    
-    const comment =new Comment({eventid,text,username,parentId,date,myFile,expiresAt:date3}) 
+    const comment =new Comment({eventid,text,username,name,parentId,date,myFile,expiresAt:date3}) 
     const CommentPost=await comment.save();
+    // Comment.deleteAll({}, function (err) {
+    //   if (err) {
+    //     console.error(err);
+    //   } else {
+    //     console.log('Successfully deleted all documents');
+    //   }
+    // });
 
+    }
+    catch(err){
+        console.log(err);
+    }
+    
+    
+    
+    
+        });
+
+
+
+
+
+      router.post('/deletecomment', async (req,res)=>{
+ 
+        const{commentId}=req.body;
+      console.log(req.body)
+    try{
+        // let a=1
+        // let id=1
+     
+        await Comment.deleteOne({ _id: commentId });
+    // Comment.deleteAll({}, function (err) {
+    //   if (err) {
+    //     console.error(err);
+    //   } else {
+    //     console.log('Successfully deleted all documents');
+    //   }
+    // });
 
     }
     catch(err){

@@ -7,7 +7,7 @@ import {useEffect} from "react";
 import Col from 'react-bootstrap/Col';
 import {Navlink,useNavigate,useParams,useLocation} from "react-router-dom"
 import { BarChart, LineChart,Bar, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
-
+import Loader from '../Components/Loader';
 const Container = ({ children }) => {
   return (
     <div style={{ display: 'flex' }}>
@@ -77,7 +77,10 @@ const ProductCard = ({ product }) => {
 
   
   }
- 
+  let date1=product.date
+  const dater = new Date(date1);
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const formattedDate = `${dater.getDate()} ${months[dater.getMonth()]}, ${dater.getFullYear()}`
   return (
    <div>
    
@@ -90,7 +93,7 @@ const ProductCard = ({ product }) => {
       <Card.Body>
       <Container>
       <LeftContainer >
-        <Card.Title>{product.name}</Card.Title>
+        <Card.Title style={{fontSize:"30px"}} >{product.name}</Card.Title>
       
       
         <Card.Text>
@@ -143,23 +146,8 @@ export default function  Refund(){
   const[data,setdata]=useState({
     data:null
   });
-  const location1 = useLocation();
-  const searchParams = new URLSearchParams(location1.search);
-  const email = searchParams.get('email');
-  const name1 = searchParams.get('name');
-  const[user,setuser]=useState({
-   name:"",email:""
-  });
-  console.log(name1,email)
-  user.name=name1
-  user.email=email
-  // let { search } = useLocation();
-  // console.log(search)
-  // let email=""
-  // for(let i=1;i<search.length;i++){
-  //    email=email+search[i]
-  // }
-  // console.log(email)
+  let { state} = useLocation();
+ let email=state.userdetails.email
 
   useEffect(() => {
 
@@ -189,14 +177,17 @@ export default function  Refund(){
 
             return (
               <>
-              <Dashboard data={user}/>
-              <Row style={{marginLeft:'10%'}}>
+              <Dashboard userdetails={state.userdetails}/>
+              {data.data!=null && <div>   <Row style={{marginLeft:'10%'}}>
           {/* {getdata()} */}
          {data.data!=null&& data.data.map(product => (
           <ProductCard key={product.id} product={product}  />
         ))}
           
       </Row>
+      </div>
+}
+       {data.data==null &&<div style={{marginTop:'270px',marginLeft:'600px'}}> <Loader/> </div>}
              </>
             );
           }

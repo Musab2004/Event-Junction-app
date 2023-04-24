@@ -21,6 +21,7 @@ import CreateEvent from './Dashboard/create_event';
 import EditEvent from './Dashboard/EditEvent';
 import Shop from './Events/Shop';
 import Eventdeatils from './Events/eventdetails';
+import EventdeatilsDash from './Dashboard/eventdetailsDash';
 import multiselect from './Events/multiselect'
 import PaymentForm from './Events/PaymentForm';
 import Maps from './Dashboard/Maps';
@@ -98,6 +99,7 @@ function App() {
                  <Route  path='/createevent' element={< CreateEvent/>}></Route>
                  <Route exact path='/showevents' element={< Shop/>}></Route>
                  <Route exact path='/eventdetails' element={< Eventdeatils/>}></Route>
+                 <Route exact path='/eventdetailsDash' element={< EventdeatilsDash/>}></Route>
                  <Route exact path='/' element={< App/>}></Route>
                  <Route exact path='/tickets' element={< PaymentForm/>}></Route>
                  <Route exact path='/map' element={< Maps/>}></Route>
