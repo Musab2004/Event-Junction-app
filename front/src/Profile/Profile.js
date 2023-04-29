@@ -108,16 +108,16 @@ export default function Profile(){
 
 <Navbar userdetails={ state.userdetails }/>
 
-<section class="h-100 gradient-custom-2" style={{height:"100px",marginLeft:'-10%',marginTop:'5%',width:"2000px"}}>
+<section class="h-100 gradient-custom-2" style={{height:"100px",marginLeft:'-30%',marginTop:'5%',width:"1000px"}}>
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col col-lg-9 col-xl-7">
-        <div class="card" style={{width:'2000px',hieght:'100px'}}>
-          <div class="rounded-top text-white d-flex flex-row" style={{background: "#000D" ,height:"300px",width:"2000px"}}>
+        <div class="card" style={{width:'1000px',hieght:'100px'}}>
+          <div class="rounded-top text-white d-flex flex-row" style={{background: "#000D" ,height:"300px",width:"1000px"}}>
             <div class="ms-4 mt-5 d-flex flex-column"style={{width: '300px',height:'600px'}}>
               <img src={state.userdetails.myFile}
                 alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
-              style={{width:'200px',height:'200px'}}/>
+              style={{width:'200px',height:'200px'}} />
               <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-mdb-ripple-color="dark"
                 onClick={f1} style={{marginLeft:"-1500px",marginTop:'10%'}}>
                 Edit profile
@@ -142,7 +142,7 @@ export default function Profile(){
               </div>
             </div> */}
           </div>
-          <div class="card-body p-4 text-black"style={{width:'2000px',marginTop:'5%'}}>
+          <div class="card-body p-4 text-black"style={{width:'1000px',marginTop:'5%'}}>
             <div class="mb-5">
               <p class="lead fw-normal mb-1">About</p>
               <div class="p-4" style={{background: "#f8f9fa"}}>

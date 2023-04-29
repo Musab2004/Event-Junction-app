@@ -26,7 +26,7 @@ const Container = ({ children }) => {
 
 const LeftContainer = ({ children }) => {
   return (
-    <div style={{ flex: 1 ,marginLeft:'-5%'}}>
+    <div style={{ flex: 1 ,marginLeft:'-5%',marginTop:'10%'}}>
     {children}
       
     </div>
@@ -35,7 +35,7 @@ const LeftContainer = ({ children }) => {
 
 const RightContainer = ({ children }) => {
   return (
-    <div style={{ flex: 1,marginLeft:'-60%' }}>
+    <div style={{ flex: 1,marginLeft:'-60%',marginTop:'10%' }}>
       {children}
     </div>
   );
@@ -88,7 +88,7 @@ console.log(formattedDate);
   return (
   
     <Col xs={5} md={1} lg={3} key={product.id}>
-    <Card style={{ width: '60rem',marginTop:'50px',height:'15rem',marginTop:'50px' }}   data-mdb-ripple-color="light">
+    <Card style={{ width: '50rem',marginTop:'50px',height:'15rem',marginTop:'50px' }}   data-mdb-ripple-color="light">
       <Container1>
       <LeftContainer1 >
      
@@ -229,7 +229,7 @@ else{
       <>
 
 <Navbar userdetails={ state.userdetails }/>
-<Container>
+<Container style={{marginLeft:'-50px'}}>
       <LeftContainer >
        
        <div>  <div>
@@ -249,7 +249,7 @@ else{
         </div>
 <select class="form-select" value={languageFilter} onChange={handleLanguageFilterChange} style={{width:'20%',marginTop:'1%'}}aria-label="Default select example">
 
-  <option value="">All Languages</option>
+  <option value="">All Catagories</option>
           <option value="Finanace">Finance</option>
           <option value="Education">Education</option>
           <option value="Technology">Technology</option>
@@ -279,11 +279,11 @@ value={expiryFilter} onChange={handleExpiryFilter}>
      
       </LeftContainer>
       <RightContainer>
-      { eventdata.data!=null && <div>
-      <div class="input-group"style={{width:'50%'}}>
+      { eventdata.data!=null && <div style={{marginLeft:'100px'}}>
+      <div class="input-group"style={{width:'70%'}}>
   <input type="search"  value={searchQuery}
           onChange={handleSearchChange}  class="form-control rounded" placeholder="Search Anything" aria-label="Search" aria-describedby="search-addon" />
-  <button type="button"style={{marginTop:'-0.1%',width:'10%'}} class="btn btn-outline-primary">search</button>
+  <button type="button"style={{marginTop:'-0.1%',width:'15%'}} class="btn btn-outline-primary">search</button>
 </div>
     <div className="search-page">
       <div className="filters">

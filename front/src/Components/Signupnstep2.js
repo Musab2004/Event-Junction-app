@@ -66,7 +66,7 @@ const LeftContainer = ({ children }) => {
 
 const RightContainer = ({ children }) => {
   return (
-    <div style={{ flex: 1,marginLeft:'-1300px' }}>
+    <div style={{ flex: 1,marginLeft:'-850px' }}>
       {children}
     </div>
   );
@@ -207,7 +207,7 @@ function Signupstep2(){
 {/* <Navbar/> */}
 <Container>
       <LeftContainer >
-   <div class="container1 h-100" style={{width:"1100px",height:"100px",marginLeft:"-10%",marginTop:"200px"}}>
+   <div class="container1 h-100" style={{width:"1100px",height:"100px",marginLeft:"-30%",marginTop:"5%"}}>
     <div class="row d-flex  h-100">
       <div class="col-lg-15 col-xl-15">
    
@@ -229,18 +229,18 @@ function Signupstep2(){
           height="50"
           alt="MDB Logo"
           loading="lazy"
-          style={{width:'20%',marginRight:'93%'}}
+          style={{width:'40%',height:'80px',marginRight:'93%'}}
         /> 
         {/* <Profilepage/> */}
-        <b style={{margin:"20px",fontSize:"30px"}}>Complete your Profile</b>
+        <b style={{margin:"25px",fontFamily:'bolder',fontSize:"20px"}}>Complete your Profile</b>
     <div className="App" style={{marginLeft:"30px"}}>
         {image1!=null && <div className="card-image waves-effect waves-block waves-light">
-        <img className="activator" style={{ width: '300px', height: 300 }} src={image1}></img>
+        <img className="activator" style={{ width: '100px', height: 200 }} src={image1}></img>
        </div> }
-      <form>
+      <form style={{ width: '60%', height: '200px',marginLeft:'-2%',marginTop:'4%' }}>
 
         <label htmlFor="file-upload" className='custom-file-upload'>
-          <img src={postImage.myFile|| avatar} alt="" />
+          <img style={{ width: '150px', height: '150px' }} src={postImage.myFile|| avatar} alt="" />
         </label>
 
         <input 
@@ -289,17 +289,18 @@ function Signupstep2(){
   
        
    
-      <b style={{margin:"15px",fontSize:"20px"}}>Select your Location</b>
+      <b style={{margin:"15px",fontFamily:'bolder',fontSize:"15px",width:'10px'}}>Select your Location</b>
       
       <Select
-       
+       style={{marginTop:"15px"}}
         // value={state1.selectedOptions}
         onChange={handleChange1}
         options={options1}
       />
-      
-      
-      <b style={{margin:"10px",fontSize:"20px"}}>Select your interests</b>
+      <div style={{marginTop:'10px'}}>
+      <h>  </h>
+      </div>
+      <b style={{margin:"15px",fontFamily:'bolder',fontSize:"15px",width:'10px'}}>Select your interests</b>
       <Select
         isMulti
         // value={state1.selectedOptions}
@@ -308,7 +309,7 @@ function Signupstep2(){
       />
     
          <div>
-      <button class="btn btn-dark"type="button" style={{marginLeft:"540px",marginTop:"100px",width:"200px"}} onClick={PostData}>OK</button>
+      <button class="btn btn-dark"type="button" style={{marginLeft:"350px",marginTop:"30px",width:"200px"}} onClick={PostData}>OK</button>
       </div>
        </div>
     
@@ -332,7 +333,7 @@ function Signupstep2(){
    {/* src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp" */}
   {/* <img src={img6} style={{width:"150%",marginLeft:'38.7%',marginTop:'15.3%',height:"148%"}}
                   class="img-fluid" alt="Sample image"></img> */}
-  <img src={img6} style={{width:"165%",marginLeft:'38.7%',marginTop:'-11%',marginBottom:'-33.6%',height:"157.9%"}}
+  <img src={img6} style={{width:"150%",marginLeft:'37.7%',marginTop:'-6%',marginBottom:'-25%',height:"138.5%"}}
                   class="img-fluid" alt="Sample image"></img>
               </div>
         </div>

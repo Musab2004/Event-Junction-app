@@ -132,7 +132,7 @@ const handleScroll = (scrollOffset) => {
             src={img3}
             // class="rounded-circle"
             
-            style={{width:"110.5%",marginLeft:'-225px',height:"700px"}}
+            style={{width:"125.5%",marginLeft:'-230px',height:"400px"}}
             alt="Black and White Portrait of a Man"
             // loading="lazy"
     
@@ -146,18 +146,18 @@ const handleScroll = (scrollOffset) => {
 
 
 
-<div class="container1 h-100"style={{marginTop:"300px",marginLeft:"500px",width:"1100px",marginBottom:'400px'}}>
+<div class="container1 h-100"style={{marginTop:"300px",marginLeft:"50px",width:"1000px",marginBottom:'400px'}}>
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-lg-15 col-xl-15">
    
         {/* <div class="card text-black" >
           <div class="card-body p-md-15"> */}
             
-            <nav style={{marginLeft:'0%',marginTop:'-10%'}}>
+            <nav style={{marginLeft:'0%',marginTop:'-20%'}}>
   <div class="nav nav-tabs flex flex-row" id="nav-tab" role="tablist" style={{width:'70%'}}>
-    <button class="nav-link active" id="nav-home-tab"   data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Events Going On</button>
-    <button class="nav-link" id="nav-profile-tab"  data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Saved Events</button>
-    <button class="nav-link" id="nav-contact-tab"  data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Events Matching your Interest</button>
+    <button class="nav-link active" id="nav-home-tab"   data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true" style={{fontStyle:'italic'}}>Events Going On</button>
+    <button class="nav-link" id="nav-profile-tab"  data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false" style={{fontStyle:'italic'}}>Saved Events</button>
+    <button class="nav-link" id="nav-contact-tab"  data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false" style={{fontStyle:'italic'}}>Events Matching your Interest</button>
     
   </div>
   <div class="tab-content" id="nav-tabContent" >
@@ -178,7 +178,7 @@ const handleScroll = (scrollOffset) => {
      </div>   
      </div>}
      {/* {data.data==null && <div style={{marginTop:'600px',marginLeft:'600px'}}><h style={{fontSize:'40px',marginTop:'1000px',marginLeft:'250px'}}>Loading....</h></div>} */}
-     {data.data==null &&<div style={{marginTop:'600px',marginLeft:'600px'}}> <Loader/> </div>}
+     {data.data==null &&<div style={{marginTop:'300px',marginLeft:'300px'}}> <Loader/> </div>}
      {/* </div>   
      </div>    */}
   

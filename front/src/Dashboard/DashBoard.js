@@ -122,7 +122,8 @@ export default function Dashboard(props){
         (navigate("/eventreports",{state:{userdetails:state.userdetails }}))
       }
       const todashboard= async (e)=>{
-        (navigate("/dashboard",{state:{ userdetails:state.userdetails }}))
+        // (navigate("/dashboard",{state:{ userdetails:state.userdetails }}))
+        (navigate("/createevent",{state:{userdetails:state.userdetails }}))
       }
       const tofindevent= async (e)=>{
         (navigate("/FindEvent",{state:{  userdetails:state.userdetails }}))
@@ -171,23 +172,23 @@ return(
       </a>
       
       <ul class="navbar-nav me-auto mb-2 mb-lg-0" style={{width:'60%'}}>
-        <li class="nav-item" style={{width:'14%'}}>
-          <a class="nav-link" style={{fontSize:'15px'}}  onClick={toHome} >Homepage</a>
+        <li class="nav-item" style={{width:'20%'}}>
+          <a class="nav-link" style={{fontSize:'15px'}} href=""  onClick={toHome} >Homepage</a>
         </li>
-        <li class="nav-item" style={{width:'14%'}}>
-          <a class="nav-link" style={{fontSize:'15px'}} onClick={tofindevent}  >Browse Event</a>
+        <li class="nav-item" style={{width:'20%'}}>
+          <a class="nav-link" style={{fontSize:'15px',width:'140px'}} href=""  onClick={tofindevent}  >Browse Event</a>
         </li>
-        <li class="nav-item" style={{width:'14%'}}>
-          <a class="nav-link" style={{fontSize:'15px'}} onClick={todashboard} >Create Event</a>
+        <li class="nav-item" style={{width:'20%'}}>
+          <a class="nav-link" style={{fontSize:'15px',width:'140px'}} href=""  onClick={todashboard} >Create Event</a>
         </li>
         {/* <li style={{width:'20%'}}>
         <button class="btn1" onClick={todashboard} >Create Event +</button> 
         </li> */}
-        <div class="input-group"style={{width:'90%',marginLeft:'10%'}}>
+        {/* <div class="input-group"style={{width:'90%',marginLeft:'10%'}}>
   <input type="search"  
           onClick={tofindevent}class="form-control rounded" placeholder="Search Anything" aria-label="Search" aria-describedby="search-addon" />
   <button type="button" style={{marginTop:'-0.1%',width:'30%'}} onClick={tofindevent} class="btn btn-outline-primary">search</button>
-</div>
+</div> */}
 <li>
         {/* <button class="btn1" style={{marginTop:'100px'}}onClick={todashboard} >Create Event +</button>  */}
         </li>
@@ -240,14 +241,14 @@ return(
           aria-labelledby="navbarDropdownMenuLink"
         >
            <li>
-            <a onClick={toprofile} class="dropdown-item" >My profile</a>
+            <a onClick={toprofile} class="dropdown-item" href="" >My profile</a>
           </li>
           <li>
-            <a  onClick={toHomepage}class="dropdown-item" >Switch to attending</a>
+            <a  onClick={toHomepage}class="dropdown-item" href="" >Switch to attending</a>
           </li>
           
           <li>
-            <a class="dropdown-item" onClick={logout} href="#">Logout</a>
+            <a class="dropdown-item" onClick={logout} href="">Logout</a>
           </li>
         </ul>
       </div>
@@ -339,7 +340,7 @@ return(
        
     </header>
     */}
-    <div class="l-navbar" style={{width:'10%',marginTop:'2.5%'}} id="nav-bar">
+    <div class="l-navbar" style={{width:'20%',marginTop:'2.5%'}} id="nav-bar">
         <nav class="nav">
             <div> 
               {/* <a onClick={showNavbar} class="nav_logo">
@@ -379,9 +380,9 @@ return(
                      </div>
                      </div>
           
-            <a href="#" class="nav_link"> 
+            {/* <a href="#" class="nav_link"> 
             <i class='fas fa-money-bill fa-fw me-3'></i>
-             <span class="nav_name">SignOut</span> </a>
+             <span class="nav_name">SignOut</span> </a> */}
         </nav>
     </div>
    

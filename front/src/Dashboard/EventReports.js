@@ -134,26 +134,26 @@ let arr=[]
     <Container>
       <LeftContainer >
       <Col xs={5} md={1} lg={3} key={product.id}>
-    <Card style={{ width: '80rem',marginTop:'50px',marginLeft:'30%',height:'20rem' }}   data-mdb-ripple-color="light">
+    <Card style={{ width: '50rem',marginTop:'50px',marginLeft:'55%',height:'15rem' }}   data-mdb-ripple-color="light">
       {/* <Card.Header></Card.Header> */}
       {/* <Card.Img variant="top" src={img4} style={{width:"200px",marginLeft:"70%",height:"150px"}}/> */}
       <Card.Body>
-      <b style={{fontSize:"30px",fontFamily:'bolder'}} >{product.name}</b>
+      <b style={{fontSize:"20px",fontFamily:'bolder'}} >{product.name}</b>
       <Card.Text>
        {product.Orgname}
         </Card.Text>
       
       
         <Card.Text>
-       <b style={{fontSize:"20px",fontFamily:'bolder'}}> Total Profit Generated: {product.ticketbought*product.ticket}</b>
+       <b style={{fontSize:"14px",fontFamily:'bolder'}}> Total Profit Generated: {product.ticketbought*product.ticket}</b>
         </Card.Text>
    
    
       
         <Card.Text>
-        <b style={{fontSize:"20px",fontFamily:'bolder'}}>Tickets Bought:  {product.ticketbought}</b>
+        <b style={{fontSize:"14px",fontFamily:'bolder'}}>Tickets Bought:  {product.ticketbought}</b>
         </Card.Text>
-    {ticketdata.data!=null && <div style={{marginLeft:'58%',width:'420px',hieght:'500px',marginTop:'-15%',fontFamily:'bolder'}}><TicketGraph ticketData={ticketdata.data} /></div>}
+    {ticketdata.data!=null && <div style={{marginLeft:'43%',width:'320px',hieght:'300px',marginTop:'-20%',fontFamily:'bolder'}}><TicketGraph ticketData={ticketdata.data} /></div>}
    
       </Card.Body>
    
@@ -218,7 +218,7 @@ export default function EventReports(){
      <>
       <Dashboard userdetails={state.userdetails}/>
    
-     <h4 style={{marginLeft:'5%',marginTop:'5%'}}>Event reports are here</h4>
+     <h4 style={{marginLeft:'5%',marginTop:'10%'}}>Event reports are here</h4>
      
  {data.data!=null && <div>
   <Row style={{marginLeft:'10%'}}>

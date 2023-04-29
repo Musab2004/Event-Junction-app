@@ -19,7 +19,7 @@ const Container = ({ children }) => {
 
 const LeftContainer = ({ children }) => {
   return (
-    <div style={{ flex: 1 ,marginLeft:'0px'}}>
+    <div style={{ flex: 1 ,marginLeft:'-300px',width:'100%'}}>
     {children}
       
     </div>
@@ -28,7 +28,7 @@ const LeftContainer = ({ children }) => {
 
 const RightContainer = ({ children }) => {
   return (
-    <div style={{ flex: 1,marginLeft:'400px' }}>
+    <div style={{ flex: 1,marginLeft:'100px',width:'150%' }}>
       {children}
     </div>
   );
@@ -90,29 +90,29 @@ const formattedDate = `${dater.getDate()} ${months[dater.getMonth()]}, ${dater.g
    
    
       <Col xs={5} md={1} lg={3} key={product.id}>
-    <Card style={{ width: '80rem',marginTop:'50px',marginLeft:'30%',height:'20rem' }}   data-mdb-ripple-color="light">
+    <Card style={{ width: '50rem',marginTop:'50px',marginLeft:'-50%',height:'15rem' }}   data-mdb-ripple-color="light">
       {/* <Card.Header></Card.Header> */}
       {/* <Card.Img variant="top" src={img4} style={{width:"200px",marginLeft:"70%",height:"150px"}}/> */}
-      <Card.Body>
+      <Card.Body style={{marginLeft:'45%'}}>
       <Container>
       <LeftContainer >
-      <b style={{fontSize:"30px",fontFamily:'bolder'}} >{product.name}</b>
+      <b style={{fontSize:"20px",fontFamily:'bolder'}} >{product.name}</b>
       <Card.Text>
        {product.Orgname}
         </Card.Text>
        
         <Card.Text>
-        <i class="fas fa-calendar fa-lg me-3 fa-fw" style={{ fontSize: '24px' }}></i>
-       <b style={{fontSize:"20px",fontFamily:'bolder'}}>{formattedDate}</b>
+        <i class="fas fa-calendar fa-lg me-3 fa-fw" style={{ fontSize: '18px' }}></i>
+       <b style={{fontSize:"15px",fontFamily:'bolder'}}>{formattedDate}</b>
         </Card.Text>
         {/* <Card.Text>
         {product.time}
         </Card.Text> */}
       
         <Card.Text>
-        <i class="fas fa-map-marker-alt" style={{ fontSize:'24px'}}></i>
+        <i class="fas fa-map-marker-alt" style={{ fontSize:'18px'}}></i>
 
-        <b style={{fontSize:"20px",marginLeft:'15px',fontFamily:'bolder'}}>  {product.location}</b>
+        <b style={{fontSize:"15px",marginLeft:'15px',fontFamily:'bolder'}}>  {product.location}</b>
         </Card.Text>
       
         {/* <BarChart width={400} height={200} data={data}>

@@ -49,7 +49,7 @@ const LeftContainer = ({ children }) => {
 
 const RightContainer = ({ children }) => {
   return (
-    <div style={{ flex: 1,marginLeft:'-1300px' }}>
+    <div style={{ flex: 1,marginLeft:'-800px' }}>
       {children}
     </div>
   );
@@ -134,7 +134,7 @@ const f3= async (e)=>{
         <>
         <Container>
       <LeftContainer >      
-  <div class="container2 h-100" style={{width:"50%",marginLeft:"5%",marginTop:"15%"}}>
+  <div class="container2 h-100" style={{width:"50%",marginLeft:"5%",marginTop:"10%"}}>
     <div class="row d-flex justify-content-center align-items-center h-200">
       <div class="col-lg-20 col-xl-20">
       {error!="" && <p  style={{color:'red'}}>{error}</p>}
@@ -147,7 +147,7 @@ const f3= async (e)=>{
           height="50"
           alt="MDB Logo"
           loading="lazy"
-          style={{width:'14%',marginRight:'86%'}}
+          style={{width:'150px',marginRight:'81%',height:'100px'}}
         />
 <b style={{fontSize:"40px",fontFamily:'bolder', margin:"2%"}}>Login</b>
 <div style={{width:'40%',marginRight:'60%'}}>
@@ -184,8 +184,8 @@ const f3= async (e)=>{
 
   <div class="text-center" >
     <p style={{marginTop:"10%",marginRight:'69%'}}>Not a member?  <Link to="/Signup">Register</Link></p>
-    <p style={{marginRight:'69%'}}>or sign up with:</p>
-    <div style={{marginRight:'69%'}}>
+    {/* <p style={{marginRight:'69%'}}>or sign up with:</p> */}
+     {/* <div style={{marginRight:'49%'}}>
     <button type="button" class="btn btn-link btn-floating mx-1">
       <i style={{marginRight:'69%'}} class="fa fa-facebook-f"></i>
     </button>
@@ -201,8 +201,8 @@ const f3= async (e)=>{
     <button type="button"   class="btn btn-link btn-floating mx-1">
       <i class="fa fa-github " ></i>
     </button>
-    </div>
-  </div>
+    </div> */}
+  </div> 
 
 </div>
 </div>
@@ -223,7 +223,7 @@ const f3= async (e)=>{
    {/* src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp" */}
    {/* <img src={img6} style={{width:"152%",marginLeft:'38.5%',marginTop:'15%',height:"150%"}}
                   class="img-fluid" alt="Sample image"></img> */}
-  <img src={img6} style={{width:"165%",marginLeft:'38.7%',marginTop:'-10%',marginBottom:'-45%',height:"181.5%"}}
+  <img src={img6} style={{width:"130%",marginLeft:'43.7%',marginTop:'0%',marginBottom:'-25%',height:"120.5%"}}
                   class="img-fluid" alt="Sample image"></img>
 
               </div>

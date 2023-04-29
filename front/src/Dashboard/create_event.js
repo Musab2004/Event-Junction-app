@@ -23,7 +23,13 @@ import { escapeRegExpChars } from 'ejs/lib/utils';
 
 
 
-
+const handleKeyPress = e => {
+  const keyCode = e.keyCode || e.which;
+  const keyValue = String.fromCharCode(keyCode);
+  if (/[^0-9]/.test(keyValue)) {
+    e.preventDefault();
+  }
+};
 const options = [
   { value: "Lahore", label: "Lahore" },
   { value: "Multan", label: "Multan" },
@@ -236,10 +242,10 @@ let { data, error } = logincheck;
       />
            </div>  
              
-              <b className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2" style={{fontSize:"16px"}}>Number of Tickets</b>
-              <MDBInput wrapperClass='mb-4' name="numtickets" label='Number of Tickets' value= {event.numtickets}  style={{margin:"5px"}} id='form1' type='number'min="0" oninput="validity.valid||(value='');"   onChange={handleinputs}/>
+              <b className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2" style={{fontSize:"16px"}} o>Number of Tickets</b>
+              <MDBInput wrapperClass='mb-4' name="numtickets" label='Number of Tickets' value= {event.numtickets}  onKeyPress={handleKeyPress} v style={{margin:"5px"}} id='form1' type='number'min="0" oninput="validity.valid||(value='');"   onChange={handleinputs}/>
               <b className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2" style={{fontSize:"16px"}}>Ticket Price</b>
-              <MDBInput wrapperClass='mb-4' name="ticket" label='Ticket Price' value= {event.ticket}  style={{margin:"5px"}} id='form1' type='number'min="0" oninput="validity.valid||(value='');"   onChange={handleinputs}/>
+              <MDBInput wrapperClass='mb-4' name="ticket" label='Ticket Price' value= {event.ticket} onKeyPress={handleKeyPress} style={{margin:"5px"}} id='form1' type='number'min="0" oninput="validity.valid||(value='');"   onChange={handleinputs}/>
               <b className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2" style={{fontSize:"16px"}}>Date</b>
               <div className="App">
       <Form.Control type="date" name="date" value= {event.date} style={{margin:"5px"}} onChange={handleinputs}min={getCurrentDate()}></Form.Control>

@@ -11,7 +11,7 @@ export default function Eventdetails(){
     let eventid=state.eventdetails._id
     const date = new Date();
     
-    let day = date.getDate()+7;
+    let day = date.getDate();
     let month = date.getMonth() + 1;
     let year = date.getFullYear();
 
@@ -89,27 +89,29 @@ console.log(formattedDate);
   </div>
   </form> */}
         <div>
-        <img src={state.eventdetails.myFile} style={{marginLeft:"500px",marginTop:'5%', width:"700px",height:"300px", borderRadius:"10px"}} class="img-fluid" alt="Responsive image"/>
+        <img src={state.eventdetails.myFile} style={{marginLeft:"0px",marginTop:'15%', width:"700px",height:"300px", borderRadius:"10px"}} class="img-fluid" alt="Responsive image"/>
 
 
         </div>
-          <div class="container1 h-100"style={{marginTop:"-200px",width:"1000px",marginLeft:"320px"}}>
+          <div class="container1 h-100"style={{marginTop:"0px",width:"800px",marginLeft:"320px"}}>
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-lg-15 col-xl-15">
-      <form   class="fixed-top" style={{marginLeft:"70%",marginTop:'20%'}}  
+      <form   class="fixed-top" style={{marginLeft:"78%",marginTop:'20%',width:"250px",height:'200px'}}  
   >
       <p>Ticket price : {state.eventdetails.ticket}</p>
-      <button className="comment-form-button" >
+      <button onClick={PostData} className="comment-form-button" style={{backgroundColor:'black'}}>
         Buy Ticket
       </button>
-     
+      <button className="comment-form-button"  onClick={Saveevent}style={{marginTop:'20px',backgroundColor:'black'}} >
+        Save event
+      </button>
     </form>
-      <button style={{marginLeft:"1100px",marginTop:"100px",width:"200px",height:"50px"}} class="btn btn-primary" to='/dashboard'onClick={PostData}>Buy ticket</button>
-      <button style={{marginLeft:"1100px",marginTop:"10px",width:"200px",height:"50px"}} class="btn btn-primary" to='/dashboard'onClick={Saveevent}>Save Event</button>  
+      {/* <button style={{marginLeft:"600px",marginTop:"100px",width:"200px",height:"50px"}} class="btn btn-primary" to='/dashboard'onClick={PostData}>Buy ticket</button>
+      <button style={{marginLeft:"600px",marginTop:"10px",width:"200px",height:"50px"}} class="btn btn-primary" to='/dashboard'onClick={Saveevent}>Save Event</button>   */}
        
         {/* <div class="card text-black" >
           <div class="card-body p-md-9"> */}
-            <div class="row justify-content-center">
+            <div class="row justify-content-center" style={{marginLeft:'-50%'}}>
               <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1"></div>
         {/* <b style={{margin:"30px",fontSize:"40px"}}>{state.eventdetails.name}:</b> */}
         <b style={{margin:"30px",fontSize:"40px",fontFamily:'bolder'}}>When and Where : </b>
@@ -137,8 +139,8 @@ console.log(formattedDate);
     </div>
   </section>
   <div style={{ borderLeft: '1px solid black', height: '100px',marginLeft:'-700px' }}></div>
-  <section style={{marginLeft:'-50px'}}>
-    <div style={{ display: 'flex', alignItems: 'center',marginLeft:'-600px' }}>
+  <section style={{marginLeft:'-10px'}}>
+    <div style={{ display: 'flex', alignItems: 'center',marginLeft:'-800px' }}>
       <i class="fas fa-lock fa-lg me-3 fa-fw" style={{ fontSize: '24px' }}></i>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <b style={{ fontSize: '20px', fontFamily: 'bolder' }}>Loctaion:</b>

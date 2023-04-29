@@ -8,7 +8,7 @@ export default function EventdetailsDash(){
     const {state} = useLocation();
     console.log(state)
     let username=state.userdetails.name
-    let eventid=state.eventdetails.id
+    let eventid=state.eventdetails._id
     const date = new Date();
     
     let day = date.getDate();
@@ -16,10 +16,11 @@ export default function EventdetailsDash(){
     let year = date.getFullYear();
 
 // This arrangement can be altered based on how we want the date's format to appear.
-    let currentDate = `${day+1}-${month}-${year}`;
+    let currentDate = `${day}-${month}-${year}`;
     // console.log(currentDate)
     let time=currentDate
     let date1=state.eventdetails.date
+    let expirydate=state.eventdetails.expiresAt
     // console.log(state.eventdetails.date)
     const PostData= async (e)=>{
       e.preventDefault();
@@ -29,7 +30,7 @@ export default function EventdetailsDash(){
           "Content-Type":"application/json"
         },
         body:JSON.stringify({
-          username,eventid,time
+          username,eventid,time,expirydate
         })
         
      
@@ -47,7 +48,7 @@ export default function EventdetailsDash(){
           "Content-Type":"application/json"
         },
         body:JSON.stringify({
-          username,eventid
+          username,eventid,expirydate
         })
         
      
@@ -88,31 +89,30 @@ console.log(formattedDate);
   </div>
   </form> */}
         <div>
-        <img src={state.eventdetails.myFile} style={{marginLeft:"500px",marginTop:'5%', width:"700px",height:"300px", borderRadius:"10px"}} class="img-fluid" alt="Responsive image"/>
+        <img src={state.eventdetails.myFile} style={{marginLeft:"0px",marginTop:'15%', width:"700px",height:"300px", borderRadius:"10px"}} class="img-fluid" alt="Responsive image"/>
 
 
         </div>
-          <div class="container1 h-100"style={{marginTop:"-200px",width:"1000px",marginLeft:"320px"}}>
+          <div class="container1 h-100"style={{marginTop:"0px",width:"800px",marginLeft:"320px"}}>
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-lg-15 col-xl-15">
-
-
+ 
+      {/* <button style={{marginLeft:"600px",marginTop:"100px",width:"200px",height:"50px"}} class="btn btn-primary" to='/dashboard'onClick={PostData}>Buy ticket</button>
+      <button style={{marginLeft:"600px",marginTop:"10px",width:"200px",height:"50px"}} class="btn btn-primary" to='/dashboard'onClick={Saveevent}>Save Event</button>   */}
        
         {/* <div class="card text-black" >
           <div class="card-body p-md-9"> */}
-            <div class="row justify-content-center">
+            <div class="row justify-content-center" style={{marginLeft:'-50%'}}>
               <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1"></div>
         {/* <b style={{margin:"30px",fontSize:"40px"}}>{state.eventdetails.name}:</b> */}
-        <b style={{margin:"30px",fontSize:"40px",fontFamily:'bolder',marginTop:'300px'}}>{state.eventdetails.name} </b>
-        
-        <b style={{margin:"30px",fontSize:"40px",fontFamily:'bolder',marginTop:'50px'}}>When and Where : </b>
-   
+        <b style={{margin:"30px",fontSize:"40px",fontFamily:'bolder'}}>When and Where : </b>
+       
    
  
 
  
   
-<div style={{ display: 'flex', justifyContent: 'space-between', }}>
+<div style={{ display: 'flex', justifyContent: 'space-between' }}>
   <section>
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <i class="fas fa-lock fa-lg me-3 fa-fw" style={{ fontSize: '24px' }}></i>
@@ -124,8 +124,8 @@ console.log(formattedDate);
     </div>
   </section>
   <div style={{ borderLeft: '1px solid black', height: '100px',marginLeft:'-700px' }}></div>
-  <section style={{marginLeft:'-50px'}}>
-    <div style={{ display: 'flex', alignItems: 'center',marginLeft:'-600px' }}>
+  <section style={{marginLeft:'-10px'}}>
+    <div style={{ display: 'flex', alignItems: 'center',marginLeft:'-800px' }}>
       <i class="fas fa-lock fa-lg me-3 fa-fw" style={{ fontSize: '24px' }}></i>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <b style={{ fontSize: '20px', fontFamily: 'bolder' }}>Loctaion:</b>

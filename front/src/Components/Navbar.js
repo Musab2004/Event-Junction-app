@@ -21,7 +21,10 @@ export default function Navbar(props){
     (navigate("/profile",{state:{ userdetails:props.userdetails }}))
   }
   const todashboard= async (e)=>{
-    (navigate("/dashboard",{state:{ userdetails:props.userdetails }}))
+    // const tocreateevents= async (e)=>{
+      (navigate("/createevent",{state:{userdetails:props.userdetails }}))
+    // }
+    // (navigate("/dashboard",{state:{ userdetails:props.userdetails }}))
   }
   const tofindevent= async (e)=>{
     (navigate("/FindEvent",{state:{  userdetails:props.userdetails }}))
@@ -64,24 +67,24 @@ export default function Navbar(props){
         />
       </a>
       
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0" style={{width:'60%'}}>
-        <li class="nav-item" style={{width:'14%'}}>
-          <a class="nav-link" style={{fontSize:'15px'}}  onClick={toHome} >Homepage</a>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" style={{width:'70%'}}>
+        <li class="nav-item" style={{width:'15%'}}>
+          <a class="nav-link" style={{fontSize:'15px'}} href="" onClick={toHome} >Homepage</a>
         </li>
-        <li class="nav-item" style={{width:'14%'}}>
-          <a class="nav-link" style={{fontSize:'15px'}} onClick={tofindevent}  >Browse Event</a>
+        <li class="nav-item" style={{width:'20%'}}>
+          <a class="nav-link" style={{fontSize:'15px',width:'150px'}} href="" onClick={tofindevent}  >Browse Event</a>
         </li>
-        <li class="nav-item" style={{width:'14%'}}>
-          <a class="nav-link" style={{fontSize:'15px'}} onClick={todashboard} >Create Event</a>
+        <li class="nav-item" style={{width:'20%'}}>
+          <a class="nav-link" style={{fontSize:'15px',width:'150px'}} href="" onClick={todashboard} >Create Event</a>
         </li>
         {/* <li style={{width:'20%'}}>
         <button class="btn1" onClick={todashboard} >Create Event +</button> 
         </li> */}
-        <div class="input-group"style={{width:'90%',marginLeft:'10%'}}>
+        {/* <div class="input-group"style={{width:'90%',marginLeft:'30%'}}>
   <input type="search"  
           onClick={tofindevent}class="form-control rounded" placeholder="Search Anything" aria-label="Search" aria-describedby="search-addon" />
   <button type="button" style={{marginTop:'-0.1%',width:'30%'}} onClick={tofindevent} class="btn btn-outline-primary">search</button>
-</div>
+</div> */}
 <li>
         {/* <button class="btn1" style={{marginTop:'100px'}}onClick={todashboard} >Create Event +</button>  */}
         </li>
@@ -170,16 +173,16 @@ export default function Navbar(props){
           aria-labelledby="navbarDropdownMenuLink"
         >
            <li>
-            <a onClick={f1} class="dropdown-item" >My profile</a>
+            <a onClick={f1} class="dropdown-item" href="" >My profile</a>
           </li>
           <li>
-            <a  onClick={todashboard}class="dropdown-item" >Switch to Manage events</a>
+            <a  onClick={todashboard}class="dropdown-item" href="" >Switch to Manage events</a>
           </li>
           <li>
-            <a class="dropdown-item" href="#">Settings</a>
+            <a class="dropdown-item" href="">Settings</a>
           </li>
           <li>
-            <a class="dropdown-item" onClick={logout} href="#">Logout</a>
+            <a class="dropdown-item" onClick={logout} href="">Logout</a>
           </li>
         </ul>
       </div>

@@ -48,7 +48,7 @@ const LeftContainer = ({ children }) => {
 
 const RightContainer = ({ children }) => {
   return (
-    <div style={{ flex: 1,marginLeft:'-1300px' }}>
+    <div style={{ flex: 1,marginLeft:'-800px' }}>
       {children}
     </div>
   );
@@ -57,12 +57,7 @@ const Signup =()=> {
 
 
   const navigate = useNavigate();
-  //  let navigate = useNavigate()
-  // const history=useNavigate();
-  // const [students, setStudents] = useState();
-  // const response;
 
-  // for sign up
   const[Signupcheck,setcheck]=useState({
     data:null,error:""
   });
@@ -72,64 +67,7 @@ const Signup =()=> {
   const [readuser, readsetUser] = useState([]);
   const{name1 ,email1}=user;
   let name2="musab"
-//   useEffect(() => {
-//     const res1=fetch("/all",{
-//       method:"POST",
-//       headers:{
-//         "Content-Type":"application/json"
-//       },
-//       body:JSON.stringify({
-//         name2
-//       })
-     
-// // Displaying results to console
 
-    
-   
-//       })
-//        .
-//        then(response => response.json())
- 
-//       // // Displaying results to console
-//        .then(json => readsetUser(json));
-
-  
-//     }, []);
-
-//      console.log(readuser);
-//   const data = new FormData();
-  
-
-  // useEffect(() => {
-  //   console.log("hello how are you");
-  //   axios
-  //     .get("http://localhost:5000/all",{
-  //     params:  
-  //     {     
-  //         product:"musab",
-  //         name: "musab"
-  //       }
-  //     })
-  //     .then(({ data }) => {
-  //       console.log(data);
-  //       // setStudents(data);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, []);
-  // fetch("/register",{
-  //   method:"POST",
-  //   headers:{
-  //     "Content-Type":"application/json"
-  //   },
-  //   body:JSON.stringify({
-  //     name,email
-  //   })
-    
- 
-  //   });
-  
 
  
   
@@ -176,10 +114,6 @@ setcheck({error:"fill it properly"});
    } 
    let { data, error } = Signupcheck;
 
-  // this.state = { selectedOption: "" };
-  // handleChange = selectedOption => {
-  //   this.setState({ selectedOption });
-  // };
 
     return (
       <>
@@ -188,7 +122,7 @@ setcheck({error:"fill it properly"});
  
 
 
-      <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1" style={{marginTop:'15%',marginLeft:'5%'}} >
+      <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1" style={{marginTop:'12%',marginLeft:'1%'}} >
               {error!="" &&
   <p  style={{color:'red'}}>{error}</p>
 }  
@@ -197,12 +131,12 @@ setcheck({error:"fill it properly"});
           height="50"
           alt="MDB Logo"
           loading="lazy"
-          style={{width:'14%',marginRight:'93%'}}
+          style={{width:'40%',height:'100px',marginRight:'93%',marginTop:'-30px'}}
         />
  <p class="h1 fw-bold mb-5 mx-1 mx-md-4 mt-4" style={{fontSize:'40px',fontFamily:'bolder',marginLeft:'0%'}} >Create an Account</p>
 
                
-        <div style={{width:'40%',marginLeft:'4%'}}>
+        <div style={{width:'60%',marginLeft:'4%'}}>
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-user fa-lg me-3 fa-fw"  style={{marginTop:'-7%'}}></i>
                     <div class="form-outline flex-fill mb-0">
@@ -232,16 +166,16 @@ setcheck({error:"fill it properly"});
                     </div>
                   </div>
 
-                  <div class="d-flex flex-row align-items-center mb-4">
+                  {/* <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-key fa-lg me-3 fa-fw" style={{marginTop:'-7%'}}></i>
                     <div class="form-outline flex-fill mb-0">
                       
                    <MDBInput wrapperClass='mb-4' name="name" label='Repeat password' id='form4' type='password' />
                     </div>
-                  </div>
+                  </div> */}
 
                   <div class="form-check d-flex justify-content-center mb-5">
-                    <input class="form-check-input me-1" type="checkbox" value="" id="form2Example3c" style={{float : 'right', right : '85%'}} />
+                    <input class="form-check-input me-1" type="checkbox" value="" id="form2Example3c" style={{float : 'right', right : '91%'}} />
                     <label class="form-check-label" for="form2Example3">
                       I agree all statements in <a href="#!">Terms of service</a>
                     </label>
@@ -271,7 +205,7 @@ setcheck({error:"fill it properly"});
                   class="img-fluid" alt="Sample image"></img> */}
   {/* <img src={img4} style={{width:"165%",marginLeft:'38.7%',marginTop:'-10%',marginBottom:'-30%',height:"158.5%"}}
                   class="img-fluid" alt="Sample image"></img> */}
-                   <img src={img6} style={{width:"165%",marginLeft:'38.7%',marginTop:'-10%',marginBottom:'-41.1%',height:"172%"}}
+                    <img src={img6} style={{width:"130%",marginLeft:'43.7%',marginTop:'-1%',marginBottom:'-25%',height:"120.5%"}}
                   class="img-fluid" alt="Sample image"></img>
                      {/* <img src={img4} style={{width:"170%",marginLeft:'38.7%',marginTop:'-7%',marginBottom:'-40%',height:"159.5%"}}
                   class="img-fluid" alt="Sample image"></img> */}
