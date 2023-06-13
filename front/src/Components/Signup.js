@@ -1,8 +1,7 @@
 import React,{useState} from "react"
 import {useEffect} from "react";
 import {Navlink,useNavigate} from "react-router-dom"
-import logo from '../logo.svg';
-import anotheron from '../index.svg';
+import img5 from'./google.png'
 import axios from "axios";
 import { redirect } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
@@ -11,8 +10,8 @@ import Carousel from 'react-bootstrap/Carousel';
 import { Navigate } from "react-router-dom";
 // import img4 from'./pic1.jpg'
 import Select from 'react-select';
-import img5 from'./google.png'
-import img4 from'./new3.jpeg'
+
+
 import img6 from'./loginimage.jpg'
 import {
   MDBBtn,
@@ -39,7 +38,7 @@ const Container = ({ children }) => {
 
 const LeftContainer = ({ children }) => {
   return (
-    <div style={{ flex: 1 ,marginLeft:'-200px'}}>
+    <div style={{ flex: 1 ,marginLeft:'-20%'}}>
     {children}
       
     </div>
@@ -48,7 +47,7 @@ const LeftContainer = ({ children }) => {
 
 const RightContainer = ({ children }) => {
   return (
-    <div style={{ flex: 1,marginLeft:'-800px' }}>
+    <div style={{ flex: 1,marginLeft:'-80%' }}>
       {children}
     </div>
   );
@@ -123,9 +122,7 @@ setcheck({error:"fill it properly"});
 
 
       <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1" style={{marginTop:'12%',marginLeft:'1%'}} >
-              {error!="" &&
-  <p  style={{color:'red'}}>{error}</p>
-}  
+  
 <img
           src={img5}
           height="50"
@@ -137,21 +134,25 @@ setcheck({error:"fill it properly"});
 
                
         <div style={{width:'60%',marginLeft:'4%'}}>
+        {error!="" &&
+  <p  style={{color:'red'}}>{error}</p>
+}
                   <div class="d-flex flex-row align-items-center mb-4">
+  
                     <i class="fas fa-user fa-lg me-3 fa-fw"  style={{marginTop:'-7%'}}></i>
-                    <div class="form-outline flex-fill mb-0">
+                    <div class="form-outline flex-fill mb-0" style={{width:'40%'}}>
                     {/* <MDBInput wrapperClass='mb-4' name="name" label='Full name' id='form4' type='text' /> */}
                       {/* <input type="text" name="name"value= {user.name} id="form3Example3c" class="form-control" onChange={handleinputs} />
                       <label class="form-label" for="form3Example4c">Your Name</label> */}
-                      <MDBInput wrapperClass='mb-4'value={user.name} name="name" label='Full Name' id='form4' type='text' onChange={handleinputs} />
+                      <MDBInput wrapperClass='mb-4'value={user.name}  name="name" label='Full Name' id='form4' type='text' onChange={handleinputs} />
                     </div>
                   </div>
 
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-envelope fa-lg me-3 fa-fw" style={{marginTop:'-7%'}}></i>
-                    <div class="form-outline flex-fill mb-0">
+                    <div class="form-outline flex-fill mb-0" style={{width:'40%'}}>
                       {/* <input type="email" value={user.email} name="email" id="form3Example3c" class="form-control" onChange={handleinputs} />  */}
-                      <MDBInput wrapperClass='mb-4'value={user.email} name="email" label='Email' id='form4' type='email' onChange={handleinputs} />
+                      <MDBInput wrapperClass='mb-4'value={user.email}  name="email" label='Email' id='form4' type='email' onChange={handleinputs} />
                        {/* <label class="form-label" for="form3Example4c">Your Email</label> */}
                        
                     </div>
@@ -162,7 +163,7 @@ setcheck({error:"fill it properly"});
                     <div class="form-outline flex-fill mb-0">
                       {/* <input type="password" value={user.password} name="password" id="form3Example3c" class="form-control" onChange={handleinputs} />
                       <label class="form-label" for="form3Example4c">Password</label> */}
-                      <MDBInput wrapperClass='mb-4'value={user.password} name="password" label='Password' id='form4' type='password' onChange={handleinputs} />
+                      <MDBInput wrapperClass='mb-4'value={user.password} style={{width:'40%'}} name="password" label='Password' id='form4' type='password' onChange={handleinputs} />
                     </div>
                   </div>
 
@@ -177,7 +178,7 @@ setcheck({error:"fill it properly"});
                   <div class="form-check d-flex justify-content-center mb-5">
                     <input class="form-check-input me-1" type="checkbox" value="" id="form2Example3c" style={{float : 'right', right : '91%'}} />
                     <label class="form-check-label" for="form2Example3">
-                      I agree all statements in <a href="#!">Terms of service</a>
+                      I agree all statements in <a href="">Terms of service</a>
                     </label>
                   </div>
                   </div>

@@ -1,4 +1,4 @@
-import React,{useState} from 'react'; 
+import React,{useState,useEffect} from 'react'; 
 import Form from "react-bootstrap/Form";
 import {Link,Navlink,useNavigate,useParams,useLocation} from "react-router-dom"
 import {
@@ -15,7 +15,7 @@ import {
 }
 from 'mdb-react-ui-kit';
 import avatar from '../download.png'
-import img4 from '../index.jpeg'
+
 import Dashboard from './DashBoard';
 import Select from 'react-select';
 import './createevent.css'
@@ -70,7 +70,7 @@ function EditEvent() {
   const [getImage, setgetImage] = useState( { myFile : ""})
   let [error1, seterror1] = useState(false)
   let[event,setevent]=useState({
-    name:state.eventdetails.name,description:state.eventdetails.description,ticket:state.eventdetails.ticket,date:state.eventdetails.date,time:state.eventdetails.time,numtickets:state.eventdetails.numtickets,Orgname:state.eventdetails.Orgname,exactloc:state.eventdetails.exactloc
+   _id:state.eventdetails._id, name:state.eventdetails.name,myFile:state.eventdetails.myFile,description:state.eventdetails.description,ticket:state.eventdetails.ticket,date:state.eventdetails.date,time:state.eventdetails.time,numtickets:state.eventdetails.numtickets,Orgname:state.eventdetails.Orgname,exactloc:state.eventdetails.exactloc
   });
 
     let name,value;
@@ -90,37 +90,41 @@ function EditEvent() {
         e.preventDefault();
 
         // createPost(postImage)
-        let myFile=postImage.myFile
-        event.myFile=postImage.myFile
+        // let myFile=postImage.myFile
+        // event.myFile=postImage.myFile
+        if(postImage.myFile!=""){
+      
+          event.myFile=postImage.myFile
+        }
+        console.log("id : ",event._id )
         // let id=state.eventdetails.id
-        const{name,description,ticket,date,time,numtickets,Orgname,exactloc}=event;
+        const{_id,name,description,ticket,date,time,numtickets,Orgname,exactloc,myFile}=event;
         error1 =true
         console.log("error :",error1)
-        setcheck({error:"incorrect credentials"});
+        
        const res = await fetch("/updateevent",{
        method:"POST",
        headers:{
          "Content-Type":"application/json"
        },
        body:JSON.stringify({
-        name,description,locations,Field,myFile,username,ticket,date,time,numtickets,Orgname,exactloc
+        _id,name,description,locations,Field,myFile,username,ticket,date,time,numtickets,Orgname,exactloc
        })
        
     
        });
       
        const data= await res.json();
-       console.log(data.status)
+       console.log("data status : ",res.status)
        if(res.status == 421 ){
     console.log("plz fill it properly")
-    // setcheck({error:"fill it properly"});
+
+    setcheck({error:"fill it properly"});
        }
-      else if(res.status == 422 ){
-        console.log("email already exists")
-        // setcheck({error:"email already exists"});
-           }
-       else{
-     console.log("Registration succesfull")
+
+       else if (res.status==201){
+        setcheck({error:"success"});
+     console.log("update succesfull")
     //  setcheck({data});
   
     
@@ -175,10 +179,7 @@ function getCurrentDate() {
   const day = now.getDate().toString().padStart(2, "0"); // get the current day as a string with 2 digits
   return `${year}-${month}-${day}`; // return date in YYYY-MM-DD format
 }
-const [inputValue, setInputValue] = useState({
- data: "hie man"
-});
-console.log(inputValue)
+
 // Event handler function that updates the state with the user's input
 function handleInputChange(event) {
   setInputValue(event.target.value);
@@ -202,9 +203,20 @@ const handleFileUpload = async (e) => {
   setPostImage({ ...postImage, myFile : base64 })
 }
 let { data, error } = logincheck;
+console.log(error)
 const tomanageevents= async (e)=>{
   (navigate("/events",{state:{ userdetails:state.userdetails}}))
 }
+useEffect(() => {
+  const intervalId = setInterval(() => {
+    // call your function here
+
+    setcheck({error:""});
+
+  }, 3000);
+
+  return () => clearInterval(intervalId); // cleanup function to clear the interval on unmount
+}, []);
   return (
       <>
 
@@ -217,9 +229,15 @@ const tomanageevents= async (e)=>{
         <MDBCol lg='8' style={{maxWidth: '1500px',marginTop:'4%'}}>
        
 
-{error &&  <div class="container" style={{width:'100%' ,marginTop:'-5%'}}> 
+{error=="success" &&  <div class="container fixed-top" style={{width:'100%',marginLeft:'60%',marginTop:'8%'}}> 
 <div class="alert alert-success alert-dismissible fade show" role="alert">
   <strong>Event Details Updated!</strong>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+</div> }
+{error=="fill it properly" &&  <div class="container fixed-top" style={{width:'100%' ,marginLeft:'60%',marginTop:'8%'}}> 
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <strong>{error}</strong>
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 </div> }
@@ -231,6 +249,7 @@ const tomanageevents= async (e)=>{
             <MDBCardBody className='px-5'>
 
               <b className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2"style={{fontSize:"22px"}}>Create Event</b>
+             
               <div>
               <b className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2" style={{fontSize:"16px",marginTop:"80px"}}>Name</b>
               </div>
@@ -296,11 +315,11 @@ const tomanageevents= async (e)=>{
           accept='.jpeg, .png, .jpg'
           onChange={(e) => handleFileUpload(e)}
          />
-          <Form.Control
+          {/* <Form.Control
       type="text"
       value={inputValue.data}
       onChange={handleInputChange}
-    />
+    /> */}
          </div>
            
 

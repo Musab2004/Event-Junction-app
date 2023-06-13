@@ -1,7 +1,8 @@
 import React,{useState} from "react"
 import {useEffect} from "react";
 import {Navlink,useNavigate,useLocation} from "react-router-dom"
-import logo from '../logo.svg';
+
+import Navbar from '../Components/Navbar'
 import anotheron from '../index.svg';
 import axios from "axios";
 import { redirect } from "react-router-dom";
@@ -35,6 +36,9 @@ const options = [
   ];
   
 const EditProfile =()=> {
+  const[logincheck1,setcheck1]=useState({
+    data:null,error:""
+  });
     const [text, setText] = useState('Click me to edit'); // set the initial text state
     const [isEditing, setIsEditing] = useState(false); // set the initial editing state to false
     const [postImage, setPostImage] = useState( { myFile : ""})
@@ -57,7 +61,7 @@ const EditProfile =()=> {
     data:null,error:""
   });
   const[user,setuser]=useState({
-    name:state.userdetails.name,email:state.userdetails.email,password:state.userdetails.password,Location:"",myFile:state.userdetails.myFile
+    name:state.userdetails.name,email:state.userdetails.email,password:state.userdetails.password,locations:state.userdetails.locations,interest:state.userdetails.interest,myFile:state.userdetails.myFile
   });
 //   user.name=state.userdetails.name
 //   user.email=state.userdetails.email
@@ -81,10 +85,16 @@ const EditProfile =()=> {
    const PostData= async (e)=>{
     e.preventDefault();
     
-    let myFile=postImage.myFile
-    user.myFile=postImage.myFile
-    console.log(myFile)
-    const{name,email,password}=user;
+    
+    // user.myFile=postImage.myFile
+
+    if(postImage.myFile!=""){
+      
+      user.myFile=postImage.myFile
+    }
+    
+    setcheck1({error:"data loaded"});
+    const{name,email,password,myFile}=user;
     let interest=state.userdetails.interest
     const res = await fetch("/update",{
         method:"POST",
@@ -92,13 +102,14 @@ const EditProfile =()=> {
           "Content-Type":"application/json"
         },
         body:JSON.stringify({
-          name,email,password,interest,myFile
+          name,email,password,locations,interest,myFile
         })
         
      
         });
+        
    const data= await res.json();
-
+   
    console.log(data.status)
    if(res.status == 421 ){
 console.log("plz fill it properly")
@@ -144,20 +155,27 @@ setcheck({error:"fill it properly"});
    
   (navigate("/profile",{state:{userdetails:user }}))
 }
-
+let { data, error } = logincheck1;
+console.log(error)
     return (
       <>
-
+<Navbar userdetails={ state.userdetails }/>
     <div>
-      <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1" style={{marginTop:'15%',marginLeft:'5%'}} >
+      <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1" style={{marginTop:'10%',marginLeft:'15%'}} >
              
  
 
    
- <p class="h1 fw-bold mb-5 mx-1 mx-md-4 mt-4" style={{fontSize:'40px',fontStyle:'italic',marginLeft:'0%'}} >Update Profile</p>
-
- <label htmlFor="file-upload" className='custom-file-upload'>
-          <img src={postImage.myFile|| state.userdetails.myFile} alt="" />
+ <p class="h1 fw-bold mb-5 mx-1 mx-md-4 mt-4" style={{fontSize:'30px',fontFamily:'bolder',marginLeft:'0%'}} >Update Profile</p>
+ {error &&  <div class="container" style={{width:'100%' ,marginTop:'0%',marginLeft:'60%'}}> 
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>Profile Updated!</strong>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+</div> }
+<div style={{marginTop:'0px'}}>
+ <label htmlFor="file-upload" className='custom-file-upload'style={{height:'150px'}}>
+          <img src={postImage.myFile|| state.userdetails.myFile} style={{height:'150px'}} alt="" />
         </label>
 
         <input 
@@ -166,20 +184,17 @@ setcheck({error:"fill it properly"});
           name="myFile"
           id='file-upload'
           accept='.jpeg, .png, .jpg'
+          style={{height:'200px'}}
           onChange={(e) => handleFileUpload(e)}
          />
+         </div>
    <div>
-      {/* {isEditing ? (
-           <input type="text" class="form-control" onBlur={handleBlur} defaultValue={text}></input>
    
-      ) : (
-        <p onClick={handleClick}>{state.userdetails.name}</p>
-      )} */}
-      <h3>Add an image</h3>
+     
     </div>
 
           
-          <div class="d-flex flex-row align-items-center mb-4">
+          <div class="d-flex flex-row align-items-center mb-4" style={{marginTop:'50px'}}>
                     <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
                       <MDBInput wrapperClass='mb-4'defaultValue={user.name} name="name" label='Full Name' id='form4' type='text' onChange={handleinputs} />
@@ -204,30 +219,18 @@ setcheck({error:"fill it properly"});
                     </div>
                   </div>
 
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-key fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      
-                   <MDBInput wrapperClass='mb-4' name="name" label='Repeat password' id='form4' type='password' />
-                    </div>
-                  </div>
+               
 
           
                   </div>
-                  {/* <b style={{margin:"15px",fontSize:"20px"}}>Select your Location</b>
-      
-      <Select
-        name="Location"
-        value={user.Location}
-        onChange={handleinputs}
-        options={options}
-      />
-       */}
+         
                   <div class="d-flex  mx-4 mb-3 mb-lg-4">
-                    <button type="button"  class="btn btn-primary btn-lg" onClick={PostData}>Save data</button>
+                  <button type="button"  class="btn btn-primary btn-lg"  onClick={GoBack}>Go back</button>
+                    <button type="button"  class="btn btn-primary btn-lg" style={{marginLeft:'50%'}} onClick={PostData}>Save data</button>
+                    
                   </div>
                   <div class="d-flex  mx-4 mb-3 mb-lg-4">
-                    <button type="button"  class="btn btn-primary btn-lg" onClick={GoBack}>Go back</button>
+                    
                   </div>
                   
            

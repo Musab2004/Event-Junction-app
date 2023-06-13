@@ -74,7 +74,7 @@ let arr=[]
   let result1=null
   var a={}
   useEffect(() => {
-    let id=product._id
+    let _id=product._id
     const getticketdata= async (e)=>{
     const res =  await fetch("/gettickets",{
       method:"POST",
@@ -82,7 +82,7 @@ let arr=[]
         "Content-Type":"application/json"
       },
       body:JSON.stringify({
-      id
+      _id
       })
       
    
@@ -92,25 +92,25 @@ let arr=[]
      console.log(data3)
     // console.log(data3)
      setticketdata({data:data3})
-    
-      result = data3.reduce((acc, curr) => {       
-      const date = curr.time;
-      if (!acc[0]) {
-        acc[0]={ count: 1, data: date };
-      } else {
-        acc[0].count++;
-      }
-      // acc[date].data.push(curr);
-      return acc;
-    },{});
-    console.log(result)
-    a['count']=result[0].count
-    a['data']=result[0].data
-    arr.push(a)
+    console.log("tickets : ",ticketdata.data)
+  //     result = data3.reduce((acc, curr) => {       
+  //     const date = curr.time;
+  //     if (!acc[0]) {
+  //       acc[0]={ count: 1, data: date };
+  //     } else {
+  //       acc[0].count++;
+  //     }
+  //     // acc[date].data.push(curr);
+  //     return acc;
+  //   },{});
+  //   console.log(result)
+  //   a['count']=result[0].count
+  //   a['data']=result[0].data
+  //   arr.push(a)
   
-   result1=result[0]
-   console.log("array : ",arr)
-   setcheck({error:"incorrect credentials"});
+  //  result1=result[0]
+  //  console.log("array : ",arr)
+  //  setcheck({error:"incorrect credentials"});
    
      
    }
@@ -230,7 +230,8 @@ export default function EventReports(){
       </Row>
       </div>
 }
-{data.data==null &&<div style={{marginTop:'270px',marginLeft:'600px'}}> <Loader/> </div>}
+{data.data==null &&<div style={{marginTop:'170px',marginLeft:'500px'}}> <Loader/> </div>}
+{/* {data.data==null && <div><h>No event Crearted yet</h></div>} */}
   {/* <BarChart width={600} height={300} data={data}>
     <XAxis dataKey="month"  />
     <YAxis />

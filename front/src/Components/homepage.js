@@ -1,6 +1,5 @@
 import React,{useRef} from 'react'
 import img3 from'./event.jpg'
-import img4 from'./pic1.jpg'
 import {Navlink,useNavigate,useLocation} from "react-router-dom"
 import {useEffect,useState} from "react";
 import Navbar from './Navbar'
@@ -47,17 +46,17 @@ useEffect(() => {
  }
    getsaveddata()
 },[saveddata.data]);
-let a="he"
+// let interest=state.userdetails.interest
 useEffect(() => {
   
   const geteventdata= async (e)=>{
-  const res =  await fetch("/getevents",{
+  const res =  await fetch("/geteventsinterestuser",{
     method:"POST",
     headers:{
       "Content-Type":"application/json"
     },
     body:JSON.stringify({
-      
+      interest
     })
     
  
@@ -103,7 +102,7 @@ useEffect(() => {
  const tofindevent= async (e)=>{
   (navigate("/FindEvent",{state:{ userdetails:userdetails }}))
 }
-// window.history.pushState(null, document.title, window.location.href);
+
 
 window.addEventListener('popstate', function (event)
 

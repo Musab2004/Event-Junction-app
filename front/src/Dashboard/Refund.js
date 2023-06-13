@@ -87,24 +87,24 @@ const formattedDate = `${dater.getDate()} ${months[dater.getMonth()]}, ${dater.g
     
       
       <Col xs={5} md={1} lg={3} key={product.id}>
-    <Card style={{ width: '110rem',marginTop:'50px',marginLeft:'-20%',height:'10rem' }}   data-mdb-ripple-color="light">
+    <Card style={{ width: '58em',marginTop:'100px',marginLeft:'-20%',height:'10rem' }}   data-mdb-ripple-color="light">
       {/* <Card.Header></Card.Header> */}
       {/* <Card.Img variant="top" src={img4} style={{width:"200px",marginLeft:"70%",height:"150px"}}/> */}
       <Card.Body>
       <Container>
       <LeftContainer >
-        <Card.Title style={{fontSize:"30px"}} >{product.name}</Card.Title>
+        <Card.Title style={{fontSize:"20px"}} >{product.name}</Card.Title>
       
       
         <Card.Text>
-       <b style={{fontSize:"30px"}}>{product.eventname}</b>
+       <b style={{fontSize:"20px"}}>{product.eventname}</b>
         </Card.Text>
         <Card.Text>
         {product.time}
         </Card.Text>
       
         <Card.Text>
-        <b style={{fontSize:"30px"}}>{product.username}</b>
+        <b style={{fontSize:"20px"}}>{product.username}</b>
         </Card.Text>
    
 
@@ -147,7 +147,7 @@ export default function  Refund(){
     data:null
   });
   let { state} = useLocation();
- let email=state.userdetails.email
+ let username=state.userdetails.email
 
   useEffect(() => {
 
@@ -158,7 +158,7 @@ export default function  Refund(){
         "Content-Type":"application/json"
       },
       body:JSON.stringify({
-      email
+      username
       })
       
    
@@ -178,6 +178,7 @@ export default function  Refund(){
             return (
               <>
               <Dashboard userdetails={state.userdetails}/>
+              <h style={{marginTop:'100px',marginLeft:'100px'}}>Refund Tickets are here : </h>
               {data.data!=null && <div>   <Row style={{marginLeft:'10%'}}>
           {/* {getdata()} */}
          {data.data!=null&& data.data.map(product => (
@@ -187,7 +188,7 @@ export default function  Refund(){
       </Row>
       </div>
 }
-       {data.data==null &&<div style={{marginTop:'270px',marginLeft:'600px'}}> <Loader/> </div>}
+       {data.data==null &&<div style={{marginTop:'250px',marginLeft:'500px'}}> <Loader/> </div>}
              </>
             );
           }

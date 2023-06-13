@@ -8,6 +8,7 @@ var EventSchema= new mongoose.Schema({
  myFile:String,
  username:String,
  ticket:Number,
+ numtickets:Number,
  date:Date,
  time:String,
  ticketbought:Number,
@@ -19,6 +20,6 @@ var EventSchema= new mongoose.Schema({
   exactloc:String
   
 }, {timestamps: true});
-EventSchema.index({expiresAt: 1}, {expireAfterSeconds: 0});
+// EventSchema.index({expiresAt: 1}, {expireAfterSeconds: 0});
 const event=mongoose.model('event', EventSchema);
 module.exports=event;

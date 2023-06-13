@@ -6,14 +6,14 @@ import './dashboard.css'
 import avatar from '../download.png'
 import Marketing from './Refund'
 import { Navbar } from "react-bootstrap"
-export default function Dashboard(props){
-    window.addEventListener('popstate', function (event)
+export default function Dashboard(){
+    // window.addEventListener('popstate', function (event)
 
-    {
+    // {
     
-      window.history.replaceState(null, null, '/Login');
+    //   window.history.replaceState(null, null, '/Login');
     
-    });
+    // });
     const[userdetails,setuser]=useState({
       email:"",name:"",myFile:"",interest:null,locations:""
     });
@@ -69,32 +69,32 @@ export default function Dashboard(props){
     headerpd = document.getElementById(headerId)
     
     // Validate that all variables exist
-    if(toggle && nav && bodypd && headerpd){
-    toggle.addEventListener('click', ()=>{
-    // show navbar
-    nav.classList.toggle('show')
-    // change icon
-    toggle.classList.toggle('bx-x')
-    // add padding to body
-    bodypd.classList.toggle('body-pd')
-    // add padding to header
-    headerpd.classList.toggle('body-pd')
-    })
-    }
+    // if(toggle && nav && bodypd && headerpd){
+    // toggle.addEventListener('click', ()=>{
+    // // show navbar
+    // nav.classList.toggle('show')
+    // // change icon
+    // toggle.classList.toggle('bx-x')
+    // // add padding to body
+    // bodypd.classList.toggle('body-pd')
+    // // add padding to header
+    // headerpd.classList.toggle('body-pd')
+    // })
+    // }
     }
     
     showNavbar('header-toggle','nav-bar','body-pd','header')
     
     /*===== LINK ACTIVE =====*/
-    const linkColor = document.querySelectorAll('.nav_link')
+    // const linkColor = document.querySelectorAll('.nav_link')
     
-    function colorLink(){
-    if(linkColor){
-    linkColor.forEach(l=> l.classList.remove('active'))
-    this.classList.add('active')
-    }
-    }
-    linkColor.forEach(l=> l.addEventListener('click', colorLink))
+    // function colorLink(){
+    // if(linkColor){
+    // linkColor.forEach(l=> l.classList.remove('active'))
+    // this.classList.add('active')
+    // }
+    // }
+    // linkColor.forEach(l=> l.addEventListener('click', colorLink))
     
      // Your code to run since DOM is loaded and ready
     //  const tocreateevent= async (e)=>{
@@ -162,7 +162,7 @@ return(
     
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       
-      <a class="navbar-brand mt-2 mt-lg-0" href="#">
+      <a class="navbar-brand mt-2 mt-lg-0" href=""  onClick={toHome}>
         <img
           src={img5}
           height="50"
@@ -172,15 +172,15 @@ return(
       </a>
       
       <ul class="navbar-nav me-auto mb-2 mb-lg-0" style={{width:'60%'}}>
-        <li class="nav-item" style={{width:'20%'}}>
-          <a class="nav-link" style={{fontSize:'15px'}} href=""  onClick={toHome} >Homepage</a>
-        </li>
-        <li class="nav-item" style={{width:'20%'}}>
-          <a class="nav-link" style={{fontSize:'15px',width:'140px'}} href=""  onClick={tofindevent}  >Browse Event</a>
-        </li>
-        <li class="nav-item" style={{width:'20%'}}>
-          <a class="nav-link" style={{fontSize:'15px',width:'140px'}} href=""  onClick={todashboard} >Create Event</a>
-        </li>
+        <div class="nav-item" style={{width:'20%'}}>
+          <h class="nav-link" style={{fontSize:'15px',cursor: 'pointer'}} href=""  onClick={toHome} >Homepage</h>
+        </div>
+        <div class="nav-item" style={{width:'20%'}}>
+          <h class="nav-link" style={{fontSize:'15px',width:'140px',cursor: 'pointer'}} href=""  onClick={tofindevent}  >Browse Event</h>
+        </div>
+        <div class="nav-item" style={{width:'20%'}}>
+          <h class="nav-link" style={{fontSize:'15px',width:'140px',cursor: 'pointer'}} href=""  onClick={todashboard} >Create Event</h>
+        </div>
         {/* <li style={{width:'20%'}}>
         <button class="btn1" onClick={todashboard} >Create Event +</button> 
         </li> */}
@@ -239,16 +239,17 @@ return(
         <ul
           class="dropdown-menu dropdown-menu-end"
           aria-labelledby="navbarDropdownMenuLink"
+          style={{marginTop:'-15%'}}
         >
-           <li>
-            <a onClick={toprofile} class="dropdown-item" href="" >My profile</a>
-          </li>
-          <li>
-            <a  onClick={toHomepage}class="dropdown-item" href="" >Switch to attending</a>
-          </li>
+           <div>
+            <h onClick={toprofile} style={{cursor: 'pointer'}}class="dropdown-item" href="" >My profile</h>
+          </div>
+          <div>
+            <h  onClick={toHomepage}style={{cursor: 'pointer'}}class="dropdown-item" href="" >Switch to attending</h>
+          </div>
           
           <li>
-            <a class="dropdown-item" onClick={logout} href="">Logout</a>
+          <Link to='/Login' class="dropdown-item" o href="">Logout</Link>
           </li>
         </ul>
       </div>

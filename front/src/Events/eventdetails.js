@@ -1,17 +1,29 @@
-import { useState,Component } from "react";
+import { useEffect,useState,Component } from "react";
 import {Navlink,useNavigate,useLocation} from "react-router-dom"
-import img4 from'../Components/pic1.jpg'
+
 import Comments from '../comment_Forum/Comments'
 import Navbar from '../Components/Navbar'
 import avatar from '../download.png'
 export default function Eventdetails(){
+  let ticket_message=""
+  const[logincheck,setcheck]=useState({
+    data:null,error:""
+  });
+  const[logincheck1,setcheck1]=useState({
+    data:null,error1:""
+  });
+  const[logincheck2,setcheck2]=useState({
+    data:null,error2:""
+  });
     const {state} = useLocation();
     console.log(state)
-    let username=state.userdetails.name
+    // const eventdetails=state.eventdetails
+    let eventdetails=state.eventdetails
+    let username=state.userdetails.email
     let eventid=state.eventdetails._id
     const date = new Date();
     
-    let day = date.getDate();
+    let day = date.getDate()-2;
     let month = date.getMonth() + 1;
     let year = date.getFullYear();
 
@@ -35,7 +47,12 @@ export default function Eventdetails(){
         
      
         });
+        setcheck({error:"incorrect credentials"});
         const data= await res.json();
+        ticket_message=res.error
+        if(res.error=="Ticketes are already sold"){
+
+        }
         console.log(data)
   
     
@@ -53,11 +70,49 @@ export default function Eventdetails(){
         
      
         });
+        setcheck1({error1:"incorrect credentials"});
         const data= await res.json();
         console.log(data)
   
     
     }
+    useEffect(() => {
+    const getevent= async ()=>{
+      // e.preventDefault();
+      const res = await fetch("/getoneevent",{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+          eventid
+        })
+        
+     
+        });
+        const data= await res.json();
+     eventdetails=data
+     state.eventdetails.ticketbought=eventdetails.ticketbought
+        console.log("number of tickets : ",eventdetails.ticketbought)
+  
+    
+    }
+    getevent()
+ 
+});
+
+
+useEffect(() => {
+  const intervalId = setInterval(() => {
+    // call your function here
+    setcheck1({error2:""});
+    setcheck1({error1:""});
+    setcheck({error:""});
+
+  }, 3000);
+
+  return () => clearInterval(intervalId); // cleanup function to clear the interval on unmount
+}, []);
     const handleScroll = (scrollOffset) => {
       window.scrollTo({
         top: scrollOffset,
@@ -74,30 +129,63 @@ console.log(formattedDate);
     // const formattedDate = `${date1.getDate()} ${months[date1.getMonth()]}, ${date1.getFullYear()}`;
 
 // console.log(formattedDate); // Output: "16 Jan, 2014"
+
+let { data, error } = logincheck;
+let { data1, error1 } = logincheck1;
+let { data2, error2 } = logincheck2;
     return (
         <>
         <div>
         <Navbar userdetails={ state.userdetails }/>
         </div>
-        {/* <form   class="fixed-top"   
-  >
-        <div class="nav nav-tabs flex" id="nav-tab" role="tablist" style={{width:'50%'}}>
-    <button class="nav-link active" id="nav-home-tab" onClick={() => handleScroll(0)}  data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Home</button>
-    <button class="nav-link" id="nav-profile-tab" onClick={() => handleScroll(1000)} data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</button>
-    <button class="nav-link" id="nav-contact-tab" onClick={() => handleScroll(window.innerHeight)} data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button>
-    <button class="nav-link" id="nav-disabled-tab"  data-bs-toggle="tab" data-bs-target="#nav-disabled" type="button" role="tab" aria-controls="nav-disabled" aria-selected="false" disabled>Disabled</button>
+        {error &&  <div class="container fixed-top" style={{width:'100%' ,marginTop:'9%',marginLeft:'60%'}}> 
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>Event ticket bought!</strong>
+  <button type="button" class="btn-close" data-bs-dismiss="alert"  aria-label="Close"></button>
+</div>
+</div> }
+{error1 &&  <div class="container fixed-top" style={{width:'100%' ,marginTop:'9%',marginLeft:'60%'}}> 
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>Event Saved!</strong>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+</div> }
+{error2 &&  <div class="container fixed-top" style={{width:'100%' ,marginTop:'9%',marginLeft:'60%'}}> 
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <strong>All Tickets Sold!</strong>
+  <button type="button" class="btn-close" data-bs-dismiss="alert"aria-label="Close"></button>
+</div>
+</div> }
+ 
+  <div style={{marginTop:'15%'}}>
+  <b style={{margin:"0px",fontSize:"40px",fontFamily:'bolder'}}>{state.eventdetails.name} </b>
+  <div>
+        <h style={{margin:"0px",color:"blue",fontSize:"15px",fontFamily:'bolder'}}>{state.eventdetails.Orgname} </h>
+        </div>
   </div>
-  </form> */}
         <div>
-        <img src={state.eventdetails.myFile} style={{marginLeft:"0px",marginTop:'15%', width:"700px",height:"300px", borderRadius:"10px"}} class="img-fluid" alt="Responsive image"/>
+        <img
+  src={state.eventdetails.myFile}
+  style={{
+    marginLeft: "0px",
+    marginTop: '5%',
+    width: "700px",
+    height: "300px",
+    borderRadius: "10px",
+    border: "2px solid black", // Change borderBlockColor to borderColor
+  }}
+  className="img-fluid"
+  alt="Responsive image"
+/>
 
 
         </div>
           <div class="container1 h-100"style={{marginTop:"0px",width:"800px",marginLeft:"320px"}}>
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-lg-15 col-xl-15">
-      <form   class="fixed-top" style={{marginLeft:"78%",marginTop:'20%',width:"250px",height:'200px'}}  
+     {state.eventdetails.username!=state.userdetails.email && <form   class="fixed-top" style={{marginLeft:"78%",marginTop:'20%',width:"250px",height:'200px'}}  
   >
+    <p>Ticket Remaining : {state.eventdetails.numtickets-state.eventdetails.ticketbought}</p>
       <p>Ticket price : {state.eventdetails.ticket}</p>
       <button onClick={PostData} className="comment-form-button" style={{backgroundColor:'black'}}>
         Buy Ticket
@@ -105,7 +193,7 @@ console.log(formattedDate);
       <button className="comment-form-button"  onClick={Saveevent}style={{marginTop:'20px',backgroundColor:'black'}} >
         Save event
       </button>
-    </form>
+    </form>}
       {/* <button style={{marginLeft:"600px",marginTop:"100px",width:"200px",height:"50px"}} class="btn btn-primary" to='/dashboard'onClick={PostData}>Buy ticket</button>
       <button style={{marginLeft:"600px",marginTop:"10px",width:"200px",height:"50px"}} class="btn btn-primary" to='/dashboard'onClick={Saveevent}>Save Event</button>   */}
        
@@ -114,6 +202,7 @@ console.log(formattedDate);
             <div class="row justify-content-center" style={{marginLeft:'-50%'}}>
               <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1"></div>
         {/* <b style={{margin:"30px",fontSize:"40px"}}>{state.eventdetails.name}:</b> */}
+        
         <b style={{margin:"30px",fontSize:"40px",fontFamily:'bolder'}}>When and Where : </b>
         {/* <div>
         <i class="fas fa-lock fa-lg me-3 fa-fw" style={{marginTop:'-7%', fontSize: '24px'}}></i>
@@ -130,7 +219,7 @@ console.log(formattedDate);
 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
   <section>
     <div style={{ display: 'flex', alignItems: 'center' }}>
-      <i class="fas fa-lock fa-lg me-3 fa-fw" style={{ fontSize: '24px' }}></i>
+      <i class="fas fa-calendar fa-lg me-3 fa-fw" style={{ fontSize: '28px' }}></i>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <b style={{ fontSize: '20px', fontFamily: 'bolder' }}>Date and Time</b>
         <h>{formattedDate}</h>
@@ -141,9 +230,9 @@ console.log(formattedDate);
   <div style={{ borderLeft: '1px solid black', height: '100px',marginLeft:'-700px' }}></div>
   <section style={{marginLeft:'-10px'}}>
     <div style={{ display: 'flex', alignItems: 'center',marginLeft:'-800px' }}>
-      <i class="fas fa-lock fa-lg me-3 fa-fw" style={{ fontSize: '24px' }}></i>
+      <i class="fas fa-map-marker-alt fa-lg me-3 fa-fw" style={{ fontSize: '28px' }}></i>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <b style={{ fontSize: '20px', fontFamily: 'bolder' }}>Loctaion:</b>
+        <b style={{ fontSize: '20px', fontFamily: 'bolder' }}>Location:</b>
         <h>{state.eventdetails.exactloc}</h>
         <h>{state.eventdetails.location}</h>
       </div>
@@ -152,11 +241,13 @@ console.log(formattedDate);
 </div>
 <div style={{marginLeft:'-50px',marginTop:'50px'}}>
 <b style={{margin:"30px",fontSize:"40px",fontFamily:'bolder'}}>About the Event: </b>
-        <p style={{fontSize:"19px",marginLeft:'40px',width:'600px',marginTop:"30px"}}>Hawaii is a state in the Western United States, about 2,000 miles from the U.S. mainland in the Pacific Ocean. It is the only U.S. state outside North America, the only state that is an archipelago, and the only state in the tropics.</p>
+        <p style={{fontSize:"19px",marginLeft:'40px',width:'600px',marginTop:"30px"}}>{state.eventdetails.description}</p>
         </div>
         <div style={{marginLeft:'-50px',marginTop:'50px'}} >
 <b style={{margin:"30px",fontSize:"40px",fontFamily:'bolder'}}>About Event Organizer: </b>
-        <p  style={{fontSize:"19px",marginLeft:'40px',width:'600px',marginTop:"30px"}}>Hawaii is a state in the Western United States, about 2,000 miles from the U.S. mainland in the Pacific Ocean. It is the only U.S. state outside North America, the only state that is an archipelago, and the only state in the tropics.</p>
+<p style={{fontSize:"19px",marginLeft:'40px',width:'600px',marginTop:"30px"}}>Organizer Name : {state.eventdetails.username}</p>
+<p style={{fontSize:"19px",marginLeft:'40px',width:'600px',marginTop:"10px"}}>Organization Name: {state.eventdetails.Orgname}</p>
+        {/* <p  style={{fontSize:"19px",marginLeft:'40px',width:'600px',marginTop:"30px"}}>Hawaii is a state in the Western United States, about 2,000 miles from the U.S. mainland in the Pacific Ocean. It is the only U.S. state outside North America, the only state that is an archipelago, and the only state in the tropics.</p> */}
         </div>
         {/* <b style={{marginTop:"30px",fontSize:"40px"}}>{state.eventdetailsname}</b>
         <b style={{marginTop:"30px",fontSize:"40px"}}>{state.eventdetails.description}</b>

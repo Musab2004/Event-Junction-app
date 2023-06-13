@@ -1,22 +1,22 @@
 import React,{useState} from "react"
 import {useEffect} from "react";
 import {Navlink,useNavigate,useLocation} from "react-router-dom"
-import logo from '../logo.svg';
+import img5 from'./google.png'
 import anotheron from '../index.svg';
 import axios from "axios";
 import { redirect } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Carousel from 'react-bootstrap/Carousel';
-import img5 from'./google.png'
+
 // import img4 from'./new2.jpeg'
 
 import ImagePicker from 'react-image-picker';
 import 'react-image-picker/dist/index.css'
 import Select from 'react-select';
-import Profilepage from "./Profilepage";
+
 import Navbar from"./Navbar" 
-import img4 from'./new3.jpeg'
+
 import {
   MDBBtn,
   MDBContainer,
@@ -33,7 +33,7 @@ import './profilepage.css';
 // import img6 from'./new1.jpeg'
 import img6 from'./loginimage.jpg'
 let image1=null
-const imageList = [logo, img5, img5, img4, img5,img5 ,logo ,logo,logo,logo,logo,logo,logo,logo]
+// const imageList = [logo, img5, img5, img4, img5,img5 ,logo ,logo,logo,logo,logo,logo,logo,logo]
 const options = [
   { value: "Education", label: "Education" },
   { value: "Technology", label: "Technology" },
@@ -57,7 +57,7 @@ const Container = ({ children }) => {
 
 const LeftContainer = ({ children }) => {
   return (
-    <div style={{ flex: 1 ,marginLeft:'-200px'}}>
+    <div style={{ flex: 1 ,marginLeft:'-20%'}}>
     {children}
       
     </div>
@@ -66,7 +66,7 @@ const LeftContainer = ({ children }) => {
 
 const RightContainer = ({ children }) => {
   return (
-    <div style={{ flex: 1,marginLeft:'-850px' }}>
+    <div style={{ flex: 1,marginLeft:'-85%' }}>
       {children}
     </div>
   );
@@ -229,7 +229,7 @@ function Signupstep2(){
           height="50"
           alt="MDB Logo"
           loading="lazy"
-          style={{width:'40%',height:'80px',marginRight:'93%'}}
+          style={{width:'40%',height:'90px',marginRight:'93%'}}
         /> 
         {/* <Profilepage/> */}
         <b style={{margin:"25px",fontFamily:'bolder',fontSize:"20px"}}>Complete your Profile</b>
@@ -239,7 +239,7 @@ function Signupstep2(){
        </div> }
       <form style={{ width: '60%', height: '200px',marginLeft:'-2%',marginTop:'4%' }}>
 
-        <label htmlFor="file-upload" className='custom-file-upload'>
+        <label htmlFor="file-upload" style={{ width: '150px', height: '150px' }} className='custom-file-upload'>
           <img style={{ width: '150px', height: '150px' }} src={postImage.myFile|| avatar} alt="" />
         </label>
 
@@ -333,7 +333,7 @@ function Signupstep2(){
    {/* src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp" */}
   {/* <img src={img6} style={{width:"150%",marginLeft:'38.7%',marginTop:'15.3%',height:"148%"}}
                   class="img-fluid" alt="Sample image"></img> */}
-  <img src={img6} style={{width:"150%",marginLeft:'37.7%',marginTop:'-6%',marginBottom:'-25%',height:"138.5%"}}
+  <img src={img6} style={{width:"155%",marginLeft:'42.7%',marginTop:'-6%',marginBottom:'-25%',height:"139.5%"}}
                   class="img-fluid" alt="Sample image"></img>
               </div>
         </div>

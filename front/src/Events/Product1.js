@@ -2,7 +2,7 @@ import React from 'react';
 import { Button,Card } from 'react-bootstrap'
 // import { Card } from '@material-ui/core';
 import Col from 'react-bootstrap/Col';
-import img4 from'../Components/pic1.jpg'
+
 import {useNavigate} from "react-router-dom"
 
 const Product1 = (props) => {
@@ -24,7 +24,7 @@ return(
   <Col xs={5} md={1} lg={3} key={product.id}>
     <Card style={{ width: '15rem',marginTop:'50px' }}>
       <Card.Header></Card.Header>
-      <Card.Img variant="top" src={product.myFile} style={{width:"200px",height:"150px"}}/>
+      <Card.Img variant="top" src={product.myFile} style={{width:"200px",height:"150px",border: "1px solid black"}}/>
       <Card.Body>
         <Card.Title>{product.name}</Card.Title>
         <Card.Text>

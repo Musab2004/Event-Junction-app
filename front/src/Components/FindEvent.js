@@ -1,11 +1,12 @@
 import React from 'react';
 import { Button,Card,col } from 'react-bootstrap'
-import img4 from'./pic1.jpg'
+
 import Col from 'react-bootstrap/Col';
 import Navbar from './Navbar'
 import {useEffect,useState} from "react";
 import './FindEvent.css'
 import {Link,useNavigate,useLocation} from "react-router-dom"
+import Loader1 from './Loader';
 const products = [
   { id: 1, name: 'Product 1', location: 'USA', language: 'English' },
   { id: 2, name: 'Product 2', location: 'Canada', language: 'French' },
@@ -88,14 +89,14 @@ console.log(formattedDate);
   return (
   
     <Col xs={5} md={1} lg={3} key={product.id}>
-    <Card style={{ width: '50rem',marginTop:'50px',height:'15rem',marginTop:'50px' }}   data-mdb-ripple-color="light">
+    <Card href="" onClick={routeChange} style={{ width: '50rem',marginTop:'50px',height:'15rem',marginTop:'50px' }}   data-mdb-ripple-color="light">
       <Container1>
       <LeftContainer1 >
      
       <Card.Body>
       
       
-        <Card.Title onClick={routeChange}><b style={{fontSize:'20px',fontFamily:'bolder'}}>{product.name}</b></Card.Title>
+        <h onClick={routeChange} href=""><b  style={{fontSize:'20px',fontFamily:'bolder'}}>{product.name}</b></h>
         <div>
         <h>
         {product.Orgname}
@@ -122,7 +123,7 @@ console.log(formattedDate);
       </LeftContainer1>
       <RightContainer1>
         <div style={{marginLeft:'25%',marginTop:'6%'}}>
-        <Card.Img variant="top" src={product.myFile} style={{width:"200px",height:"150px"}}/>
+        <Card.Img variant="top" src={product.myFile} href="" style={{width:"200px",height:"150px",border: "1px solid black"}}/>
   </div>
       </RightContainer1>
     </Container1>
@@ -133,13 +134,13 @@ console.log(formattedDate);
 };
 
 const SearchPage = () => {
-  window.addEventListener('popstate', function (event)
+//   window.addEventListener('popstate', function (event)
 
-{
+// {
 
-  window.history.replaceState(null, null, '/Login');
+//   window.history.replaceState(null, null, '/Login');
 
-});
+// });
     const {state} = useLocation();
     const[eventdata,seteventdata]=useState({
         data:null
@@ -280,7 +281,7 @@ value={expiryFilter} onChange={handleExpiryFilter}>
       </LeftContainer>
       <RightContainer>
       { eventdata.data!=null && <div style={{marginLeft:'100px'}}>
-      <div class="input-group"style={{width:'70%'}}>
+      <div class="input-group fixed-top"style={{width:'70%',marginTop:'10%',marginLeft:'35%',width:'40%'}}>
   <input type="search"  value={searchQuery}
           onChange={handleSearchChange}  class="form-control rounded" placeholder="Search Anything" aria-label="Search" aria-describedby="search-addon" />
   <button type="button"style={{marginTop:'-0.1%',width:'15%'}} class="btn btn-outline-primary">search</button>
@@ -300,7 +301,9 @@ value={expiryFilter} onChange={handleExpiryFilter}>
      </div>
      </div> 
      }
-     {eventdata.data==null && <h style={{fontSize:'40px',marginLeft:'250px'}}>Loading....</h>}
+
+     {eventdata.data==null && <div style={{fontSize:'40px',marginTop:'20%',marginLeft:'400px'}}><Loader1/></div>}
+      <div style={{marginBottom:'20%'}}></div>
       </RightContainer>
     </Container>
 

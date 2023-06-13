@@ -1,8 +1,8 @@
 
 import React from 'react'
-import img3 from'./index9.webp'
+
 import img5 from'./google.png'
-import img4 from'./d6.jpg'
+
 import {Link,Navlink,useNavigate,useLocation} from "react-router-dom"
 
 import avatar from '../download.png'
@@ -58,7 +58,7 @@ export default function Navbar(props){
     
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       
-      <a class="navbar-brand mt-2 mt-lg-0" href="#">
+      <a class="navbar-brand mt-2 mt-lg-0" onClick={toHome}href="">
         <img
           src={img5}
           height="50"
@@ -68,15 +68,15 @@ export default function Navbar(props){
       </a>
       
       <ul class="navbar-nav me-auto mb-2 mb-lg-0" style={{width:'70%'}}>
-        <li class="nav-item" style={{width:'15%'}}>
-          <a class="nav-link" style={{fontSize:'15px'}} href="" onClick={toHome} >Homepage</a>
-        </li>
-        <li class="nav-item" style={{width:'20%'}}>
-          <a class="nav-link" style={{fontSize:'15px',width:'150px'}} href="" onClick={tofindevent}  >Browse Event</a>
-        </li>
-        <li class="nav-item" style={{width:'20%'}}>
-          <a class="nav-link" style={{fontSize:'15px',width:'150px'}} href="" onClick={todashboard} >Create Event</a>
-        </li>
+        <div class="nav-item" style={{width:'15%'}}>
+          <h class="nav-link" style={{fontSize:'15px',cursor: 'pointer'}} href="" onClick={toHome} >Homepage</h>
+        </div>
+        <div class="nav-item" style={{width:'20%'}}>
+          <h class="nav-link" style={{fontSize:'15px',width:'150px',cursor: 'pointer'}} href="" onClick={tofindevent}  >Browse Event</h>
+        </div>
+        <div class="nav-item" style={{width:'20%'}}>
+          <h class="nav-link" style={{fontSize:'15px',width:'150px',cursor: 'pointer'}} href="" onClick={todashboard} >Create Event</h>
+        </div>
         {/* <li style={{width:'20%'}}>
         <button class="btn1" onClick={todashboard} >Create Event +</button> 
         </li> */}
@@ -171,18 +171,16 @@ export default function Navbar(props){
         <ul
           class="dropdown-menu dropdown-menu-end"
           aria-labelledby="navbarDropdownMenuLink"
+          style={{marginTop:'-15%'}}
         >
-           <li>
-            <a onClick={f1} class="dropdown-item" href="" >My profile</a>
-          </li>
+           <div>
+            <h onClick={f1} class="dropdown-item" style={{cursor: 'pointer'}} href="" >My profile</h>
+          </div>
+          <div>
+            <h  onClick={todashboard}class="dropdown-item" style={{cursor: 'pointer'}} href="" >Switch to Manage events</h>
+          </div>
           <li>
-            <a  onClick={todashboard}class="dropdown-item" href="" >Switch to Manage events</a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="">Settings</a>
-          </li>
-          <li>
-            <a class="dropdown-item" onClick={logout} href="">Logout</a>
+            <Link to='/Login' class="dropdown-item" style={{cursor: 'pointer'}} onClick={logout} >Logout</Link>
           </li>
         </ul>
       </div>

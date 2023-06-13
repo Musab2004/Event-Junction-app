@@ -51,5 +51,5 @@ app.get('/main',(req,res)=> {
     res.send('Heloo howa are you MAin')
 })
 app.listen(5000,()=> {
-    console.log('RUnnig MUsab')
+    console.log('Runnig App')
 })

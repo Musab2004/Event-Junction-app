@@ -11,9 +11,9 @@ import Carousel from 'react-bootstrap/Carousel';
 import Navbar from './Navbar';
 import { BrowserRouter as Router, Routes, Route,Link,Switch } from "react-router-dom"
 import Signup from "./Signup";
-import img4 from'./new3.jpeg'
-import img6 from'./loginimage.jpg'
 import img5 from'./google.png'
+import img6 from'./loginimage.jpg'
+
 import { Navigate } from "react-router-dom";
 import {
   MDBBtn,
@@ -40,7 +40,7 @@ const Container = ({ children }) => {
 
 const LeftContainer = ({ children }) => {
   return (
-    <div style={{ flex: 1 ,marginLeft:'-200px'}}>
+    <div style={{ flex: 1 ,marginLeft:'-20%'}}>
     {children}
       
     </div>
@@ -49,7 +49,7 @@ const LeftContainer = ({ children }) => {
 
 const RightContainer = ({ children }) => {
   return (
-    <div style={{ flex: 1,marginLeft:'-800px' }}>
+    <div style={{ flex: 1,marginLeft:'-80%' }}>
       {children}
     </div>
   );
@@ -103,9 +103,12 @@ const Login =()=> {
     try {
       const data= await res.json();
       
-      if(res.status==422){
-      setcheck({error:"incorrect credentials"});
+      if(res.status==421){
+      setcheck({error:"fill it properly"});
       }
+      else if(res.status==422){
+        setcheck({error:"incorrect credentials"});
+        }
       else{
         setcheck({data});
       }
@@ -137,7 +140,7 @@ const f3= async (e)=>{
   <div class="container2 h-100" style={{width:"50%",marginLeft:"5%",marginTop:"10%"}}>
     <div class="row d-flex justify-content-center align-items-center h-200">
       <div class="col-lg-20 col-xl-20">
-      {error!="" && <p  style={{color:'red'}}>{error}</p>}
+     
       {data && (navigate("/Home",{state: {userdetails:data}}))}
        
             <div class="row justify-content-center">
@@ -164,6 +167,7 @@ const f3= async (e)=>{
   </div>
  
   <div class="row mb-4">
+  {error!="" && <p  style={{color:'red'}}>{error}</p>}
     {/* <div class="col d-flex justify-content-center"> */}
      
       {/* <div class="form-check" >
@@ -174,7 +178,7 @@ const f3= async (e)=>{
 
     <div class="col">
     
-      <a href="#!"style={{marginTop:"10%"}}>Forgot password?</a>
+      <a href=""style={{marginTop:"10%"}}>Forgot password?</a>
     </div>
   </div>
 

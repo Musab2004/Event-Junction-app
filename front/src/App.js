@@ -10,7 +10,7 @@ import Login from './Components/Login';
 import Signup from './Components/Signup';
 import Signupstep2 from './Components/Signupnstep2';
 import FindEvent from './Components/FindEvent';
-import Profilepage from './Components/Profilepage';
+
 import Homepage from './Components/homepage';
 import Comments from './comment_Forum/Comments'
 import Dashboard from './Dashboard/DashBoard';
@@ -21,10 +21,7 @@ import CreateEvent from './Dashboard/create_event';
 import EditEvent from './Dashboard/EditEvent';
 import Shop from './Events/Shop';
 import Eventdeatils from './Events/eventdetails';
-import EventdeatilsDash from './Dashboard/eventdetailsDash';
-import multiselect from './Events/multiselect'
-import PaymentForm from './Events/PaymentForm';
-import Maps from './Dashboard/Maps';
+
 import Profile from './Profile/Profile';
 import EditProfile from './Profile/EditProfile';
 import Refund from './Dashboard/Refund';
@@ -58,7 +55,13 @@ import "./index.css";
 
 function App() {
 
+  // const [showLandingPage, setShowLandingPage] = useState(true);
 
+  // function handleNavigateAway() {
+  //   setShowLandingPage(false);
+  // }
+
+  // handleNavigateAway()
   return (
    <>
    
@@ -73,16 +76,17 @@ function App() {
                   </MDBAnimation>
                 </MDBCol>
                 </div> */}
-                
+
+       
         
    <Router>
 
      
    
-       <div>
-           {/* <LandingPage /> */}
+       {/*  <div>
           
-         </div>
+        {  <Login/>}
+         </div>  */}
        
      
      <Routes>
@@ -99,10 +103,10 @@ function App() {
                  <Route  path='/createevent' element={< CreateEvent/>}></Route>
                  <Route exact path='/showevents' element={< Shop/>}></Route>
                  <Route exact path='/eventdetails' element={< Eventdeatils/>}></Route>
-                 <Route exact path='/eventdetailsDash' element={< EventdeatilsDash/>}></Route>
+                
                  <Route exact path='/' element={< App/>}></Route>
-                 <Route exact path='/tickets' element={< PaymentForm/>}></Route>
-                 <Route exact path='/map' element={< Maps/>}></Route>
+              
+             
                  <Route exact path='/profile' element={< Profile/>}></Route>
                  <Route path='/FindEvent' element={< FindEvent/>}></Route>
                  <Route path='/refund' element={< Refund/>}></Route>

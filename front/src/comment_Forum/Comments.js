@@ -17,14 +17,16 @@ import {
 //   createdAt: "2021-08-16T23:00:33.010+02:00",
 // }]
 const Comments = (props) => {
-  console.log(props)
+  // console.log(props)
   let eventid=props.eventdetails._id
   let myFile=props.userdetails.myFile
   let currentUserId=props.userdetails.email
   let name=props.userdetails.name
+  let eventcreator=props.eventdetails.username
+  console.log("event cret : ",eventcreator)
   let expirydate=props.eventdetails.expiresAt.toString()
-  console.log(eventid)
-  console.log(currentUserId)
+  // console.log(eventid)
+  // console.log(currentUserId)
   const getallcomments = async () => {
     const res = await fetch("/allcomment",{
       method:"POST",
@@ -172,7 +174,7 @@ const Comments = (props) => {
             updateComment={updateComment}
             img={myFile}
             currentUserId={currentUserId}
-            name={name}
+            eventcreator={eventcreator}
           />
         ))}
       </div>

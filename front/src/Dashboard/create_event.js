@@ -15,7 +15,7 @@ import {
 }
 from 'mdb-react-ui-kit';
 import avatar from '../download.png'
-import img4 from '../index.jpeg'
+
 import Dashboard from '../Dashboard/DashBoard';
 import Select from 'react-select';
 import './createevent.css'
@@ -196,7 +196,7 @@ let { data, error } = logincheck;
     
           <MDBCard className='my-5 rounded-3' style={{maxWidth: '1500px',marginLeft:'-10%',marginTop:'20%'}}>
             {/* <MDBCardImage src='https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp'  style={{height: '300px'}} className='w-100 rounded-top'  alt="Sample photo"/> */}
-            {error &&  <div class="container" style={{width:'100%' ,marginTop:'0%',marginLeft:'60%'}}> 
+            {error &&  <div class="container fixed-top" style={{width:'100%' ,marginTop:'7%',marginLeft:'60%'}}> 
 <div class="alert alert-success alert-dismissible fade show" role="alert">
   <strong>Event Created!</strong>
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>

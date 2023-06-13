@@ -1,6 +1,5 @@
 const express=require('express');
 
-const image = require('../model/imageschema');
 const User=require('../model/userSchema')
 const Event=require('../model/EventSchema')
 const Comment=require('../model/CommentSchema')
@@ -32,7 +31,7 @@ if(userExists){
     
 }
 catch(err){
-    console.log(err);
+    // console.log(err);
 }
 
 
@@ -64,9 +63,13 @@ catch(err){
 
     router.post('/postevent', async (req,res)=>{
  
-        const{name,description,locations,Field,myFile,username,ticket,date,time,Orgname,exactloc}=req.body;
-        console.log(req.body)
-     
+        const{name,description,locations,Field,myFile,username,ticket,date,time,numtickets,Orgname,exactloc}=req.body;
+        // console.log(req.body)
+        if(!name||!description||!locations||!Field||!myFile||!username||!ticket||!date||!time||!numtickets||!Orgname||!exactloc){
+          console.log("Fill the fields correctly")
+          return res.status(421).json({Message:"Fill the fields correctly"});
+          
+          }
     try{
         // let a=1
         // let id=0
@@ -81,7 +84,7 @@ catch(err){
         var date3 = new Date(date)
         // var d2 = new Date.now();
         // var sub = date3.getTime()-d2.getTime();
-        const event =new Event({name,description,location:locations,field:Field,myFile,username,ticket,date,time,ticketbought:0,expiresAt:date3,Orgname,exactloc}) 
+        const event =new Event({name,description,location:locations,field:Field,myFile,username,ticket,numtickets,date,time,ticketbought:0,expiresAt:date3,Orgname,exactloc}) 
         const eventRegister=await event.save();
     
         if(eventRegister){
@@ -109,14 +112,18 @@ catch(err){
 
 
         router.post('/updateevent', async (req,res)=>{
- 
-          const{id,name,description,locations,Field,myFile,username,ticket,date,time,Orgname}=req.body;
-          console.log(req.body)
-       
+        
+          const{_id,name,description,locations,Field,myFile,username,ticket,date,time,numtickets,Orgname,exactloc}=req.body;
+           console.log(req.body)
+          if(!name||!description||!locations||!Field||!myFile||!username||!ticket||!date||!time||!numtickets||!Orgname||!exactloc){
+            console.log("Fill the fields correctly")
+            return res.status(421).json({Message:"Fill the fields correctly"});
+            
+            }
       
-          Event.findOneAndUpdate(
-            { id: id }, // search for the user by their email
-            { id,name,description,locations,Field,myFile,username,ticket,date,time,Orgname }, // update the user's name, password, and email
+          Event.findByIdAndUpdate(
+            {_id }, // search for the user by their email
+            {name,description,locations,Field,myFile,username,ticket,date,time,Orgname }, // update the user's name, password, and email
             { new: true } // return the updated user object
           )
           .then(updatedUser => {
@@ -126,7 +133,7 @@ catch(err){
             console.error(error);
           });
      
-    
+    return res.status(201).json({Message:"update sucessfull"});
           
      
  
@@ -142,7 +149,7 @@ catch(err){
             console.log(id)
             try {
               const { id } = req.body;
-              console.log(id);
+              console.log("id is this :",id);
           
               await Event.deleteOne({ _id: id });
               await Ticket.deleteMany({ eventid: id });
@@ -186,7 +193,7 @@ catch(err){
         res.status(201).json({message:"user registration successfull"});
     }
     else{
-        res.status(500).json({error:"FAiled to registered"})
+        res.status(500).json({error:"Failed to registered"})
     }
         
     }
@@ -201,7 +208,7 @@ catch(err){
 
         router.post('/update', async (req,res)=>{
  
-          const{name,email,password,interest,myFile}=req.body;
+          const{name,email,password,locations,interest,myFile}=req.body;
           console.log(req.body);
           if(!name|| !email|| !password){
            
@@ -211,7 +218,7 @@ catch(err){
         
       User.findOneAndUpdate(
         { email: email }, // search for the user by their email
-        { name: name, password: password, email:email,myFile }, // update the user's name, password, and email
+        { name: name, password: password, email:email,locations,interest,myFile }, // update the user's name, password, and email
         { new: true } // return the updated user object
       )
       .then(updatedUser => {
@@ -235,7 +242,7 @@ catch(err){
        
         
          if(!email|| !password){
-             return res.status(422).json({error:"Plz filled the field properly"});
+             return res.status(421).json({error:"Plz filled the field properly"});
          }
    
          const user= await User.findOne({email:email});
@@ -256,10 +263,27 @@ catch(err){
      
 
     });
+    router.post('/getoneevent',async (req,res)=>{
+      // console.log(req.body);
+       // res.send("mera register page");
+       
+       const{eventid}=req.body;
+       const event = await Event.findOne({_id:eventid})
+       res.send(event)
+    });
     router.post('/addticket',async (req,res)=>{
         // console.log(req.body);
          // res.send("mera register page");
+         
          const{username,eventid,date,time,expirydate}=req.body;
+         const event = await Event.findOne({_id:eventid})
+         console.log("event ticket number : ",event.numtickets)
+         console.log("event ticket bought : ",event.ticketbought)
+         if((event.numtickets)==event.ticketbought){
+           console.log("all ticket sold")
+         return  res.status(421).json({error:"Ticketes are already sold"});
+         }
+    
          var date3 = new Date(expirydate)
          const tic =new Ticket({username,eventid,date,time,expiresAt:date3}) 
          const UserRegister=await tic.save();
@@ -271,9 +295,51 @@ catch(err){
               if (err) {
                 console.log(err);
               } else {
-                console.log(updatedDocument);
+                console.log("file updated");
               }
             });
+            // User.deleteMany({}, (err) => {
+            //   if (err) {
+            //     console.log(err);
+            //   } else {
+            //     console.log('All documents deleted from the collection');
+            //   }
+            // });
+            // Event.deleteMany({}, (err) => {
+            //   if (err) {
+            //     console.log(err);
+            //   } else {
+            //     console.log('All documents deleted from the collection');
+            //   }
+            // });
+            // Saved.deleteMany({}, (err) => {
+            //   if (err) {
+            //     console.log(err);
+            //   } else {
+            //     console.log('All documents deleted from the collection');
+            //   }
+            // });
+            // Refund.deleteMany({}, (err) => {
+            //   if (err) {
+            //     console.log(err);
+            //   } else {
+            //     console.log('All documents deleted from the collection');
+            //   }
+            // });
+            // Ticket.deleteMany({}, (err) => {
+            //   if (err) {
+            //     console.log(err);
+            //   } else {
+            //     console.log('All documents deleted from the collection');
+            //   }
+            // });
+            // Comment.deleteMany({}, (err) => {
+            //   if (err) {
+            //     console.log(err);
+            //   } else {
+            //     console.log('All documents deleted from the collection');
+            //   }
+            // });
          res.status(200).json({error:"Ticket bought sucessful"});
 
 
@@ -281,8 +347,9 @@ catch(err){
 
     });
     router.post("/gettickets", async (req, res) => {
-        const{id}=req.body;
-        const events = await Ticket.find({eventid:id})
+        const{_id}=req.body;
+
+        const events = await Ticket.find({eventid:_id})
        
         res.send(events);
         
@@ -292,16 +359,18 @@ catch(err){
         // console.log(req.body);
          // res.send("mera register page");
          const{username,eventid,expirydate}=req.body;
+         console.log(req.body)
          var date3 = new Date(expirydate)
-         const alreadysaved = await Saved.findOne({eventid:eventid})
+         const alreadysaved = await Saved.findOne({eventid:eventid,username:username})
+         
          if(alreadysaved){
-             return res.status(422).json({error:"Saved already"})
+             return res.status(422).json({error:"Saved Already"})
          }
          const sv =new Saved({username,eventid,expiresAt:date3}) 
          const UserRegister=await sv.save();
-         res.status(200).json({error:"event Saved sucessful"});
+         res.status(200).json({error:"Event Saved!"});
 
-
+   
      
 
     });
@@ -309,6 +378,7 @@ catch(err){
         // console.log(req.body);
          // res.send("mera register page");
          const{username,email,eventid,eventcreator,eventname,expirydate}=req.body;
+   
          const alreadysaved = await Refund.findOne({eventid:eventid})
          var date3 = new Date(expirydate)
          if(alreadysaved){
@@ -318,7 +388,7 @@ catch(err){
          const UserRegister=await sv.save();
          res.status(200).json({Message:"Refund ticket request added  sucessfully"});
 
-
+   
      
 
     });
@@ -327,11 +397,11 @@ catch(err){
 
     router.post("/getrefund", async (req, res) => {
   
-        const{email}=req.body
-            
-        const refunds = await Refund.find({email:email})
+        const{username}=req.body
+            console.log("username : ",username)
+        const refunds = await Refund.find({eventcreator:username})
     
-        // console.log(events)
+         console.log(refunds)
         res.send(refunds);
        
         
@@ -343,7 +413,7 @@ catch(err){
         //     res.send(JSON.stringify(results));
         // reslt=JSON.stringify(req.params.product)
         const query=req.body
-        const{eventid,username}=req.body
+        const{eventid,email}=req.body
         console.log(query)
         // const query = { name: 'John', age: 25 };
 
@@ -355,26 +425,29 @@ Refund.findOneAndDelete(query, (err, result) => {
     console.log("result : ",result); // The deleted document
   }
 });
-Ticket.deleteMany({ username: username, eventid: eventid })
+Ticket.deleteMany({ username: email, eventid: eventid })
   .exec((err, result) => {
     if (err) {
       console.log(err);
     } else {
-      console.log(result); // The number of deleted documents
+      console.log("NUmber of tickets : ",result.deletedCount); // The number of deleted documents
+      let Numberoftickets=-1*result.deletedCount
+      Event.findOneAndUpdate(
+        { _id: query.eventid },
+        { $inc: { ticketbought: Numberoftickets } },
+        { new: true },
+        (err, updatedDocument) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(updatedDocument);
+          }
+        });
+    
     }
   });
         // const refunds = await Refund.find({email:email})
-        Event.findOneAndUpdate(
-            { _id: query.eventid },
-            { $inc: { ticketbought: -1 } },
-            { new: true },
-            (err, updatedDocument) => {
-              if (err) {
-                console.log(err);
-              } else {
-                console.log(updatedDocument);
-              }
-            });
+     
         // console.log(events)
         
         
@@ -444,7 +517,7 @@ res.send(events);
         //     res.send(JSON.stringify(results));
         // reslt=JSON.stringify(req.params.product)
         const{email}=req.body
-        console.log(req.body)
+        // console.log(req.body)
         const events = await Event.find({username:email})
         res.send(events);
         
@@ -455,21 +528,32 @@ res.send(events);
         //     res.send(JSON.stringify(results));
         // reslt=JSON.stringify(req.params.product)
         const{email}=req.body
-        
-        const tikcs = await Ticket.find({email:email}).select('eventid')
+        console.log("email : ",email)
+        const tikcs = await Ticket.find({username:email}).select('eventid')
        
         let tickids=[]
-        console.log(tikcs.length)
+        // console.log(tikcs.length)
         for(let i=0;i<tikcs.length;i++){
             tickids.push(tikcs[i].eventid)
         }
-        console.log(tikcs.length)
+        console.log("ticket length :",tikcs.length)
         if(tikcs.length==0){
           return res.send(null);
         }
-        const events = await Event.find({'id': {$in:tickids}})
+        const events=Event.find({ _id: { $in: tickids } }, (err, docs) => {
+          if (err) {
+            console.error(err);
+          } else {
+            // console.log(`Found ${docs.length} documents with IDs ${tickids}:`);
+            docs.forEach(doc => {
+              // console.log(doc);
+              
+            });
+            res.send(docs);
+          }
+        });
         // console.log(events)
-        res.send(events);
+ 
         
         
           });
@@ -478,11 +562,23 @@ res.send(events);
             //     res.send(JSON.stringify(results));
             // reslt=JSON.stringify(req.params.product)
             const{interest}=req.body
-            console.log(interest)
+            // console.log(interest)
             // console.log(tickids)
-            const events = await Event.find({'field': {$in:interest}})
+            // const events = await Event.find({'field': {$in:interest}})
+            Event.find({ field: { $in: interest } }, (err, docs) => {
+              if (err) {
+                console.error(err);
+              } else {
+                // console.log(`Found ${docs.length} documents with IDs ${interest}:`);
+                docs.forEach(doc => {
+                  // console.log(doc);
+                  
+                });
+                res.send(docs);
+              }
+            });
             // console.log(events)
-            res.send(events);
+           
             
             
               }); 
@@ -490,20 +586,38 @@ res.send(events);
     
             const{email}=req.body
             
-            const tikcs = await Saved.find({email:email}).select('eventid')
-          
+            const tikcs = await Saved.find({username:email}).select('eventid')
+            console.log("tiks : ",tikcs)
+           if(tikcs==null){
+            return res.send(null);
+           }
             let tickids=[]
             if(tikcs.length==0){
               return res.send(null);
             }
+      
             for(let i=0;i<tikcs.length;i++){
                 tickids.push(tikcs[i].eventid)
             }
-            console.log("events ids : ",tikcs[0].eventid)
+            // console.log("Events call",tickids.length)
+            // console.log("events ids : ",tikcs[0].eventid)
             // console.log(tickids)
-            const events = await Event.find({'id': {$in:tickids}})
+            const events=Event.find({ _id: { $in: tickids } }, (err, docs) => {
+              if (err) {
+                console.error(err);
+              } else {
+                // console.log(`Found ${docs.length} documents with IDs ${tickids}:`);
+                docs.forEach(doc => {
+                   console.log(doc);
+                  
+                });
+                res.send(docs);
+              }
+            });
+            // const events = await Event.find({'id': {$in:tickids}})
             // console.log(events)
-            res.send(events);
+            // console.log(events)
+            
             
             
               });     
@@ -526,7 +640,7 @@ res.send(events);
             parentId,
             date,myFile,expirydate}=req.body;
             var date3 = new Date(expirydate)
-      console.log(req.body)
+      // console.log(req.body)
     try{
         // let a=1
         // let id=1

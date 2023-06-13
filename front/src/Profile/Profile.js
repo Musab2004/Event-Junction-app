@@ -1,6 +1,6 @@
 import { useState,useEffect,Component } from "react";
 import {Navlink,useNavigate,useLocation} from "react-router-dom"
-import img4 from'../Components/pic1.jpg'
+
 import Comments from '../comment_Forum/Comments'
 import Navbar from '../Components/Navbar'
 import avatar from '../download.png'
@@ -17,6 +17,9 @@ const ProductCard = (props) => {
     let email=props.userdetails.email
     let eventname=props.product.name
     let expirydate=props.product.expiresAt
+    const[logincheck,setcheck]=useState({
+      data:null,error:""
+    });
   const postrefund= async (e)=>{
     e.preventDefault();
     const res = await fetch("/refundevent",{
@@ -31,38 +34,56 @@ const ProductCard = (props) => {
    
       });
       const data= await res.json();
+      setcheck({error:"incorrect credentials"});
       console.log(data)
 
   
   }
- 
-
+  let date1=props.product.date
+  const dater = new Date(date1);
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const formattedDate = `${dater.getDate()} ${months[dater.getMonth()]}, ${dater.getFullYear()}`
+let { data, error } = logincheck;
   return (
+    <>
+    {error &&  <div class="container fixed-top" style={{width:'100%' ,marginTop:'9%',marginLeft:'60%'}}> 
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>Refund Request Send</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="alert"  aria-label="Close"></button>
+    </div>
+    </div> }
    <div>
     <Col xs={5} md={1} lg={3} key={product.id} style={{marginleft:'500px'}}>
     <Card style={{ width: '40rem',marginTop:'50px',height:'15rem' }}   data-mdb-ripple-color="light">
       {/* <Card.Header></Card.Header> */}
       {/* <Card.Img variant="top" src={img4} style={{width:"200px",marginLeft:"70%",height:"150px"}}/> */}
       <Card.Body>
-        <Card.Title>{product.name}</Card.Title>
-        <Card.Text>
-        {product.location}
+      <b style={{fontSize:"20px",fontFamily:'bolder'}} >{product.name}</b>
+      <Card.Text>
+       {product.Orgname}
         </Card.Text>
+       
         <Card.Text>
-        {product.field}
+        <i class="fas fa-calendar fa-lg me-3 fa-fw" style={{ fontSize: '18px' }}></i>
+       <b style={{fontSize:"15px",fontFamily:'bolder'}}>{formattedDate}</b>
         </Card.Text>
-        <Card.Text>
-        {product.date}
-        </Card.Text>
-        <Card.Text>
+        {/* <Card.Text>
         {product.time}
+        </Card.Text> */}
+      
+        <Card.Text>
+        <i class="fas fa-map-marker-alt" style={{ fontSize:'18px'}}></i>
+
+        <b style={{fontSize:"15px",marginLeft:'15px',fontFamily:'bolder'}}>  {product.location}</b>
         </Card.Text>
+      
   
         <Button variant="primary" onClick={postrefund} >Refund ticket</Button>
       </Card.Body>
     </Card>
   </Col>
   </div>
+  </>
   );
 };
 export default function Profile(){
@@ -99,7 +120,6 @@ export default function Profile(){
        });
        const navigate = useNavigate();
        const f1= async (e)=>{
-         console.log("hey here :",state.userdetails)
         (navigate("/Editprofile",{state:{userdetails:state.userdetails }}))
       }
     return(
@@ -118,8 +138,8 @@ export default function Profile(){
               <img src={state.userdetails.myFile}
                 alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
               style={{width:'200px',height:'200px'}} />
-              <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-mdb-ripple-color="dark"
-                onClick={f1} style={{marginLeft:"-1500px",marginTop:'10%'}}>
+             <button className='btn btn-primary'  
+                onClick={f1} style={{marginLeft:"-680px",marginTop:'18%'}}>
                 Edit profile
               </button>
               
@@ -148,7 +168,8 @@ export default function Profile(){
               <div class="p-4" style={{background: "#f8f9fa"}}>
                 <p class="font-italic mb-1">{state.userdetails.name}</p>
                 <p class="font-italic mb-1">Lives in {state.userdetails.locations}</p>
-                {/* <Row>
+                {/* <div><h>Interests :</h></div>
+                <Row>
          {true && state.userdetails.interest.map(product => (
           <p class="font-italic mb-0">{product}</p>
         ))}

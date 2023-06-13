@@ -1,7 +1,7 @@
 import { useState,Component } from "react";
 import Dashboard from "./DashBoard";
 import avatar from '../download.png'
-import img4 from '../index.jpeg'
+
 import Col from 'react-bootstrap/Col';
 import {useEffect} from "react";
 import Row from 'react-bootstrap/Row';
@@ -52,7 +52,7 @@ const ProductCard = (props) => {
    const f2= async (e)=>{
     (navigate("/editevent",{state:{ eventdetails:product,userdetails:props.userdetails }}))
   }
-  let id=props.product.id
+  const id=props.product._id
   const deleteevent= async (e)=>{
       const res =  await fetch("/deleteevents",{
         method:"POST",
@@ -75,7 +75,7 @@ const ProductCard = (props) => {
 
   
   const viewevent= async (e)=>{
-    let path = '/eventdetailsDash'; 
+    let path = '/eventdetails'; 
    
     // console.log(product.id)
     // navigate(path,{state:{id:product.id, name:product.name , description:product.description,image:product.myFile,username:props.data}});
@@ -190,6 +190,7 @@ export default function Events(){
      <>
        <Dashboard userdetails={state.userdetails}/>
      <h4 style={{marginLeft:'100px',fontFamily:'bolder',marginTop:'100px'}} >Manage events here</h4>
+     {/* {data.data==null && <div><h>No event Crearted yet</h></div>} */}
   {data.data!=null && <div>   <Row style={{marginLeft:'200px'}}>
           {/* {getdata()} */}
          {data.data!=null&& data.data.map(product => (
@@ -199,7 +200,7 @@ export default function Events(){
       </Row>
       </div>
 }
-      {data.data==null &&<div style={{marginTop:'270px',marginLeft:'600px'}}> <Loader/> </div>}
+      {data.data==null &&<div style={{marginTop:'170px',marginLeft:'500px'}}> <Loader/> </div>}
      </>
 
     )

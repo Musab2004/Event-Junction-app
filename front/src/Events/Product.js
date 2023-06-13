@@ -2,9 +2,9 @@ import React from 'react';
 import { Button,Card } from 'react-bootstrap'
 // import { Card } from '@material-ui/core';
 import Col from 'react-bootstrap/Col';
-import img4 from'../Components/pic1.jpg'
+
 import {useNavigate} from "react-router-dom"
-import LikeButton from './LikeButton';
+
 const Product = (props) => {
   let product=props.product
   
@@ -28,7 +28,7 @@ return(
   <Col xs={5} md={1} lg={3} key={product.id}>
     <Card style={{ width: '17rem',marginTop:'50px' ,marginLeft:'1rem' }}>
  
-      <Card.Img variant="top" src={product.myFile} style={{width:"17rem",height:"150px"}}/>
+      <Card.Img variant="top" src={product.myFile} style={{width:"17rem",height:"150px",border: "1px solid black"}}/>
       <Card.Body>
         <b style={{fontSize:'16px'}}>{product.name}</b>
         <Card.Text style={{color:'blue'}}>
